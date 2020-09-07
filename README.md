@@ -5,4 +5,4 @@
 
 This project is planned to be develope with Typescript and React...
 But owner of this proejct don't know about it.
-after study more. this project will be start.
+after study more. This project will begin.
