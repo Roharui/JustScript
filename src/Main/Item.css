@@ -1,0 +1,14 @@
+.item {
+    display: block;
+    width: 300px;
+    padding: 10px;
+    margin-left: 10px;
+}
+
+.descript {
+    margin: 10px;
+}
+
+.profile img{
+    vertical-align:middle;
+}
