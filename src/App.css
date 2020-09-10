@@ -1,24 +1,23 @@
 
+.App {
+  margin: 30px;
+}
+
 .Main {
-  width: 80%;
-  margin: 30px;
+  width: 75%;
+  float: left;
+  box-sizing: border-box;
 }
-
 .Nav {
-  width: 20%;
+  text-align: center;
+  width: 25%;
+  height: 750px;
   float: right;
-  margin: 30px;
-  margin-top: 10px;
-}
-
-.Nav {
+  box-sizing: border-box;
   border: solid black 1px;
-}
-
-.Nav .logoin {
-  border: solid black 10px;
+  padding: 10px;
 }
 
 .Nav .chat {
-  margin-top: 30px;
+  
 }
