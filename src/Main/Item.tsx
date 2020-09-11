@@ -4,7 +4,7 @@ import './Item.css'
 
 function Item(props:any) {
     return <>
-        <Paper elevation={3} style={{float:'left'}} className="item">
+        <Paper id={props.id} elevation={3} style={{float:'left'}} className="item">
             <div className="profile">
                 <img src={props.img} width="32" height="32" alt={props.name}/>
                 <span className="nick">
@@ -16,11 +16,16 @@ function Item(props:any) {
             </div>
             <div className="buttons">
                 <Button variant="contained" color="primary">
-                Execute
+                    Execute
                 </Button>
                 <Button variant="contained" color="secondary">
-                Script
+                    Script
                 </Button>
+            </div>
+            <div className="script">
+                <textarea id={`script_${props.id}`}>
+                    {props.script}
+                </textarea>
             </div>
         </Paper>
     </>

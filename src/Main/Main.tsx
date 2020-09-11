@@ -9,11 +9,14 @@ class Main extends React.Component {
         this.state = {
             items : [
                 {
+                    id : 0,
                     img : "Icon.png",
                     name : "Twitch",
-                    descript : "TEST"
+                    descript : "TEST",
+                    script: "console.log('this is test')"
                 },
                 {
+                    id : 1,
                     img : "Icon.png",
                     name : "Twitch",
                     descript : "TEST"
@@ -31,6 +34,7 @@ class Main extends React.Component {
   render() {
     return <div className="Main">
         {this.itemMapper(this.state.items)}
+        <iframe title="JustScript is Awesome" id="justscript_space" className="class"></iframe>
     </div>
   }
 }

@@ -4,34 +4,6 @@
   padding: 0px;
 }
 
-body {
-  
-}
-
 .Main {
-  display: inline-block;
-  width: 75%;
-  box-sizing: border-box;
   padding: 30px;
 }
-
-.Nav {
-  text-align: center;
-  width: 25%;
-  height: 100vh;
-  float: right;
-  box-sizing: border-box;
-  padding: 10px;
-}
-
-.logoin {
-  padding: 10px;
-  margin-bottom: 20px;;
-}
-
-.Nav .chat {
-  display: block;
-  padding: 20px;
-}
-
-img { max-width: 100%; height: auto; }
