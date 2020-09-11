@@ -4,10 +4,13 @@
   padding: 0px;
 }
 
+body {
+  
+}
+
 .Main {
   display: inline-block;
   width: 75%;
-  border: solid black 1px;
   box-sizing: border-box;
   padding: 30px;
 }
@@ -18,12 +21,17 @@
   height: 100vh;
   float: right;
   box-sizing: border-box;
-  border: solid black 1px;
+  padding: 10px;
+}
+
+.logoin {
+  padding: 10px;
+  margin-bottom: 20px;;
 }
 
 .Nav .chat {
   display: block;
-  height: 100px;
+  padding: 20px;
 }
 
 img { max-width: 100%; height: auto; }
