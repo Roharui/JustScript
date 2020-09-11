@@ -10,7 +10,7 @@ class Chat extends React.Component {
 
     render() {
         return <>
-            <div className="chat" style={{border:"solid blue 3px", height:"80%"}}>
+            <div className="chat" style={{border:"solid blue 3px"}}>
                 
 
             </div>

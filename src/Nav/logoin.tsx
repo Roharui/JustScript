@@ -12,7 +12,7 @@ class Logoin extends React.Component {
     render() {
         return <>
         <div className="logoin">
-            <img src="JustScript_logo.png" alt="logo"/>
+            <img className="logoin" src="JustScript_logo.png" alt="logo"/>
         </div>
         </>
     }

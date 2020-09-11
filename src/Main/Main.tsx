@@ -18,27 +18,6 @@ class Main extends React.Component {
                     name : "Twitch",
                     descript : "TEST"
                 },
-                {
-                    img : "Icon.png",
-                    name : "Twitch",
-                    descript : "TEST"
-                },
-                {
-                    img : "Icon.png",
-                    name : "Twitch",
-                    descript : "TEST"
-                },
-                {
-                    img : "Icon.png",
-                    name : "Twitch",
-                    descript : "TEST"
-                },
-                {
-                    img : "Icon.png",
-                    name : "Twitch",
-                    descript : "TEST"
-                },
-                
         ]
       }
   }
