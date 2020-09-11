@@ -27,7 +27,7 @@ class Main extends React.Component {
 
   itemMapper = (data:Array<number>) => {
       return data.map(x => {
-       return Item(x) 
+       return <Item data={x}/>
       })
   }
 
