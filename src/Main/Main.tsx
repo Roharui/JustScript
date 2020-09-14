@@ -13,7 +13,9 @@ class Main extends React.Component {
                     img : "Icon.png",
                     name : "Twitch",
                     descript : "TEST",
-                    script: "console.log('this is test')"
+                    script: function() {
+                        console.log("hello")
+                    }
                 },
                 {
                     id : 1,

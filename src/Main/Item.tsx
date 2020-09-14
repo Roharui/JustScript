@@ -11,12 +11,6 @@ class Item extends React.Component {
         this.state = props.data;
     }
 
-    execute = () => {
-        let space:HTMLElement | null = document.getElementById('justscript_space');
-        let s:string = document.getElementById(`script_${this.state.id}`)!.innerHTML
-        space?.setAttribute('srcdoc', `<script>${s}</script>`)
-    }
-
     render(){
         return <>
             <Paper id={this.state.id} elevation={3} style={{float:'left'}} className="item">
@@ -30,15 +24,12 @@ class Item extends React.Component {
                     {this.state.descript}
                 </div>
                 <div className="buttons">
-                    <Button onClick={this.execute} variant="contained" color="primary">
+                    <Button onClick={this.state.script} variant="contained" color="primary">
                         Execute
                     </Button>
                     <Button variant="contained" color="secondary">
                         Script
                     </Button>
-                </div>
-                <div className="script">
-                    <textarea id={`script_${this.state.id}`} value={this.state.script} defaultValue={""}/>
                 </div>
             </Paper>
         </>
