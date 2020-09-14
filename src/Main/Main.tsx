@@ -2,8 +2,15 @@ import React from 'react';
 import Item from './Item'
 import item from '../types/type'
 import Iframe from './Iframe'
+import Popup from '../Popup/Popup'
 
-class Main extends React.Component<any, {items:item[], cur_script:string}> {
+interface MainState {
+    items:item[];
+    cur_script:string;
+    show_popup: boolean;
+}
+
+class Main extends React.Component<any, MainState> {
 
     constructor(props:any) {
         super(props);
@@ -24,13 +31,14 @@ class Main extends React.Component<any, {items:item[], cur_script:string}> {
                     script:'console.log("good job")'
                 },
             ],
-            cur_script: ""
+            cur_script: "",
+            show_popup: false
         }
     }
 
     itemMapper = (data:item[]) => {
         return data.map(x => {
-            return <Item data={x} sender={this.scriptSender}/>
+            return <Item data={x} sender={this.scriptSender} popup={this.togglePopup.bind(this)}/>
         })
     }
 
@@ -40,9 +48,21 @@ class Main extends React.Component<any, {items:item[], cur_script:string}> {
         })
     }
 
+    togglePopup() {
+        this.setState({
+          show_popup: !this.state.show_popup
+        });
+    }
+
     render() {
         return <div className="Main">
             {this.itemMapper(this.state.items)}
+            {this.state.show_popup ? 
+          <Popup
+            text='Close Me'
+            closePopup={this.togglePopup.bind(this)}
+          />
+          : null}
             <Iframe script={this.state.cur_script} />
         </div>
     }
