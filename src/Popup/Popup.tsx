@@ -1,21 +1,18 @@
 import React from 'react';
 import { Paper, Button } from "@material-ui/core"
 
-class Item extends React.Component {
-    props: any;
-    state: any;
 
-    constructor(props:any){
-        super(props);
-        this.state = props.data;
-    }
-
-    render(){
-        return <>
-
-        </>
-    }
-    
+class Popup extends React.Component {
+  render() {
+    return (
+      <div className='popup'>
+        <div className='popup_inner'>
+          <h1>TEST</h1>
+        <button>close me</button>
+        </div>
+      </div>
+    );
+  }
 }
 
 /*
@@ -113,4 +110,4 @@ export default function CustomizedDialogs() {
 
 */
 
-export default Item;
+export default Popup;

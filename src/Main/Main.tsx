@@ -1,8 +1,9 @@
 import React from 'react';
 import Item from './Item'
+import item from '../types/type'
+import Iframe from './Iframe'
 
-class Main extends React.Component {
-    state:any;
+class Main extends React.Component<any, {items:item[], cur_script:string}> {
 
     constructor(props:any) {
         super(props);
@@ -13,32 +14,38 @@ class Main extends React.Component {
                     img : "Icon.png",
                     name : "Twitch",
                     descript : "TEST",
-                    script: function() {
-                        console.log("hello")
-                    }
+                    script:'console.log("hello")'
                 },
                 {
                     id : 1,
                     img : "Icon.png",
                     name : "Twitch",
-                    descript : "TEST"
+                    descript : "TEST",
+                    script:'console.log("good job")'
                 },
-        ]
-      }
-  }
+            ],
+            cur_script: ""
+        }
+    }
 
-  itemMapper = (data:Array<number>) => {
-      return data.map(x => {
-       return <Item data={x}/>
-      })
-  }
+    itemMapper = (data:item[]) => {
+        return data.map(x => {
+            return <Item data={x} sender={this.scriptSender}/>
+        })
+    }
 
-  render() {
-    return <div className="Main">
-        {this.itemMapper(this.state.items)}
-        <iframe title="JustScript is Awesome" id="justscript_space" className="class"></iframe>
-    </div>
-  }
+    scriptSender = (script:string) => {
+        this.setState({
+            cur_script: `<script>${script}</script>`
+        })
+    }
+
+    render() {
+        return <div className="Main">
+            {this.itemMapper(this.state.items)}
+            <Iframe script={this.state.cur_script} />
+        </div>
+    }
 }
 
 export default Main;
