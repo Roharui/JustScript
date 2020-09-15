@@ -6,12 +6,13 @@ import Popup from './Popup'
 interface MainState {
     items:item[];
     cur_script: string;
+    wirteAble: boolean;
     show_popup: boolean;
 }
 
 class Main extends React.Component<any, MainState> {
 
-    constructor(props:any) {
+    constructor(props:null) {
         super(props);
         this.state = {
             items : [
@@ -31,19 +32,29 @@ class Main extends React.Component<any, MainState> {
                 },
             ],
             cur_script: "",
+            wirteAble: false,
             show_popup: false
         }
     }
 
     itemMapper = (data:item[]) => {
         return data.map(x => {
-            return <Item data={x} sender={this.scriptSender} popup={this.togglePopup.bind(this)}/>
+            return <Item data={x} sender={this.scriptSender} popup={this.memoSender}/>
         })
     }
 
     scriptSender = (script:string) => {
         this.setState({
-            cur_script : script
+            cur_script : script,
+            wirteAble: false
+        })
+        this.togglePopup()
+    }
+
+    memoSender = (script:string) => {
+        this.setState({
+            cur_script : script,
+            wirteAble: true
         })
         this.togglePopup()
     }
@@ -60,6 +71,7 @@ class Main extends React.Component<any, MainState> {
             {this.state.show_popup ? 
           <Popup
             text={this.state.cur_script}
+            writeAble={this.state.wirteAble}
             closePopup={this.togglePopup.bind(this)}
           />
           : null}

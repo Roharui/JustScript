@@ -25,7 +25,7 @@ class Item extends React.Component<any, item> {
                     <Button style={{width:"50%"}} onClick={() => { this.props.sender(this.state.script) }} variant="contained" color="primary">
                         Execute
                     </Button>
-                    <Button style={{width:"50%"}} onClick={() => { this.props.popup() }} variant="contained" color="secondary">
+                    <Button style={{width:"50%"}} onClick={() => { this.props.popup(this.state.script) }} variant="contained" color="secondary">
                         Script
                     </Button>
                 </div>
