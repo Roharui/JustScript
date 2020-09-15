@@ -1,12 +1,11 @@
 import React from 'react';
 import Item from './Item'
 import item from '../types/type'
-import Iframe from './Iframe'
-import Popup from '../Popup/Popup'
+import Popup from './Popup'
 
 interface MainState {
     items:item[];
-    cur_script:string;
+    cur_script: string;
     show_popup: boolean;
 }
 
@@ -21,7 +20,7 @@ class Main extends React.Component<any, MainState> {
                     img : "Icon.png",
                     name : "Twitch",
                     descript : "TEST",
-                    script:'console.log("hello")'
+                    script:"<h1>Hello!!!</h1>"
                 },
                 {
                     id : 1,
@@ -44,8 +43,9 @@ class Main extends React.Component<any, MainState> {
 
     scriptSender = (script:string) => {
         this.setState({
-            cur_script: `<script>${script}</script>`
+            cur_script : script
         })
+        this.togglePopup()
     }
 
     togglePopup() {
@@ -59,11 +59,10 @@ class Main extends React.Component<any, MainState> {
             {this.itemMapper(this.state.items)}
             {this.state.show_popup ? 
           <Popup
-            text='Close Me'
+            text={this.state.cur_script}
             closePopup={this.togglePopup.bind(this)}
           />
           : null}
-            <Iframe script={this.state.cur_script} />
         </div>
     }
 }
