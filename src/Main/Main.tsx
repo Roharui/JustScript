@@ -69,11 +69,11 @@ class Main extends React.Component<any, MainState> {
         return <div className="Main">
             {this.itemMapper(this.state.items)}
             {this.state.show_popup ? 
-          <Popup
-            text={this.state.cur_script}
-            writeAble={this.state.wirteAble}
-            closePopup={this.togglePopup.bind(this)}
-          />
+            <Popup
+                text={this.state.cur_script}
+                writeAble={this.state.wirteAble}
+                closePopup={this.togglePopup.bind(this)}
+            />
           : null}
         </div>
     }

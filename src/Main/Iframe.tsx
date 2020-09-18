@@ -2,7 +2,7 @@ import React from 'react';
 
 function Iframe(props:{script:string}){
     return <>
-        <iframe title="EXECUTER" srcDoc={props.script}/>
+        <iframe id="Executer" title="EXECUTER" srcDoc={props.script}/>
     </>
 }
 
