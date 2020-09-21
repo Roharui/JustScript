@@ -1,11 +1,10 @@
 import React from 'react';
-import Item from './Item'
-import item from '../types/type'
-import Popup from './Popup'
+import {Item, ItemType} from './Item'
+import {Popup} from './Popup'
 
 interface MainState {
-    items:item[];
-    cur_script: string;
+    items:ItemType[];
+    cur_script: ItemType;
     wirteAble: boolean;
     show_popup: boolean;
 }
@@ -28,32 +27,38 @@ class Main extends React.Component<any, MainState> {
                     img : "Icon.png",
                     name : "Twitch",
                     descript : "TEST",
-                    script:'console.log("good job")'
+                    script:'<script>document.write("hello")</script>'
                 },
             ],
-            cur_script: "",
+            cur_script: {
+                id : 0,
+                img : "Icon.png",
+                name : "Twitch",
+                descript : "TEST",
+                script:"<h1>Hello!!!</h1>"
+            },
             wirteAble: false,
             show_popup: false
         }
     }
 
-    itemMapper = (data:item[]) => {
+    itemMapper = (data:ItemType[]) => {
         return data.map(x => {
             return <Item data={x} sender={this.scriptSender} popup={this.memoSender}/>
         })
     }
 
-    scriptSender = (script:string) => {
+    scriptSender = (item:ItemType) => {
         this.setState({
-            cur_script : script,
+            cur_script : item,
             wirteAble: false
         })
         this.togglePopup()
     }
 
-    memoSender = (script:string) => {
+    memoSender = (item:ItemType) => {
         this.setState({
-            cur_script : script,
+            cur_script : item,
             wirteAble: true
         })
         this.togglePopup()
@@ -70,9 +75,9 @@ class Main extends React.Component<any, MainState> {
             {this.itemMapper(this.state.items)}
             {this.state.show_popup ? 
             <Popup
-                text={this.state.cur_script}
-                writeAble={this.state.wirteAble}
-                closePopup={this.togglePopup.bind(this)}
+                item={this.state.cur_script}
+                writer={this.state.wirteAble}
+                closer={this.togglePopup.bind(this)}
             />
           : null}
         </div>

@@ -1,10 +1,17 @@
 import React from 'react';
 import { Paper, Button } from "@material-ui/core"
 import './Item.css'
-import item from '../types/type'
 
-class Item extends React.Component<any, item> {
-    constructor(props: { data: Readonly<item>; }){
+export interface ItemType{
+    id : number,
+    img : string,
+    name : string,
+    descript: string,
+    script: string
+}
+
+export class Item extends React.Component<any, ItemType> {
+    constructor(props: { data: Readonly<ItemType>; }){
         super(props);
         this.state = props.data;
     }
@@ -22,17 +29,14 @@ class Item extends React.Component<any, item> {
                     {this.state.descript}
                 </div>
                 <div className="buttons">
-                    <Button style={{width:"50%"}} onClick={() => { this.props.sender(this.state.script) }} variant="contained" color="primary">
+                    <Button style={{width:"50%"}} onClick={() => { this.props.sender(this.state) }} variant="contained" color="primary">
                         Execute
                     </Button>
-                    <Button style={{width:"50%"}} onClick={() => { this.props.popup(this.state.script) }} variant="contained" color="secondary">
+                    <Button style={{width:"50%"}} onClick={() => { this.props.popup(this.state) }} variant="contained" color="secondary">
                         Script
                     </Button>
                 </div>
             </Paper>
         </>
     }
-    
 }
-
-export default Item;

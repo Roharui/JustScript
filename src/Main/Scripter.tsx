@@ -1,8 +1,9 @@
 import React from 'react';
+import { ItemType } from './Item';
 
-function Scripter(props:{script:string}){
+function Scripter(props:{item:ItemType}){
   return (
-    <textarea id="Scripter">{props.script}</textarea>
+    <textarea id="Scripter">{props.item.script}</textarea>
   );
 }
 

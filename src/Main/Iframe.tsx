@@ -1,8 +1,9 @@
 import React from 'react';
+import { ItemType } from './Item';
 
-function Iframe(props:{script:string}){
+function Iframe(props:{item:ItemType}){
     return <>
-        <iframe id="Executer" title="EXECUTER" srcDoc={props.script}/>
+        <iframe id="Executer" title="EXECUTER" srcDoc={props.item.script}/>
     </>
 }
 
