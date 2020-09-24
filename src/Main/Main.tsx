@@ -73,7 +73,7 @@ class Main extends React.Component<any, MainState> {
     render() {
         return <div className="Main">
             {this.itemMapper(this.state.items)}
-            {this.state.show_popup ? 
+            {this.state.show_popup ?
             <Popup
                 item={this.state.cur_script}
                 writer={this.state.wirteAble}

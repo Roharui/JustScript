@@ -16,14 +16,14 @@ export function Popup(props:PopupType){
       <div className='popup_inner'>
       <Button style={{position:"absolute", top:"10px", right:"10px"}} onClick={props.closer}>X</Button>
         {props.writer ?
-          <div className="Scripter_inner">
+          <>
            <Scripter item={props.item} />
            <Button color="primary" style={{position:"absolute", bottom:"10px", left:"10px"}}>Upload</Button>
-          </div>
+          </>
         :
-          <div className="Iframe_inner">
+          <>
             <Iframe item={props.item}/>
-          </div>
+          </>
         }
       </div>
     </div>
