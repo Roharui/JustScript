@@ -1,8 +1,10 @@
 # JustScript
 🌍📃 Web Community can import Script
 
-# Why this project has not Developed?
+# Work Progress
 
-This project is planned to be develope with Typescript and React...
-But owner of this proejct don't know about it.
-after study more. This project will begin.
+| 순번 | 기능 | 완성도 |
+|---|---|:---:|
+| `1` | 기초 화면 설계 | 80% |
+| `2` | 벡엔드 설계 |  |
+| `3` | DB 구조 설계 |  |
