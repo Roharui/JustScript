@@ -1,6 +1,10 @@
 # JustScript
 🌍📃 Web Community can import Script
 
+# Notice!
+
+React-typescript와 Express 모듈을 동시에 실행시키는 법을 몰라서 /backend 폴더에 새로운 패키지를 설치했습니다.
+
 # Work Progress
 
 | 순번 | 기능 | 완성도 |
