@@ -9,37 +9,30 @@ interface MainState {
     show_popup: boolean;
 }
 
+class MState implements MainState {
+    items: ItemType[];
+    cur_script: ItemType;
+    wirteAble: boolean;
+    show_popup: boolean;
+    constructor(){
+        this.items = []
+        this.cur_script = {} as ItemType
+        this.wirteAble = false
+        this.show_popup = false;
+    }
+}
+
 class Main extends React.Component<any, MainState> {
 
     constructor(props:null) {
         super(props);
-        this.state = {
-            items : [
-                {
-                    id : 0,
-                    img : "Icon.png",
-                    name : "Twitch",
-                    descript : "TEST",
-                    script:"<h1>Hello!!!</h1>"
-                },
-                {
-                    id : 1,
-                    img : "Icon.png",
-                    name : "Twitch",
-                    descript : "TEST",
-                    script:'<script>document.write("hello")</script>'
-                },
-            ],
-            cur_script: {
-                id : 0,
-                img : "Icon.png",
-                name : "Twitch",
-                descript : "TEST",
-                script:"<h1>Hello!!!</h1>"
-            },
-            wirteAble: false,
-            show_popup: false
-        }
+        this.state = new MState();
+    }
+
+    componentDidMount() {
+        fetch(`http://${window.location.hostname}:3001/`)
+        .then(res => res.json())
+        .then(res => this.setState(res))
     }
 
     itemMapper = (data:ItemType[]) => {
