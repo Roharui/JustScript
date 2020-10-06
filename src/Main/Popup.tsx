@@ -17,8 +17,7 @@ export function Popup(props:PopupType){
       <Button style={{position:"absolute", top:"10px", right:"10px"}} onClick={props.closer}>X</Button>
         {props.writer ?
           <>
-           <Scripter item={props.item} />
-           <Button color="primary" style={{position:"absolute", bottom:"10px", left:"10px"}}>Upload</Button>
+           <Scripter item={props.item} writer={props.writer}/>
           </>
         :
           <>

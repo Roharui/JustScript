@@ -30,18 +30,7 @@ const db = appbase.manager;
 
 app.get("/", async (req: express.Request, res: express.Response) => {
     let items = await db.select();
-    res.json({
-        items : items,
-        cur_script: {
-            id : 0,
-            img : "Icon.png",
-            name : "Twitch",
-            descript : "TEST",
-            script:"<h1>Hello!!!</h1>"
-        },
-        wirteAble: false,
-        show_popup: false
-    })
+    res.json(items)
 })
 
 app.post("/insert", async (req: express.Request, res: express.Response) => {
