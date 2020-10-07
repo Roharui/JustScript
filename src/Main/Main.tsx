@@ -33,6 +33,22 @@ class Main extends React.Component<any, MainState> {
         .then(res => this.setState({items: res}))
     }
 
+// ===============
+
+    togglePopup() {
+        this.setState({
+          show_popup: !this.state.show_popup
+        });
+    }
+
+    toggleIde(){
+        this.setState({
+            ide_popup: !this.state.ide_popup
+          });
+    }
+
+// ===============
+
     itemMapper = (data:ItemType[]) => {
         return data.map((x, i) => {
             return <Item key={i} data={x} sender={this.scriptSender} popup={this.memoSender}/>
@@ -55,25 +71,13 @@ class Main extends React.Component<any, MainState> {
         this.togglePopup()
     }
 
-    togglePopup() {
+    scriptWriter = (data:ItemType) => {
+        let id = data.id
+        console.log(this.state.items.map(el => el.id === id ? data : el))
         this.setState({
-          show_popup: !this.state.show_popup
-        });
-    }
-
-    toggleIde(){
-        this.setState({
-            ide_popup: !this.state.ide_popup
-          });
-    }
-
-    scriptWriter(data:ItemType){
-        let index = this.state.items.findIndex(x => x.id === data.id)
-        this.setState((oldState) => {
-            let newState = {...oldState}; 
-            newState.items.splice(index, 1, data);
-            return newState;
+            items: this.state.items.map(el => el.id === id ? data : el)
         })
+        this.togglePopup()
     }
 
     insertWriter(data:ItemType){
@@ -88,6 +92,8 @@ class Main extends React.Component<any, MainState> {
         .then(_ => {this.toggleIde()})
         .then(_ => {this.update()})
     }
+
+// ===============
 
     render() {
         return <div className="Main">
