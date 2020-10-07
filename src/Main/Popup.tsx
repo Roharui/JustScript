@@ -14,7 +14,7 @@ export function Popup(props:PopupType){
   return (
     <div className='popup'>
       <div className='popup_inner'>
-      <Button style={{position:"absolute", top:"10px", right:"10px"}} onClick={props.closer}>X</Button>
+      <Button style={{position:"absolute", top:"10px", right:"10px", backgroundColor: "white"}} onClick={props.closer}>X</Button>
         {props.writer ?
           <>
            <Scripter item={props.item} writer={props.writer}/>

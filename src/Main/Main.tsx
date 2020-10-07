@@ -107,7 +107,7 @@ class Main extends React.Component<any, MainState> {
             />
           : null}
           {this.state.ide_popup ? <Popup item={this.dummy_item} writer={this.insertWriter} closer={this.toggleIde.bind(this)} /> : null}
-          <button id="add_button" onClick={this.toggleIde}>+</button>
+          <button id="add_button" onClick={this.toggleIde.bind(this)}>+</button>
         </div>
     }
 }

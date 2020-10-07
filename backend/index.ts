@@ -2,7 +2,6 @@
 import express from "express";
 import cors from "cors";
 import Manager from "./dbmanager"
-import bodyParser from "body-parser";
 
 class App {
     public application : express.Application;
