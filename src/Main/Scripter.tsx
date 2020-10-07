@@ -30,7 +30,7 @@ class Scripter extends React.Component<{item:ItemType, writer:any}, {item:ItemTy
 
   render(){
     return <>
-      <textarea id="Scripter" onChange={this.onEvent}>{this.state.item.script}</textarea>
+      <textarea id="Scripter" onChange={this.onEvent} value={this.state.item.script}></textarea>
       <Button color="primary" style={{position:"absolute", bottom:"10px", left:"10px"}} 
         onClick={() => {this.state.writer(this.state.item)}}>Upload</Button>
     </>

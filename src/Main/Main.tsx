@@ -73,10 +73,10 @@ class Main extends React.Component<any, MainState> {
 
     scriptWriter = (data:ItemType) => {
         let id = data.id
-        console.log(this.state.items.map(el => el.id === id ? data : el))
+        let items = this.state.items.map(el => el.id === id ? data : el)
         this.setState({
-            items: this.state.items.map(el => el.id === id ? data : el)
-        })
+            items: []
+        }, () => {this.setState({items})})
         this.togglePopup()
     }
 
@@ -95,8 +95,8 @@ class Main extends React.Component<any, MainState> {
 
 // ===============
 
+
     render() {
-        console.log("render")
         return <div className="Main">
             {this.itemMapper(this.state.items)}
             {this.state.show_popup ?
@@ -107,7 +107,7 @@ class Main extends React.Component<any, MainState> {
             />
           : null}
           {this.state.ide_popup ? <Popup item={this.dummy_item} writer={this.insertWriter} closer={this.toggleIde.bind(this)} /> : null}
-          <button id="add_button" onClick={this.toggleIde.bind(this)}>+</button>
+          <button id="add_button" onClick={this.toggleIde}>+</button>
         </div>
     }
 }
