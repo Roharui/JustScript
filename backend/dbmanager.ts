@@ -30,9 +30,9 @@ class Manager {
             password: 'jack7073'
         }); 
         await conn.query(
-            `insert into (img, name, descript, script)
+            `insert into justscript.items (img, name, descript, script)
             values
-            (${data.img}, ${data.name}, ${data.descript}, ${data.script})`
+            ("${data.img}", "${data.name}", "${data.descript}", "${data.script}")`
         )
     }
 }

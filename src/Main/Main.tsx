@@ -8,21 +8,23 @@ interface MainState {
     cur_script: ItemType;
     wirteAble: boolean;
     show_popup: boolean;
-    test: number;
+    ide_popup : boolean;
 }
 
 class Main extends React.Component<any, MainState> {
+    private dummy_item : ItemType;
 
     constructor(props:null) {
         super(props);
+        this.dummy_item = {id:-1, img:"Icon.png", name:"TEST", descript:"TEST", script:""}
         this.state = {
-            items: [],
-            cur_script: {id:-1, img:"", name:"", descript:"", script:""},
+            items: [{id:-1, img:"Icon.png", name:"TEST", descript:"TEST", script:"<h1>HELLO</h1>"}],
+            cur_script: this.dummy_item,
             wirteAble: false,
             show_popup: false,
-            test: 0
+            ide_popup: false
         }
-        this.update()
+        // this.update()
     }
 
     update() {
@@ -59,6 +61,12 @@ class Main extends React.Component<any, MainState> {
         });
     }
 
+    toggleIde(){
+        this.setState({
+            ide_popup: !this.state.ide_popup
+          });
+    }
+
     scriptWriter(data:ItemType){
         let index = this.state.items.findIndex(x => x.id === data.id)
         this.setState((oldState) => {
@@ -66,6 +74,19 @@ class Main extends React.Component<any, MainState> {
             newState.items.splice(index, 1, data);
             return newState;
         })
+    }
+
+    insertWriter(data:ItemType){
+        console.log(data)
+        fetch(`http://${window.location.hostname}:3001/insert`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+              },
+            body: JSON.stringify(data)
+        })
+        .then(_ => {this.toggleIde()})
+        .then(_ => {this.update()})
     }
 
     render() {
@@ -78,6 +99,8 @@ class Main extends React.Component<any, MainState> {
                 closer={this.togglePopup.bind(this)}
             />
           : null}
+          {this.state.ide_popup ? <Popup item={this.dummy_item} writer={this.insertWriter.bind(this)} closer={this.toggleIde.bind(this)} /> : null}
+          <button id="add_button" onClick={this.toggleIde.bind(this)}>+</button>
         </div>
     }
 }

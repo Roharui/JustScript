@@ -2,14 +2,7 @@
 import express from "express";
 import cors from "cors";
 import Manager from "./dbmanager"
-
-interface ItemType{
-    id : number,
-    img : string,
-    name : string,
-    descript: string,
-    script: string
-}
+import bodyParser from "body-parser";
 
 class App {
     public application : express.Application;
@@ -34,7 +27,7 @@ app.get("/", async (req: express.Request, res: express.Response) => {
 })
 
 app.post("/insert", async (req: express.Request, res: express.Response) => {
-    console.log(req.body)
+    await db.insert(req.body)
     res.json({"state": 200})
 })
 

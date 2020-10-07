@@ -25,6 +25,7 @@ class Scripter extends React.Component<{item:ItemType, writer:any}, {item:ItemTy
     this.setState({
       item : {...this.state.item, script:e.target.value}
     })
+
   }
 
   render(){
