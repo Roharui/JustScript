@@ -18,13 +18,13 @@ class Main extends React.Component<any, MainState> {
         super(props);
         this.dummy_item = {id:-1, img:"Icon.png", name:"TEST", descript:"TEST", script:""}
         this.state = {
-            items: [{id:-1, img:"Icon.png", name:"TEST", descript:"TEST", script:"<h1>HELLO</h1>"}],
+            items: [],
             cur_script: this.dummy_item,
             wirteAble: false,
             show_popup: false,
             ide_popup: false
         }
-        // this.update()
+        this.update()
     }
 
     update() {
