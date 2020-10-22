@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {Item, ItemType} from './Item'
+import {Item, ItemType} from './Item/Item'
 import {Popup} from './Popup'
 
 interface MainState {

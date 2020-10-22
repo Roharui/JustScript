@@ -1,8 +1,8 @@
 import React from 'react';
-import Iframe from './Iframe'
+import Iframe from './Item/Iframe'
 import Scripter from './Scripter'
 import { Button } from "@material-ui/core"
-import { ItemType } from './Item';
+import { ItemType } from './Item/Item';
 
 export interface PopupType{
   item: ItemType

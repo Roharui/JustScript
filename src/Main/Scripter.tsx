@@ -1,5 +1,5 @@
 import React from 'react';
-import { ItemType } from './Item';
+import { ItemType } from './Item/Item';
 import { Button } from "@material-ui/core"
 
 // function Scripter(props:{item:ItemType, writer:any}){
