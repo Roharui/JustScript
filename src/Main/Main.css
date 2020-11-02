@@ -1,0 +1,17 @@
+
+.Main {
+    display: flex;
+    flex-flow: row wrap;
+    height: 100%;
+    padding: 30px;
+    overflow: auto;
+
+    align-items:flex-start;
+    align-content:flex-start;
+}
+
+.ItemContainer {
+    width: auto;
+    margin: 0 auto;
+    overflow: auto;
+}

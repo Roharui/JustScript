@@ -2,19 +2,35 @@
 import React from 'react';
 import './Nav.css'
 import Search from './Search'
+import SideNav from './SideNav';
 
-class NavMain extends React.Component {
+class NavMain extends React.Component<any, {toggle:boolean}> {
+
+    constructor(props:any) {
+      super(props);
+      this.state = {
+        toggle: false
+      }
+    }
+
+    toggleSideNav = () => {
+      console.log("hello")
+      this.setState({
+        toggle: !this.state.toggle
+      })
+    }
 
     render() {
       return <>
         <div className="topnav">
             <span className="logo">JustScript</span>
-            <span className="ul active">Main</span>
-            <span className="ul">News</span>
+            <span className="ul sNav" onClick={this.toggleSideNav}>&#9776;</span>
+            <span className="ul active">News</span>
             <span className="ul">Contact</span>
             <span className="ul">About</span>
             <Search />
         </div>
+        <SideNav toggle={this.state.toggle}/>
       </>
     }
 }

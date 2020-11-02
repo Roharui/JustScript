@@ -1,10 +1,10 @@
 .item {
-    display: block;
-    min-width: 200px;
-    width: 15%;
+    position: static;
+    min-width: 300px;
+    width: 23%;
     padding: 10px;
-    margin-left: 10px;
     margin-bottom: 10px;
+    margin-left: 10px;
 }
 
 .descript {
