@@ -14,7 +14,6 @@ class NavMain extends React.Component<any, {toggle:boolean}> {
     }
 
     toggleSideNav = () => {
-      console.log("hello")
       this.setState({
         toggle: !this.state.toggle
       })

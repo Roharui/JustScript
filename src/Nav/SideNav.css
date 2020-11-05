@@ -9,7 +9,6 @@
     background-color: #111;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
     float: left;
   }
   
@@ -32,6 +31,36 @@
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
+  }
+
+  .sidenav .profile{
+      text-align: center;
+      padding: 20px;
+      color: #FFFFFF;
+  }
+
+  .sidenav .profile img {
+      display: block;
+      margin: 0 auto;
+      width: 100px;
+      height: 100px;
+      border: 1px solid lightgreen;
+  }
+
+  .sidenav span {
+      padding: 2px 5px;
+      font-size: 13px;
+      border-radius: 5px;
+  }
+
+  .rcmd {
+      background-color: skyblue !important;
+      border-color: skyblue;
+  }
+
+  .vfi {
+      background-color: green !important;
+      border-color: green;
   }
   
   @media screen and (max-height: 450px) {
