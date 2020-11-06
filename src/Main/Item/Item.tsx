@@ -18,23 +18,30 @@ export class Item extends React.Component<any, ItemType> {
 
     render(){
         return <>
-            <Paper id={this.state.id.toString()} elevation={3} style={{float:'left'}} className="item">
-                <div className="profile">
-                    <img src={this.state.img} width="32" height="32" alt={this.state.name}/>
-                    <span className="nick">
-                        {this.state.name}
-                    </span>
+            <Paper id={this.state.id.toString()} elevation={3} className="item">
+                <div className="recommend">
+                    <div className="triangle-up"></div>
+                    <h1 style={{width:"32px"}}>0</h1>
+                    <div className="triangle-down"></div>
                 </div>
-                <div className="descript">
-                    {this.state.descript}
-                </div>
-                <div className="buttons">
-                    <Button style={{width:"50%"}} onClick={() => { this.props.sender(this.state) }} variant="contained" color="primary">
-                        Execute
-                    </Button>
-                    <Button style={{width:"50%"}} onClick={() => { this.props.popup(this.state) }} variant="contained" color="secondary">
-                        Script
-                    </Button>
+                <div className="content">
+                    <div className="profile">
+                        <img src={this.state.img} width="32" height="32" alt={this.state.name}/>
+                        <span className="nick">
+                            {this.state.name}
+                        </span>
+                    </div>
+                    <div className="descript">
+                        {this.state.descript}
+                    </div>
+                    <div className="buttons">
+                        <Button onClick={() => { this.props.sender(this.state) }} variant="contained" color="primary">
+                            Execute
+                        </Button>
+                        <Button onClick={() => { this.props.popup(this.state) }} variant="contained" color="secondary">
+                            Script
+                        </Button>
+                    </div>
                 </div>
             </Paper>
         </>

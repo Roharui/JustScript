@@ -19,13 +19,13 @@ class Main extends React.Component<any, MainState> {
         super(props);
         this.dummy_item = {id:-1, img:"Icon.png", name:"TEST", descript:"TEST", script:""}
         this.state = {
-            items: Array(8).fill(this.dummy_item),
+            items: [],
             cur_script: this.dummy_item,
             wirteAble: false,
             show_popup: false,
             ide_popup: false
         }
-        //this.update()
+        this.update()
     }
 
     update() {
@@ -100,6 +100,10 @@ class Main extends React.Component<any, MainState> {
     render() {
         return <div className="Main">
             {this.itemMapper(this.state.items)}
+            <div  className="item"/>
+            <div  className="item"/>
+            <div  className="item"/>
+            <div  className="item"/>
             {this.state.show_popup ?
             <Popup
                 item={this.state.cur_script}
