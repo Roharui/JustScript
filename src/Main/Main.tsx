@@ -19,13 +19,13 @@ class Main extends React.Component<any, MainState> {
         super(props);
         this.dummy_item = {id:-1, img:"Icon.png", name:"TEST", descript:"TEST", script:""}
         this.state = {
-            items: [],
+            items: Array(8).fill(this.dummy_item),
             cur_script: this.dummy_item,
             wirteAble: false,
             show_popup: false,
             ide_popup: false
         }
-        this.update()
+        //this.update()
     }
 
     update() {
