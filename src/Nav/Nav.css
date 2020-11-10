@@ -41,7 +41,7 @@
 }
 
 /* Links inside the navbar */
-.topnav p {
+.topnav .d-option {
   float: left;
   font-size: 16px;
   color: white;
@@ -78,11 +78,11 @@
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
-  margin-top: -5px;
+  margin-top: -6px;
 }
 
 /* Links inside the dropdown */
-.dropdown-content p {
+.dropdown-content .d-option {
   float: none;
   color: black;
   padding: 12px 16px;
@@ -92,11 +92,16 @@
 }
 
 /* Add a grey background color to dropdown links on hover */
-.dropdown-content p:hover {
+.dropdown-content .d-option:hover {
   background-color: #ddd;
 }
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+.d-checkbox {
+  float: right;
+  margin-top: 3px;
 }

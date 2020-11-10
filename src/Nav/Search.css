@@ -18,7 +18,7 @@ div.search-content{
     padding: 5px;
 }
 
-input{
+.search-input{
     position: absolute;
     top: 0;
     left: 0;

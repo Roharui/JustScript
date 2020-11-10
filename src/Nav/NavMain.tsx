@@ -3,6 +3,7 @@ import React from 'react';
 import './Nav.css'
 import Search from './Search'
 import SideNav from './SideNav';
+import DropDown from './NavDropDown';
 
 class NavMain extends React.Component<any, {toggle:boolean}> {
 
@@ -26,9 +27,9 @@ class NavMain extends React.Component<any, {toggle:boolean}> {
             <span className="sNav" onClick={this.toggleSideNav}>&#9776;</span>
             <span className="ul active">검증글</span>
             <span className="ul">최신글</span>
-            <div className="ul dropdown">
+            {/* <div className="dropdown">
                 <button className="dropbtn">
-                    <span>필터</span>
+                    <span className="ul">필터</span>
                     <i className="fa fa-caret-down"></i>
                 </button>
                 <div className="dropdown-content">
@@ -36,7 +37,8 @@ class NavMain extends React.Component<any, {toggle:boolean}> {
                     <p>CANVAS</p>
                     <p>HTML</p>
                 </div>
-            </div>
+            </div> */}
+            <DropDown />
             <Search />
         </div>
         <SideNav toggle={this.state.toggle}/>
