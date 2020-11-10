@@ -23,10 +23,20 @@ class NavMain extends React.Component<any, {toggle:boolean}> {
       return <>
         <div className="topnav">
             <span className="logo">JustScript</span>
-            <span className="ul sNav" onClick={this.toggleSideNav}>&#9776;</span>
-            <span className="ul active">News</span>
-            <span className="ul">Contact</span>
-            <span className="ul">About</span>
+            <span className="sNav" onClick={this.toggleSideNav}>&#9776;</span>
+            <span className="ul active">검증글</span>
+            <span className="ul">최신글</span>
+            <div className="ul dropdown">
+                <button className="dropbtn">
+                    <span>필터</span>
+                    <i className="fa fa-caret-down"></i>
+                </button>
+                <div className="dropdown-content">
+                    <p>TEMA</p>
+                    <p>CANVAS</p>
+                    <p>HTML</p>
+                </div>
+            </div>
             <Search />
         </div>
         <SideNav toggle={this.state.toggle}/>
