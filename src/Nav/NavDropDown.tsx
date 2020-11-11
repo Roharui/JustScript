@@ -1,8 +1,10 @@
 
 import React from 'react';
 
-// const itemFilter = async (values:{ifilter:boolean[]}) => {
-//     return values.ifilter
+// const itemFilter = {
+//     tema: true,
+//     canvas: true,
+//     html: true
 // }
 
 class DropDown extends React.Component<any, any> {
@@ -18,8 +20,7 @@ class DropDown extends React.Component<any, any> {
 
     toggleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         this.setState(
-            {[e.target.name] : !this.state[e.target.name]}, 
-            ()=>{console.log(this.state)}
+            {[e.target.name] : !this.state[e.target.name]}
         )
     }
 
