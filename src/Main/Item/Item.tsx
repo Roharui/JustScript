@@ -20,9 +20,9 @@ export class Item extends React.Component<any, ItemType> {
         return <>
             <Paper id={this.state.id.toString()} elevation={3} className="item">
                 <div className="recommend">
-                    <div className="triangle-up"></div>
-                    <h1 style={{width:"32px"}}>0</h1>
-                    <div className="triangle-down"></div>
+                    <button className="triangle-up"></button>
+                    <h1 style={{width:"30px"}}>0</h1>
+                    <button className="triangle-down"></button>
                 </div>
                 <div className="content">
                     <div className="profile">

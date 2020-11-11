@@ -16,3 +16,5 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+button {border:0 none; background-color:transparent; cursor:pointer;}

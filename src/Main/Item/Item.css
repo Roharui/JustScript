@@ -2,7 +2,6 @@
     display: flex;
     position: static;
     flex: 1 1 18%;
-    padding: 10px;
     margin-bottom: 10px;
     margin-left: 10px;
 }
@@ -29,6 +28,7 @@
 
 .content {
     flex: 1 1 80%;
+    padding:10px;
 }
 
 #add_button {
@@ -52,29 +52,30 @@
 
 .recommend {
     flex: 1 1 5%;
-    float:left;
-    width: 30px;
-    height: 100%;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    -webkit-flex-direction:column;
     text-align: center;
-    padding: 1px 10px 1px 10px;
+    padding-left: 12px;
 }
 
 .triangle-up {
     position: relative;
     width: 0;
     height: 0;
-    top: 2px;
-    border-left: 16px solid transparent;
-    border-right: 16px solid transparent;
-    border-bottom: 30px solid lightgray;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 35px solid lightgray;
+    margin-top: 5px;
 }
 
 .triangle-down {
     width: 0;
     height: 0;
-    border-left: 16px solid transparent;
-    border-right: 16px solid transparent;
-    border-top: 30px solid lightgray;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 35px solid lightgray;
 }
 
 @media (max-width:1500px){
