@@ -1,7 +1,7 @@
 
 import React from 'react';
 import {Item, ItemType} from './Item/Item'
-import {Popup} from './Popup'
+import {Popup, Opertion} from './Popup'
 import './Main.css'
 
 interface MainState {
@@ -98,6 +98,7 @@ class Main extends React.Component<any, MainState> {
 
 
     render() {
+        let oper:Opertion = { type: 'html', writer: false, closer:this.togglePopup.bind(this) }
         return <div className="Main">
             {this.itemMapper(this.state.items)}
             <div  className="item"/>
@@ -107,12 +108,11 @@ class Main extends React.Component<any, MainState> {
             {this.state.show_popup ?
             <Popup
                 item={this.state.cur_script}
-                writer={this.state.wirteAble ? this.scriptWriter : false}
-                closer={this.togglePopup.bind(this)}
+                oper={oper}
             />
           : null}
-          {this.state.ide_popup ? <Popup item={this.dummy_item} writer={this.insertWriter} closer={this.toggleIde.bind(this)} /> : null}
-          <button id="add_button" onClick={this.toggleIde.bind(this)}>+</button>
+          {/* {this.state.ide_popup ? <Popup item={this.dummy_item} writer={this.insertWriter} closer={this.toggleIde.bind(this)} /> : null} */}
+          {/* <button id="add_button" onClick={this.toggleIde.bind(this)}>+</button> */}
         </div>
     }
 }
