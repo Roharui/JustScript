@@ -5,7 +5,6 @@ import { Button } from "@material-ui/core"
 import { ItemType } from './Item/Item';
 
 export interface Opertion{
-  type: 'tema' | 'canvas' | 'html' | 'writer',
   closer:any,
   writer:any,
 }
@@ -14,21 +13,24 @@ export interface PopupType{
   oper: Opertion;
 }
 
+// const tema = <></>;
+// const canvas = <></>
+const html = (props:PopupType) => <Iframe item={props.item}/>
+const writer = (props:PopupType) => <Scripter item={props.item} writer={props.oper.writer}/>
+
+function getPopup(props:PopupType){
+  if(props.oper.writer) return writer(props);
+  if(props.item.type === 'html') return html(props);
+  return <></>
+}
+
 export function Popup(props:PopupType){
   let oper = props.oper;
   return (
     <div className='popup'>
       <div className='popup_inner'>
       <Button style={{position:"absolute", top:"10px", right:"10px", backgroundColor: "white"}} onClick={oper.closer}>X</Button>
-        {oper.type === 'writer' ?
-          <>
-           <Scripter item={props.item} writer={oper.writer}/>
-          </>
-        :
-          <>
-            <Iframe item={props.item}/>
-          </>
-        }
+      {getPopup(props)}
       </div>
     </div>
   );

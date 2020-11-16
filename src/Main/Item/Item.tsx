@@ -4,6 +4,7 @@ import './Item.css'
 
 export interface ItemType{
     id : number,
+    type: 'tema' | 'canvas' | 'html' | 'writer',
     img : string,
     name : string,
     descript: string,
