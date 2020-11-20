@@ -1,27 +1,10 @@
 
-import * as mysql from 'mysql2/promise';
+import { Manager, ItemType } from './Base';
 
-interface ItemType{
-    id : number,
-    type: 'tema' | 'canvas' | 'html' | 'writer',
-    img : string,
-    name : string,
-    descript: string,
-    script: string,
-    score : number,
-    openAble: boolean
-}
-
-class Manager {
-    private conn:Promise<mysql.Connection>;
+class ItemDB extends Manager {
 
     constructor() {
-        this.conn = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'jack7073',
-            database : 'justscript'
-        }); 
+        super();
     }
 
     async select(){
@@ -47,16 +30,4 @@ class Manager {
     }
 }
 
-export default Manager;
-
-// // Connection
-
-// connection.query('SELECT 1 + 1 AS solution', function (err: mysql.QueryError, rows: mysql.RowDataPacket[], fields: mysql.FieldPacket) {
-//     if (err) {
-//         throw err;
-//     }
-
-//     console.log('The solution is: ', rows[0]['solution']);
-// });
-
-// connection.end();
+export default ItemDB;
