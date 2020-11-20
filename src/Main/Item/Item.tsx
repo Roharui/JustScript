@@ -9,7 +9,8 @@ export interface ItemType{
     name : string,
     descript: string,
     script: string,
-    score : number
+    score : number,
+    openAble: boolean
 }
 
 export class Item extends React.Component<any, ItemType> {
@@ -40,9 +41,11 @@ export class Item extends React.Component<any, ItemType> {
                         <Button onClick={() => { this.props.sender(this.state) }} variant="contained" color="primary">
                             Execute
                         </Button>
+                        { this.state.openAble ?                         
                         <Button onClick={() => { this.props.popup(this.state) }} variant="contained" color="secondary">
                             Script
-                        </Button>
+                        </Button> : <></>}
+
                     </div>
                 </div>
             </Paper>
