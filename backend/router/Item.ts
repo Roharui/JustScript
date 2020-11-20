@@ -1,9 +1,9 @@
 import express, { Router } from "express";
-import Manager from "../DB"
+import ItemDB from "../DB"
 
 const ItemManager:Router = express.Router();
 
-const db = new Manager();
+const db = new ItemDB();
 
 ItemManager.get("/", async (req: express.Request, res: express.Response) => {
     let items = await db.select();
