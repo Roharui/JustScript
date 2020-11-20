@@ -38,7 +38,7 @@ class Main extends React.Component<any, MainState> {
     }
 
     update() {
-        fetch(`http://${window.location.hostname}:3001/`)
+        fetch(`http://${window.location.hostname}:3001/item`)
         .then(res => res.json())
         .then(res => this.setState({items: res}))
     }
@@ -91,7 +91,7 @@ class Main extends React.Component<any, MainState> {
     }
 
     insertWriter = (data:ItemType) => {
-        fetch(`http://${window.location.hostname}:3001/insert`, {
+        fetch(`http://${window.location.hostname}:3001/item/insert`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

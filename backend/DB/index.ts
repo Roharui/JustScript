@@ -3,10 +3,13 @@ import * as mysql from 'mysql2/promise';
 
 interface ItemType{
     id : number,
+    type: 'tema' | 'canvas' | 'html' | 'writer',
     img : string,
     name : string,
     descript: string,
-    script: string
+    script: string,
+    score : number,
+    openAble: boolean
 }
 
 class Manager {

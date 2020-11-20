@@ -9,6 +9,10 @@ class SideNav extends React.Component<{toggle:boolean}, {}> {
         this.state = {}
     }
 
+    componentWillUnmount(){
+        let login = sessionStorage.getItem("login")
+    }
+
     render() {
       return <>
         <div id="mySidenav" className="sidenav" style={{width: this.props.toggle ? "250px" : "0px"}}>
