@@ -4,6 +4,11 @@ import './SideNav.css'
 
 class SideNav extends React.Component<{toggle:boolean}, {}> {
 
+    constructor(props:{toggle:boolean}){
+        super(props);
+        this.state = {}
+    }
+
     render() {
       return <>
         <div id="mySidenav" className="sidenav" style={{width: this.props.toggle ? "250px" : "0px"}}>

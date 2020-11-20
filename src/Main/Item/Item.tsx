@@ -8,7 +8,8 @@ export interface ItemType{
     img : string,
     name : string,
     descript: string,
-    script: string
+    script: string,
+    score : number
 }
 
 export class Item extends React.Component<any, ItemType> {
@@ -22,7 +23,7 @@ export class Item extends React.Component<any, ItemType> {
             <Paper id={this.state.id.toString()} elevation={3} className="item">
                 <div className="recommend">
                     <button className="triangle-up"></button>
-                    <h1 style={{width:"30px"}}>0</h1>
+                        <h1 style={{width:"30px"}}>{this.state.score}</h1>
                     <button className="triangle-down"></button>
                 </div>
                 <div className="content">

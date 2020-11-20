@@ -17,7 +17,7 @@ class Main extends React.Component<any, MainState> {
 
     constructor(props:null) {
         super(props);
-        this.dummy_item = {id:-1, img:"Icon.png", name:"TEST", descript:"TEST", type: "html" ,script:""}
+        this.dummy_item = {id:-1, img:"Icon.png", name:"TEST", descript:"TEST", type: "html" ,script:"", score:0}
         this.state = {
             items: [],
             cur_script: this.dummy_item,
