@@ -10,25 +10,32 @@ interface ItemType{
 }
 
 class Manager {
+    private conn:Promise<mysql.Connection>;
+
     constructor() {
+        this.conn = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: 'jack7073',
+            database : 'justscript'
+        }); 
     }
 
     async select(){
-        let conn = await mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'jack7073'
-        }); 
-        let [x, _] = await conn.query("select * from justscript.items")
+        let [x, _] = await (await this.conn).query(`
+        SELECT 
+            i.*,
+            u.nickname as name,
+            u.profile_img as img
+        FROM 
+            items i 
+            inner join user u on u._id = i.user_id;
+        `)
         return x;
     }
 
     async insert(data:ItemType){
-        let conn = await mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'jack7073'
-        }); 
+        let conn = await (this.conn)
         await conn.query(
             `insert into justscript.items (img, name, descript, script)
             values
