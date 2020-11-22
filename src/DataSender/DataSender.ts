@@ -29,6 +29,18 @@ class DataSender {
             })
         }).then(x => x.json())
     }
+
+    async logout(session:string){
+        return fetch(`http://${window.location.hostname}:3001/login/logout`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+              },
+            body: JSON.stringify({
+                session: session
+            })
+        }).then(x => x.json())
+    }
 }
 
 export default DataSender

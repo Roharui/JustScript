@@ -40,4 +40,15 @@ loginManager.post("/profile", async (req: express.Request, res: express.Response
     }
 })
 
+loginManager.post("/logout", async (req: express.Request, res: express.Response) => {
+    let {session} = req.body
+    if(userSession[session]){
+        delete userSession[session];
+        res.json({state: 200})
+    }else {
+        res.json({state: 404})
+    }
+})
+
+
 export default loginManager; 
