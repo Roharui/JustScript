@@ -30,9 +30,9 @@ class SideNav extends React.Component<{toggle:boolean}, profile> {
         let login = sessionStorage.getItem("login")
         if(!login) return;
         this.ds.getProfile(login)
-        .then(([x]) => {
-            console.log(x)
-            this.setState(x, () => {console.log(this.state)})
+        .then((x) => {
+            if(!x.length) return;
+            this.setState(x[0], () => {console.log(this.state)})
         })
     }
 
@@ -53,7 +53,7 @@ class SideNav extends React.Component<{toggle:boolean}, profile> {
             </div>
             <p>Tema</p>
             <p>Items</p>
-            <p>Logout</p>
+            <p style={{position: "absolute", bottom: 100}}>Logout</p>
         </>
         : 
         <p>로그인 필요</p>}

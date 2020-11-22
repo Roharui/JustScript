@@ -4,6 +4,10 @@
     overflow: hidden;
 }
 
+.topnav * {
+  -ms-user-select: none; -moz-user-select: -moz-none; -webkit-user-select: none; -khtml-user-select: none; user-select:none;
+}
+
 /* Style the links inside the navigation bar */
 
 .topnav span {
