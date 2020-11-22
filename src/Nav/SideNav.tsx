@@ -1,35 +1,62 @@
 
 import React from 'react';
 import './SideNav.css'
+import DataSender from '../DataSender/DataSender'
 
-class SideNav extends React.Component<{toggle:boolean}, {}> {
+interface profile{
+    report_count:number,
+    write_count:number,
+    recomment_count:number,
+    nickname:string,
+    profile_img:string
+}
+
+class SideNav extends React.Component<{toggle:boolean}, profile> {
+    private ds: DataSender;
 
     constructor(props:{toggle:boolean}){
         super(props);
-        this.state = {}
+        this.state = {
+            report_count:-1,
+            write_count:0,
+            recomment_count:0,
+            nickname:'',
+            profile_img:''
+        }
+        this.ds = new DataSender();
     }
 
-    componentWillUnmount(){
+    componentDidMount(){
         let login = sessionStorage.getItem("login")
+        if(!login) return;
+        this.ds.getProfile(login)
+        .then(([x]) => {
+            console.log(x)
+            this.setState(x, () => {console.log(this.state)})
+        })
     }
 
     render() {
       return <>
-        <div id="mySidenav" className="sidenav" style={{width: this.props.toggle ? "250px" : "0px"}}>
+      <div id="mySidenav" className="sidenav" style={{width: this.props.toggle ? "250px" : "0px"}}>
+      {this.state.profile_img.length ?         
+        <>
             <div className="profile">
                 <div className="pro-img">
-                    <img src="https://seoulforest.or.kr/wordpress/wp-content/uploads/2017/09/20171031_065922.jpg" alt="프로필" />
-                    <h3>Roharui</h3>
+                    <img src={this.state.profile_img} alt="프로필" />
+                    <h3>{this.state.nickname}</h3>
                 </div>
                 <div className="w-info">
-                    <span>추천수 : <span className="num rcmd">100</span></span>
-                    <span>검증글 : <span className="num vfi">100</span></span>
+                    <span>추천수 : <span className="num rcmd">{this.state.recomment_count}</span></span>
+                    <span>작성글 : <span className="num vfi">{this.state.write_count}</span></span>
                 </div>
             </div>
             <p>Tema</p>
             <p>Items</p>
-            {/* <p>Clients</p>
-            <p>Contact</p> */}
+            <p>Logout</p>
+        </>
+        : 
+        <p>로그인 필요</p>}
         </div>
       </>
     }

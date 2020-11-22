@@ -3,8 +3,7 @@ import LoginDB from "../DB/Login"
 import { v4 as uuidv4 } from "uuid";
 
 interface session{
-    uuid: string,
-    _id : number
+    [key: string] : number
 }
 
 interface user{
@@ -19,14 +18,23 @@ interface user{
 const loginManager:Router = express.Router();
 
 const db = new LoginDB();
-const userSession:session[] = []
+const userSession:session = {}
 
 loginManager.post("/", async (req: express.Request, res: express.Response) => {
     let [profile] = await db.login(req.body);
     if(profile){
         let uuid = uuidv4();
-        userSession.push({uuid:uuid, _id:profile._id})
+        userSession[uuid] = profile._id
         res.json({...profile, session:uuid, _id:-1})
+    }else {
+        res.json({})
+    }
+})
+
+loginManager.post("/profile", async (req: express.Request, res: express.Response) => {
+    let {session} = req.body
+    if(userSession[session]){
+        res.json(await db.getProfile(userSession[session]))
     }else {
         res.json({})
     }

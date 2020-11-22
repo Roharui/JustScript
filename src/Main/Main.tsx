@@ -3,6 +3,7 @@ import React from 'react';
 import {Item, ItemType} from './Item/Item'
 import {Popup, Opertion} from './Popup'
 import './Main.css'
+import DataSender from '../DataSender/DataSender'
 
 interface MainState {
     items:ItemType[];
@@ -14,9 +15,11 @@ interface MainState {
 
 class Main extends React.Component<any, MainState> {
     private dummy_item : ItemType;
+    private ds: DataSender;
 
     constructor(props:null) {
         super(props);
+        this.ds = new DataSender();
         this.dummy_item = {
             id:-1,
             img:"Icon.png", 
@@ -38,8 +41,7 @@ class Main extends React.Component<any, MainState> {
     }
 
     update() {
-        fetch(`http://${window.location.hostname}:3001/item`)
-        .then(res => res.json())
+        this.ds.getItems()
         .then(res => this.setState({items: res}))
     }
 
@@ -91,13 +93,7 @@ class Main extends React.Component<any, MainState> {
     }
 
     insertWriter = (data:ItemType) => {
-        fetch(`http://${window.location.hostname}:3001/item/insert`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-              },
-            body: JSON.stringify(data)
-        })
+        this.ds.insertItem(data)
         .then(_ => {this.toggleIde()})
         .then(_ => {this.update()})
     }
