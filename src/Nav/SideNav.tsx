@@ -38,6 +38,7 @@ class SideNav extends React.Component<{toggle:boolean}, profile> {
 
     login = () => {
         let login = sessionStorage.getItem("login")
+        sessionStorage.setItem("login", "")
         if(!login) return;
         this.ds.logout(login)
         .then(x => {
