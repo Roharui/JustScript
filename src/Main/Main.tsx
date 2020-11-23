@@ -28,7 +28,9 @@ class Main extends React.Component<any, MainState> {
             type: "html",
             script:"", 
             score:0, 
-            openAble:true
+            openAble:true,
+            width: "50%",
+            height: "50%"
         }
         this.state = {
             items: [],

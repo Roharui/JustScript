@@ -28,9 +28,10 @@ function getPopup(props:PopupType){
 
 export function Popup(props:PopupType){
   let oper = props.oper;
+  let {width, height} = props.item
   return (
     <div className='popup'>
-      <div className='popup_inner'>
+      <div className='popup_inner' style={{width: width, height: height}}>
       <Button style={{position:"absolute", top:"10px", right:"10px", backgroundColor: "white"}} onClick={oper.closer}>X</Button>
       {getPopup(props)}
       </div>

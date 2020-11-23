@@ -10,7 +10,9 @@ export interface ItemType{
     descript: string,
     script: string,
     score : number,
-    openAble: boolean
+    openAble: boolean,
+    width: string,
+    height: string
 }
 
 export class Item extends React.Component<any, ItemType> {
@@ -44,7 +46,10 @@ export class Item extends React.Component<any, ItemType> {
                         { this.state.openAble ?                         
                         <Button onClick={() => { this.props.popup(this.state) }} variant="contained" color="secondary">
                             Script
-                        </Button> : <></>}
+                        </Button> :
+                        <Button onClick={() => { alert("Do Not Have Permission") }} variant="contained" disabled>
+                            Script
+                        </Button>}
 
                     </div>
                 </div>
