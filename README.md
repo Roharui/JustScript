@@ -15,4 +15,4 @@ React-typescript와 Express 모듈을 동시에 실행시키는 법을 몰라서
 
 # 중간 보고
 
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/kIkiL5pj0J4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![Video Label](http://img.youtube.com/vi/kIkiL5pj0J4/0.jpg)](https://youtu.be/kIkiL5pj0J4)
