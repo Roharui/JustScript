@@ -1,8 +1,10 @@
 
 import React from 'react';
 import DataSender from '../DataSender/DataSender'
-import Canvas from '../Main/Item/Canvas'
+// import Canvas from '../Main/Item/Canvas'
+import Iframe from '../Main/Item/Iframe'
 import { ItemType } from '../Main/Item/Item'
+import './Creater.css'
 
 interface CreaterState{
     session:string | null, 
@@ -23,11 +25,11 @@ class Creater extends React.Component<any, CreaterState> {
                 name:"TEST", 
                 descript:"TEST", 
                 type: "html",
-                script:"", 
+                script:"<h1>TEST</h1>", 
                 score:0, 
                 openAble:true,
-                width: "50%",
-                height: "50%"
+                width: "500px",
+                height: "400px"
             }
         }
     }
@@ -42,12 +44,27 @@ class Creater extends React.Component<any, CreaterState> {
     }
 
     render() {
+        let item = this.state.item;
         return <>
-            <div className="preview">
-                <Canvas item={this.state.item} />
-            </div>
-            <div className="mirror">
-                <textarea style={{width:"100%", height:"100%"}}></textarea>
+            <div className="creater">
+                <div className="controller">
+                    <label>
+                        SizeX : 
+                        <input type="text" id="sizeX" />
+                    </label>
+                    <label>
+                        SizeY : 
+                        <input type="text" id="sizeY" />
+                    </label>
+                </div>
+                <div className="preview">
+                    <div className='inner' style={{width: item.width, height: item.height}}>
+                        <Iframe item={item} />
+                    </div>
+                </div>
+                <div className="mirror">
+                    <textarea style={{width:"100%", height:"100%"}}></textarea>
+                </div>
             </div>
         </>
     }

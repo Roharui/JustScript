@@ -1,0 +1,30 @@
+
+.creater {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    height: 100%;
+}
+
+.preview {
+    margin: auto;
+    margin-top: 15%;
+    float: left;
+}
+
+.preview .controller {
+    position: absolute;
+    top: 3px;
+}
+
+.preview .inner {
+    margin: auto;
+    border: 1px solid black;
+}
+
+.mirror {
+    float: right;
+    width: 50%;
+}
