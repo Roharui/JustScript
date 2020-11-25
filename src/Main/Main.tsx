@@ -121,7 +121,7 @@ class Main extends React.Component<any, MainState> {
                 item={this.state.cur_script}
                 oper={oper} /> : null}
           {/* {this.state.ide_popup ? <Popup item={this.dummy_item} writer={this.insertWriter} closer={this.toggleIde.bind(this)} /> : null} */}
-          {/* <button id="add_button" onClick={this.toggleIde.bind(this)}>+</button> */}
+          <button id="add_button" onClick={() => {this.props.history.push('/create')}}>+</button>
         </div>
     }
 }
