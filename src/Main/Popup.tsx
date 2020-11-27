@@ -1,9 +1,8 @@
 import React from 'react';
-import Iframe from './Item/Iframe'
-import Scripter from './Scripter'
 import { Button } from "@material-ui/core"
+import { Content } from './Content'
 import { ItemType } from './Item/Item';
-import Canvas from './Item/Canvas';
+import Scripter from './Scripter';
 
 export interface Opertion{
   closer:any,
@@ -14,26 +13,14 @@ export interface PopupType{
   oper: Opertion;
 }
 
-// const tema = <></>;
-const canvas = (props:PopupType) => <Canvas item={props.item}/>
-const html = (props:PopupType) => <Iframe item={props.item}/>
-const writer = (props:PopupType) => <Scripter item={props.item} writer={props.oper.writer}/>
-
-function getPopup(props:PopupType){
-  if(props.oper.writer) return writer(props);
-  if(props.item.type === 'html') return html(props);
-  if(props.item.type === 'canvas' ) return canvas(props)
-  return <></>
-}
-
-export function Popup(props:PopupType){
+export default function Popup(props:PopupType){
   let oper = props.oper;
   let {width, height} = props.item
   return (
     <div className='popup'>
       <div className='popup_inner' style={{width: width, height: height}}>
       <Button style={{position:"absolute", top:"10px", right:"10px", backgroundColor: "white"}} onClick={oper.closer}>X</Button>
-      {getPopup(props)}
+      {oper.writer ? <Scripter item={props.item} writer={oper.writer}/> : Content(props.item)}
       </div>
     </div>
   );
