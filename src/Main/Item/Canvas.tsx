@@ -18,6 +18,7 @@ class Canvas extends React.Component<{item:ItemType}, any>{
 
     componentDidMount(){
         this.ctx = this.canvas.getContext("2d");
+        console.log(this.props.item.script)
         let func = new Function(this.props.item.script).bind(this)
         func()
     }

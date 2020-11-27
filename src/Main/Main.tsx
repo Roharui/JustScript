@@ -1,16 +1,16 @@
 
 import React from 'react';
 import {Item, ItemType} from './Item/Item'
-import {Popup, Opertion} from './Popup'
-import './Main.css'
+import Popup, { Opertion } from './Popup'
 import DataSender from '../DataSender/DataSender'
+
+import './Main.css'
 
 interface MainState {
     items:ItemType[];
     cur_script: ItemType;
     wirteAble: boolean;
     show_popup: boolean;
-    ide_popup : boolean;
 }
 
 class Main extends React.Component<any, MainState> {
@@ -36,8 +36,7 @@ class Main extends React.Component<any, MainState> {
             items: [],
             cur_script: this.dummy_item,
             wirteAble: false,
-            show_popup: false,
-            ide_popup: false
+            show_popup: false
         }
         this.update()
     }
@@ -53,12 +52,6 @@ class Main extends React.Component<any, MainState> {
         this.setState({
           show_popup: !this.state.show_popup
         });
-    }
-
-    toggleIde(){
-        this.setState({
-            ide_popup: !this.state.ide_popup
-          });
     }
 
 // ===============
@@ -96,8 +89,6 @@ class Main extends React.Component<any, MainState> {
 
     insertWriter = (data:ItemType) => {
         this.ds.insertItem(data)
-        .then(_ => {this.toggleIde()})
-        .then(_ => {this.update()})
     }
 
 // ===============
