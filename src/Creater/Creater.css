@@ -1,7 +1,6 @@
 
 .creater {
     display: flex;
-    position: relative;
     flex-direction: row;
     flex-wrap: nowrap;
 
@@ -9,22 +8,21 @@
 }
 
 .preview {
-    margin: auto;
-    margin-top: 15%;
-    float: left;
-}
+    flex: 1 1 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-.preview .controller {
-    position: absolute;
-    top: 3px;
+    background-color: lightgray;
 }
 
 .preview .inner {
-    margin: auto;
-    border: 1px solid black;
+    display: block;
+    background-color: white;
 }
 
 .mirror {
+    position: relative;
     float: right;
-    width: 50%;
+    flex: 1 1 50%;
 }
