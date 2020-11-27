@@ -6,6 +6,9 @@ import Creater from './Creater/Creater'
 import NavMain from './Nav/NavMain'
 
 class App extends React.Component {
+  componentDidMount(){
+    document.title = "JustScript"
+  }
 
   render() {
     return <>
