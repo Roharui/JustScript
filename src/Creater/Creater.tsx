@@ -91,6 +91,12 @@ class Creater extends React.Component<any, CreaterState> {
                                 <option value="tema">Tema</option>
                             </select>
                         </label>
+                        <Button style={{
+                            float: 'right',
+                            backgroundColor: "lightblue",
+                            width: "100px",
+                            height: "40px"
+                        }} onClick={this.updateScript}>UPDATE</Button>
                     </div>
                     <textarea ref={(ref:HTMLTextAreaElement) => { this.mirror = ref }} style={{width:"100%", height:"100%"}}></textarea>
                 </div>
@@ -101,7 +107,7 @@ class Creater extends React.Component<any, CreaterState> {
                     backgroundColor: "lightblue",
                     width: "100px",
                     height: "40px"
-                }} onClick={this.updateScript}>UPDATE</Button>
+                }} onClick={() => {}}>UPLOAD</Button>
             </div>
         </>
     }
