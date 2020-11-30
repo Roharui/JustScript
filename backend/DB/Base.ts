@@ -9,7 +9,9 @@ export interface ItemType{
     descript: string,
     script: string,
     score : number,
-    openAble: boolean
+    openAble: boolean,
+    width: string,
+    height: string
 }
 
 class Manager {
