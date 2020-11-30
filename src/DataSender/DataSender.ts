@@ -8,7 +8,7 @@ class DataSender {
         return items
     }
 
-    async insertItem(data:ItemType){
+    async insertItem(data:{item:ItemType, session:string}){
         return fetch(`http://${window.location.hostname}:3001/item/insert`, {
             method: 'POST',
             headers: {

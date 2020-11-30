@@ -8,7 +8,7 @@ import { Button } from '@material-ui/core';
 import './Creater.css'
 
 interface CreaterState{
-    session:string | null, 
+    session:string, 
     item:ItemType
 }
 
@@ -20,7 +20,7 @@ class Creater extends React.Component<any, CreaterState> {
         super(props);
         this.ds = new DataSender();
         this.state = {
-            session : null,
+            session : "None",
             item: {
                 id:-1,
                 img:"Icon.png", 
@@ -43,8 +43,9 @@ class Creater extends React.Component<any, CreaterState> {
         if(!login) {
             alert("You need to login!")
             this.props.history.push("/")
+        }else{
+            this.setState({...this.state, session: login})
         }
-        this.setState({...this.state, session: login})
     }
 
     changeEvent = (e:ChangeEvent<HTMLSelectElement>) => {
@@ -62,6 +63,15 @@ class Creater extends React.Component<any, CreaterState> {
     changeSize = (e:ChangeEvent<HTMLInputElement>) => {
         let item:ItemType = {...this.state.item, [e.target.name]: e.target.value}
         this.setState({item:item})
+    }
+
+    uploadItem = () => {
+        let descript:string | null = prompt("Enter this item's Description")
+        if(descript !== null){
+            let item:ItemType = {...this.state.item, descript:descript}
+            this.ds.insertItem({...this.state, item:item})
+            .then(this.props.history.push("/"))
+        }
     }
 
     render() {
@@ -107,7 +117,7 @@ class Creater extends React.Component<any, CreaterState> {
                     backgroundColor: "lightblue",
                     width: "100px",
                     height: "40px"
-                }} onClick={() => {}}>UPLOAD</Button>
+                }} onClick={this.uploadItem}>UPLOAD</Button>
             </div>
         </>
     }

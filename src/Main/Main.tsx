@@ -87,10 +87,6 @@ class Main extends React.Component<any, MainState> {
         this.togglePopup()
     }
 
-    insertWriter = (data:ItemType) => {
-        this.ds.insertItem(data)
-    }
-
 // ===============
 
 
