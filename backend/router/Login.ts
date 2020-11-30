@@ -18,7 +18,7 @@ interface user{
 const loginManager:Router = express.Router();
 
 const db = new LoginDB();
-const userSession:session = {}
+export const userSession:session = {}
 
 loginManager.post("/", async (req: express.Request, res: express.Response) => {
     let [profile] = await db.login(req.body);
