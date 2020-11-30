@@ -1,5 +1,6 @@
 import express, { Router } from "express";
 import ItemDB from "../DB"
+import { userSession } from './Login'
 
 const ItemManager:Router = express.Router();
 
@@ -11,7 +12,8 @@ ItemManager.get("/", async (req: express.Request, res: express.Response) => {
 })
 
 ItemManager.post("/insert", async (req: express.Request, res: express.Response) => {
-    await db.insert(req.body)
+    const body = req.body;
+    await db.insert(body.item, userSession[body.session])
     res.json({"state": 200})
 })
 

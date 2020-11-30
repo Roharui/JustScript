@@ -20,12 +20,12 @@ class ItemDB extends Manager {
         return x;
     }
 
-    async insert(data:ItemType){
+    async insert(data:ItemType, userId:number){
         let conn = await (this.conn)
         await conn.query(
-            `insert into justscript.items (img, name, descript, script)
+            `insert into justscript.items (descript, script, type, user_id, width, height)
             values
-            ("${data.img}", "${data.name}", "${data.descript}", "${data.script}")`
+            ("${data.descript}", "${data.script}", "${data.type}", "${userId}", "${data.width}", "${data.height}")`
         )
     }
 }
