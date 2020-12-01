@@ -1,3 +1,3 @@
 @echo off
 
-npm run-build run
+npm run-script run
