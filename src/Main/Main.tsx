@@ -43,7 +43,7 @@ class Main extends React.Component<any, MainState> {
 
     update() {
         this.ds.getItems()
-        .then(res => this.setState({items: res}))
+        .then(res => this.setState({items: res.data}))
     }
 
 // ===============

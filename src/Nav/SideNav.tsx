@@ -30,19 +30,19 @@ class SideNav extends React.Component<{toggle:boolean}, profile> {
         let login = sessionStorage.getItem("login")
         if(!login) return;
         this.ds.getProfile(login)
-        .then((x) => {
-            if(!x.length) return;
-            this.setState(x[0])
+        .then(({data}) => {
+            if(!data.length) return;
+            this.setState(data[0])
         })
     }
 
     login = () => {
         let login = sessionStorage.getItem("login")
         sessionStorage.setItem("login", "")
-        if(!login) return;
+        if(!login) return; 
         this.ds.logout(login)
         .then(x => {
-            if(x.state === 404){
+            if(x.code === 404){
                 alert("Input Error!")
             }else{
                 window.location.reload(false);
