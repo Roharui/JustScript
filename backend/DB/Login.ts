@@ -29,6 +29,16 @@ class LoginDB extends Manager {
         `)
         return JSON.parse(JSON.stringify(result));
     }
+
+    async register(register:{id:string, pw:string, pwc:string, nickname:string}) {
+        if(register.pw !== register.pwc) return false
+        let [result, _] = await (await this.conn).query(
+            `insert into justscript.user (user_id, password, nickname)
+            values
+            ("${register.id}", "${register.pw}", "${register.nickname}")`
+        )
+        return result
+    }
 }
 
 export default LoginDB;

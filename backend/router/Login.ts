@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 import LoginDB from "../DB/Login"
 import { v4 as uuidv4 } from "uuid";
+import REST from "./REST";
 
 interface session{
     [key: string] : number
@@ -25,18 +26,20 @@ loginManager.post("/", async (req: express.Request, res: express.Response) => {
     if(profile){
         let uuid = uuidv4();
         userSession[uuid] = profile._id
-        res.json({...profile, session:uuid, _id:-1})
+        let x = {...profile, session:uuid, _id:-1}
+        res.json(REST(x, 200))
     }else {
-        res.json({})
+        res.json(REST(null, 404))
     }
 })
 
 loginManager.post("/profile", async (req: express.Request, res: express.Response) => {
     let {session} = req.body
     if(userSession[session]){
-        res.json(await db.getProfile(userSession[session]))
+        let x = await db.getProfile(userSession[session])
+        res.json(REST(x, 200))
     }else {
-        res.json({})
+        res.json(REST(null, 404))
     }
 })
 
@@ -44,10 +47,17 @@ loginManager.post("/logout", async (req: express.Request, res: express.Response)
     let {session} = req.body
     if(userSession[session]){
         delete userSession[session];
-        res.json({state: 200})
+        res.json(REST(null, 200))
     }else {
-        res.json({state: 404})
+        res.json(REST(null, 404))
     }
+})
+
+loginManager.post("/register", async (req: express.Request, res: express.Response) => {
+    db.register(req.body).then(x => {
+        if(x) res.json(REST(null, 200))
+        else  res.json(REST(null, 404))
+    })
 })
 
 
