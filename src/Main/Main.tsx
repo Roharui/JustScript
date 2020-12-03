@@ -14,27 +14,14 @@ interface MainState {
 }
 
 class Main extends React.Component<any, MainState> {
-    private dummy_item : ItemType;
     private ds: DataSender;
 
     constructor(props:null) {
         super(props);
         this.ds = new DataSender();
-        this.dummy_item = {
-            id:-1,
-            img:"Icon.png", 
-            name:"TEST", 
-            descript:"TEST", 
-            type: "html",
-            script:"", 
-            score:0, 
-            openAble:true,
-            width: "50%",
-            height: "50%"
-        }
         this.state = {
             items: [],
-            cur_script: this.dummy_item,
+            cur_script: {} as ItemType,
             wirteAble: false,
             show_popup: false
         }
@@ -103,12 +90,15 @@ class Main extends React.Component<any, MainState> {
             <div className="item"/>
             <div className="item"/>
 
-            {this.state.show_popup ?
-            <Popup
-                item={this.state.cur_script}
-                oper={oper} /> : null}
-          {/* {this.state.ide_popup ? <Popup item={this.dummy_item} writer={this.insertWriter} closer={this.toggleIde.bind(this)} /> : null} */}
-          <button id="add_button" onClick={() => {this.props.history.push('/create')}}>+</button>
+            {
+                this.state.show_popup 
+            ?
+                <Popup
+                    item={this.state.cur_script}
+                    oper={oper} /> 
+            : 
+                <button id="add_button" onClick={() => {this.props.history.push('/create')}}>+</button>
+            }
         </div>
     }
 }
