@@ -4,19 +4,18 @@ import DataSender from '../DataSender/DataSender'
 import { ItemType } from '../Main/Item/Item'
 import { Content } from '../Main/Content'
 import { Button } from '@material-ui/core';
-import {UnControlled as CodeMirror} from 'react-codemirror2'
+import Popup, { Opertion } from 'src/Main/Popup';
 
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/material.css';
-import 'codemirror/theme/neat.css';
-import 'codemirror/mode/xml/xml.js';
-import 'codemirror/mode/javascript/javascript.js';
+import CodeMirror from '@uiw/react-codemirror';
+import 'codemirror/keymap/sublime';
+import 'codemirror/theme/monokai.css';
 
 import './Creater.css'
 
 interface CreaterState{
     session:string, 
-    item:ItemType
+    item:ItemType,
+    show_popup:boolean
 }
 
 class Creater extends React.Component<any, CreaterState> {
@@ -39,7 +38,8 @@ class Creater extends React.Component<any, CreaterState> {
                 openAble:true,
                 width: "500px",
                 height: "400px"
-            }
+            },
+            show_popup:false
         }
 
         this.mirror = ""
@@ -81,16 +81,22 @@ class Creater extends React.Component<any, CreaterState> {
         }
     }
 
+    togglePopup() {
+        this.setState({
+          show_popup: !this.state.show_popup
+        });
+    }
+    
+
     render() {
         let item = this.state.item;
+        let oper:Opertion = { 
+            writer: false, 
+            closer: this.togglePopup.bind(this) 
+        }
         return <>
             <div className="creater">
                 <div className="preview">
-                    <div className='inner' style={{width: item.width, height: item.height}}>
-                        {Content(item)}
-                    </div>
-                </div>
-                <div className="mirror">
                     <div className="controller">
                         <label>
                         width : 
@@ -109,25 +115,30 @@ class Creater extends React.Component<any, CreaterState> {
                             </select>
                         </label>
                         <Button style={{
-                            float: 'right',
                             backgroundColor: "lightblue",
                             width: "100px",
                             height: "40px"
                         }} onClick={this.updateScript}>UPDATE</Button>
+                        <Button style={{
+                            backgroundColor: "lightblue",
+                            width: "100px",
+                            height: "40px"
+                        }} onClick={this.togglePopup.bind(this)}>Show in popup</Button>
                     </div>
-                    {/* <textarea ref={(ref:HTMLTextAreaElement) => { this.mirror = ref }} style={{width:"100%", height:"100%"}}></textarea> */}
+                    <div className='inner' style={{width: item.width, height: item.height}}>
+                        {Content(item)}
+                    </div>
+                </div>
+                <div className="mirror">
+                    {!this.state.show_popup ?
                     <CodeMirror
-                        className="code"
-                        value={item.script}
-                        options={{
-                            mode: 'xml',
-                            theme: 'material',
-                            lineNumbers: true
-                        }}
-                        onChange={(editor, data, value) => {
-                            this.mirror = value
-                        }}
-                        />
+                    value={this.state.item.script}
+                    options={{
+                      theme: 'monokai',
+                      keyMap: 'sublime',
+                      mode: 'html',
+                    }}
+                  /> : null}
                 </div>
                 <Button style={{
                     position:"absolute", 
@@ -138,6 +149,7 @@ class Creater extends React.Component<any, CreaterState> {
                     height: "40px"
                 }} onClick={this.uploadItem}>UPLOAD</Button>
             </div>
+            {this.state.show_popup ? <Popup item={this.state.item} oper={oper} /> : null}
         </>
     }
 }
