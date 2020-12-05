@@ -1,4 +1,5 @@
 
+import { connect } from 'http2';
 import * as mysql from 'mysql2/promise';
 
 export interface ItemType{
@@ -26,8 +27,10 @@ class Manager {
         }); 
     }
 
-    _test(data:ItemType){
-        this.conn
+    async query(sql:string){
+        let conn = await this.conn
+        return conn.connect()
+        .then(() => conn.query<mysql.RowDataPacket[]>(sql))
     }
 }
 
