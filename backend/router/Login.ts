@@ -1,7 +1,9 @@
+
 import express, { Router } from "express";
 import LoginDB from "../DB/Login"
 import { v4 as uuidv4 } from "uuid";
 import REST from "./REST";
+import { RowDataPacket } from 'mysql2'
 
 interface session{
     [key: string] : number
@@ -22,11 +24,12 @@ const db = new LoginDB();
 export const userSession:session = {}
 
 loginManager.post("/", async (req: express.Request, res: express.Response) => {
-    let [profile] = await db.login(req.body);
+    let profile:any = await db.login(req.body);
+
     if(profile){
         let uuid = uuidv4();
-        userSession[uuid] = profile._id
-        let x = {...profile, session:uuid, _id:-1}
+        userSession[uuid] = profile[0]._id
+        let x = {session:uuid}
         res.json(REST(x, 200))
     }else {
         res.json(REST(null, 404))
@@ -36,8 +39,8 @@ loginManager.post("/", async (req: express.Request, res: express.Response) => {
 loginManager.post("/profile", async (req: express.Request, res: express.Response) => {
     let {session} = req.body
     if(userSession[session]){
-        let x = await db.getProfile(userSession[session])
-        res.json(REST(x, 200))
+        let x:any = await db.getProfile(userSession[session])
+        res.json(REST(x[0], 200))
     }else {
         res.json(REST(null, 404))
     }
@@ -54,6 +57,11 @@ loginManager.post("/logout", async (req: express.Request, res: express.Response)
 })
 
 loginManager.post("/register", async (req: express.Request, res: express.Response) => {
+    let check:any = await db.checkRedupId(req.body.id)
+    if(check[0].count){
+        res.json(REST(null, 400))
+        return
+    }
     db.register(req.body).then(x => {
         if(x) res.json(REST(null, 200))
         else  res.json(REST(null, 404))

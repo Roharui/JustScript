@@ -8,7 +8,7 @@ class ItemDB extends Manager {
     }
 
     async select(){
-        let [x, _] = await (await this.conn).query(`
+        return this.query(`
         SELECT 
             i.*,
             u.nickname as name,
@@ -17,12 +17,10 @@ class ItemDB extends Manager {
             items i 
             inner join user u on u._id = i.user_id;
         `)
-        return x;
     }
 
     async insert(data:ItemType, userId:number){
-        let conn = await (this.conn)
-        await conn.query(
+        this.query(
             `insert into justscript.items (descript, script, type, user_id, width, height)
             values
             ("${data.descript}", "${data.script}", "${data.type}", "${userId}", "${data.width}", "${data.height}")`

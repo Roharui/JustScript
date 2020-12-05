@@ -9,16 +9,15 @@ class LoginDB extends Manager {
 
     async login(logininfo:{id:string, pw:string}){
         let {id, pw} = logininfo;
-        let [result, _] = await (await this.conn).query(`
+        return this.query(`
             select
                 _id
             from user where user_id="${id}" and password="${pw}";
         `)
-        return JSON.parse(JSON.stringify(result));
     }
 
     async getProfile(id:number){
-        let [result, _] = await (await this.conn).query(`
+        return this.query(`
             select
                 report_count,
                 write_count,
@@ -27,17 +26,21 @@ class LoginDB extends Manager {
                 profile_img
             from user where _id="${id}";
         `)
-        return JSON.parse(JSON.stringify(result));
     }
 
     async register(register:{id:string, pw:string, pwc:string, nickname:string}) {
         if(register.pw !== register.pwc) return false
-        let [result, _] = await (await this.conn).query(
+        return this.query(
             `insert into justscript.user (user_id, password, nickname)
             values
             ("${register.id}", "${register.pw}", "${register.nickname}")`
         )
-        return result
+    }
+
+    async checkRedupId(id:string) {
+        return this.query(
+            `select count(*) as count from justscript.user where user_id = "${id}";`
+        )
     }
 }
 
