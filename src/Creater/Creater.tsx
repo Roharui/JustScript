@@ -138,6 +138,9 @@ class Creater extends React.Component<any, CreaterState> {
                       keyMap: 'sublime',
                       mode: 'html',
                     }}
+                    onChange={(e) => {
+                        this.mirror = e.getValue();
+                    }}
                   /> : null}
                 </div>
                 <Button style={{
