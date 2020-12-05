@@ -1,5 +1,4 @@
 
-import { connect } from 'http2';
 import * as mysql from 'mysql2/promise';
 
 export interface ItemType{
@@ -16,10 +15,10 @@ export interface ItemType{
 }
 
 class Manager {
-    protected conn:Promise<mysql.Connection>;
+    protected conn:mysql.Pool;
 
     constructor() {
-        this.conn = mysql.createConnection({
+        this.conn = mysql.createPool({
             host: 'localhost',
             user: 'root',
             password: 'jack7073',
@@ -28,9 +27,15 @@ class Manager {
     }
 
     async query(sql:string){
-        let conn = await this.conn
-        return conn.connect()
-        .then(() => conn.query<mysql.RowDataPacket[]>(sql))
+        let conn = await this.conn.getConnection()
+        try {
+            const [row] = await conn.query(sql)
+            return row
+        } catch (e) {
+            throw new Error(e)
+        } finally {
+           conn.release() // pool 을 돌려주는 역할을 한다.
+        }
     }
 }
 
