@@ -31,8 +31,8 @@ class SideNav extends React.Component<{toggle:boolean}, profile> {
         if(!login) return;
         this.ds.getProfile(login)
         .then(({data}) => {
-            if(!data.length) return;
-            this.setState(data[0])
+            if(!data) return;
+            this.setState(data)
         })
     }
 
