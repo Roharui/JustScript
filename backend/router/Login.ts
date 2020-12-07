@@ -68,5 +68,13 @@ loginManager.post("/register", async (req: express.Request, res: express.Respons
     })
 })
 
+loginManager.post("/overlap", async (req: express.Request, res: express.Response) => {
+    let check:any = await db.checkRedupId(req.body.id)
+    if(check[0].count){
+        res.json(REST(null, 400))
+        return
+    }
+    res.json(REST(null, 200))
+})
 
 export default loginManager; 
