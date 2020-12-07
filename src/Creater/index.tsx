@@ -1,7 +1,7 @@
 
 import React, { ChangeEvent } from 'react';
 import DataSender from '../DataSender/DataSender'
-import { ItemType } from '../Main/Item/Item'
+import { ItemType } from '../Main/Item'
 import { Content } from '../Main/Content'
 import { Button } from '@material-ui/core';
 import Popup, { Opertion } from 'src/Main/Popup';

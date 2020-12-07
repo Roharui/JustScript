@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {Item, ItemType} from './Item/Item'
+import {Item, ItemType} from './Item'
 import Popup, { Opertion } from './Popup'
 import DataSender from '../DataSender/DataSender'
 

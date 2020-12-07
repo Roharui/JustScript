@@ -1,5 +1,5 @@
 import React from 'react';
-import { ItemType } from './Item';
+import { ItemType } from '.';
 
 class Canvas extends React.Component<{item:ItemType}, any>{
     private canvas: any;

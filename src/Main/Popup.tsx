@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from "@material-ui/core"
 import { Content } from './Content'
-import { ItemType } from './Item/Item';
+import { ItemType } from './Item';
 import Scripter from './Scripter';
 
 export interface Opertion{

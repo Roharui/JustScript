@@ -65,8 +65,9 @@ class SideNav extends React.Component<{toggle:boolean}, profile> {
                     <span>작성글 : <span className="num vfi">{this.state.write_count}</span></span>
                 </div>
             </div>
-            <p>Tema</p>
+            <p>Profile</p>
             <p>Items</p>
+            <p>Tema</p>
             <p style={{position: "absolute", bottom: 100}} onClick={this.login}>Logout</p>
         </>
         : 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ItemType } from './Item';
+import { ItemType } from '.';
 
 function Iframe(props:{item:ItemType}){
     return <>

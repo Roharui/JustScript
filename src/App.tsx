@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route } from 'react-router-dom'
 import './App.css';
-import Main from './Main/Main'
-import Creater from './Creater/Creater'
-import NavMain from './Nav/NavMain'
+import Main from './Main'
+import Creater from './Creater'
+import NavMain from './Nav'
 
 class App extends React.Component {
   componentDidMount(){

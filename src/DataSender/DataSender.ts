@@ -1,5 +1,5 @@
 
-import {ItemType} from '../Main/Item/Item'
+import {ItemType} from '../Main/Item'
 
 const hostname:string = window.location.hostname
 

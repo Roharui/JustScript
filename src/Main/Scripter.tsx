@@ -1,5 +1,5 @@
 import React from 'react';
-import { ItemType } from './Item/Item';
+import { ItemType } from './Item';
 import { Button } from "@material-ui/core"
 
 class Scripter extends React.Component<{item:ItemType, writer:any}, {item:ItemType, writer:any}> {

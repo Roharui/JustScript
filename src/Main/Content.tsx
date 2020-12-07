@@ -2,7 +2,7 @@
 import React from 'react';
 import Iframe from './Item/Iframe'
 import Canvas from './Item/Canvas';
-import { ItemType } from './Item/Item';
+import { ItemType } from './Item';
 
 // const tema = <></>;
 const canvas = (item:ItemType) => <Canvas item={item}/>

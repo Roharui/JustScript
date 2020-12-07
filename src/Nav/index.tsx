@@ -1,9 +1,10 @@
 
 import React from 'react';
-import './Nav.css'
+import { withRouter } from "react-router-dom";
 import Search from './Search'
 import SideNav from './SideNav';
 import DropDown from './NavDropDown';
+import './Nav.css'
 
 class NavMain extends React.Component<any, {toggle:boolean}> {
 
@@ -20,24 +21,17 @@ class NavMain extends React.Component<any, {toggle:boolean}> {
       })
     }
 
+    goMain = () => {
+      this.props.history.push("/")
+    }
+
     render() {
       return <>
         <div className="topnav">
             <span className="logo">JustScript</span>
             <span className="sNav" onClick={this.toggleSideNav}>&#9776;</span>
-            <span className="ul active">검증글</span>
+            <span className="ul active" onClick={this.goMain.bind(this)}>검증글</span>
             <span className="ul">최신글</span>
-            {/* <div className="dropdown">
-                <button className="dropbtn">
-                    <span className="ul">필터</span>
-                    <i className="fa fa-caret-down"></i>
-                </button>
-                <div className="dropdown-content">
-                    <p>TEMA</p>
-                    <p>CANVAS</p>
-                    <p>HTML</p>
-                </div>
-            </div> */}
             <DropDown />
             <Search />
         </div>
@@ -46,4 +40,4 @@ class NavMain extends React.Component<any, {toggle:boolean}> {
     }
 }
 
-export default NavMain;
+export default withRouter(NavMain);
