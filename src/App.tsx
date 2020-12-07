@@ -4,6 +4,7 @@ import './App.css';
 import Main from './Main'
 import Creater from './Creater'
 import NavMain from './Nav'
+import Profile from './Profile';
 
 class App extends React.Component {
   componentDidMount(){
@@ -14,7 +15,8 @@ class App extends React.Component {
     return <>
       <NavMain />
       <Route exact path="/" component={Main} />
-      <Route exact path="/create" component={Creater} />
+      <Route path="/create" component={Creater} />
+      <Route path="/profile" component={Profile} />
     </>
   }
 }
