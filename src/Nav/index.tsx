@@ -28,7 +28,7 @@ class NavMain extends React.Component<any, {toggle:boolean}> {
     render() {
       return <>
         <div className="topnav">
-            <span className="logo">JustScript</span>
+            <span className="logo" onClick={this.goMain.bind(this)}>JustScript</span>
             <span className="sNav" onClick={this.toggleSideNav}>&#9776;</span>
             <span className="ul active" onClick={this.goMain.bind(this)}>검증글</span>
             <span className="ul">최신글</span>
