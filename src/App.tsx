@@ -14,7 +14,7 @@ class App extends React.Component {
   render() {
     return <>
       <NavMain />
-      <Route exact path="/" component={Main} />
+      <Route exact path="/" component={() => <Main />} />
       <Route path="/create" component={Creater} />
       <Route path="/profile" component={Profile} />
     </>

@@ -25,8 +25,13 @@ class Main extends React.Component<any, MainState> {
             wirteAble: false,
             show_popup: false
         }
+    }
+
+    componentDidMount(){
         this.update()
     }
+
+// =============
 
     update() {
         this.ds.getItems()
