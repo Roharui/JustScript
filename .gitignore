@@ -153,3 +153,4 @@ ts-react-tutorial
 # End of https://www.toptal.com/developers/gitignore/api/node,visualstudiocode,windows
 
 *.http
+example/*
