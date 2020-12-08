@@ -23,6 +23,17 @@ const loginManager:Router = express.Router();
 const db = new LoginDB();
 export const userSession:session = {}
 
+loginManager.use(function(req:express.Request, res:express.Response, next:Function){
+    let body = req.body
+    let null_ck = Object.values(body).filter((x) => !x)
+    if(null_ck.length){
+        res.json(REST(null, 404));
+        return;
+    } else {
+        next()
+    }
+})
+
 loginManager.post("/", async (req: express.Request, res: express.Response) => {
     let profile:any = await db.login(req.body);
 
