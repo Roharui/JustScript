@@ -7,7 +7,7 @@ class ItemDB extends Manager {
         super();
     }
 
-    async select(){
+    async select(score:number){
         return this.query(`
         SELECT 
             i.*,
@@ -15,15 +15,18 @@ class ItemDB extends Manager {
             u.profile_img as img
         FROM 
             items i 
-            inner join user u on u._id = i.user_id;
-        `)
+            inner join user u on u._id = i.user_id
+        where i.score >= ?;
+        `, [score])
     }
 
-    async insert(data:ItemType, userId:number){
+    async insert(data:ItemType, user_id:number){
+        let {descript, script, type, width, height} = data;
         this.query(
             `insert into justscript.items (descript, script, type, user_id, width, height)
             values
-            ("${data.descript}", "${data.script}", "${data.type}", "${userId}", "${data.width}", "${data.height}")`
+            (?, ?, ?, ?, ?, ?)`
+            , [descript, script, type, user_id, width, height]
         )
     }
 }

@@ -12,8 +12,8 @@ class LoginDB extends Manager {
         return this.query(`
             select
                 _id
-            from user where user_id="${id}" and password="${pw}";
-        `)
+            from user where user_id=? and password=?;
+        `, [id, pw])
     }
 
     async getProfile(id:number){
@@ -24,22 +24,23 @@ class LoginDB extends Manager {
                 recomment_count,
                 nickname,
                 profile_img
-            from user where _id="${id}";
-        `)
+            from user where _id=?;
+        `, [id])
     }
 
     async register(register:{id:string, pw:string, pwc:string, nickname:string}) {
         if(register.pw !== register.pwc) return false
+        let {id, pw, nickname} = register
         return this.query(
             `insert into justscript.user (user_id, password, nickname)
             values
-            ("${register.id}", "${register.pw}", "${register.nickname}")`
+            (?, ?, ?)`, [id, pw, nickname]
         )
     }
 
     async checkRedupId(id:string) {
         return this.query(
-            `select count(*) as count from justscript.user where user_id = "${id}";`
+            `select count(*) as count from justscript.user where user_id = ?;`, [id]
         )
     }
 }
