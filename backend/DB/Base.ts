@@ -26,10 +26,10 @@ class Manager {
         }); 
     }
 
-    async query(sql:string){
+    async query(sql:string, args?:any[]){
         let conn = await this.conn.getConnection()
         try {
-            const [row] = await conn.query(sql)
+            const [row] = await conn.query(sql, args)
             return row
         } catch (e) {
             throw new Error(e)
