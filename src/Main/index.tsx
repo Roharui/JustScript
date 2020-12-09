@@ -28,16 +28,21 @@ class Main extends React.Component<any, MainState> {
     }
 
     componentDidMount(){
-        this.update()
+        !this.props.recent ? this.update() : this.recentUpdate()
     }
 
 // =============
 
     update() {
-        this.ds.getItems()
+        console.log(5)
+        this.ds.getItems(5)
         .then(res => this.setState({items: res.data}))
     }
-
+    
+    recentUpdate() {
+        this.ds.getItems(0)
+        .then(res => this.setState({items: res.data}))
+    }
 // ===============
 
     togglePopup() {

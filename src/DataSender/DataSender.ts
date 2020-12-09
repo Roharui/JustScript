@@ -4,8 +4,8 @@ import {ItemType} from '../Main/Item'
 const hostname:string = window.location.hostname
 
 class DataSender {
-    async getItems(){
-        let rowitems = await fetch(`http://${hostname}:3001/item`)
+    async getItems(score:number){
+        let rowitems = await fetch(`http://${hostname}:3001/item?score=${score}`)
         let items = await rowitems.json()
         return items
     }

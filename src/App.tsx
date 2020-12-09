@@ -15,6 +15,7 @@ class App extends React.Component {
     return <>
       <NavMain />
       <Route exact path="/" component={() => <Main />} />
+      <Route path="/recent" component={() => <Main recent={true}/>} />
       <Route path="/create" component={Creater} />
       <Route path="/profile" component={Profile} />
     </>
