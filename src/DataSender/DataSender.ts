@@ -21,7 +21,7 @@ class DataSender {
     }
 
     async getProfile(session:string){
-        return fetch(`http://${hostname}:3001/login/profile`, {
+        return fetch(`http://${hostname}:3001/profile`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
