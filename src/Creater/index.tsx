@@ -91,8 +91,7 @@ class Creater extends React.Component<any, CreaterState> {
     render() {
         let item = this.state.item;
         let oper:Opertion = { 
-            writer: false, 
-            closer: this.togglePopup.bind(this) 
+            closer: this.togglePopup.bind(this)
         }
         return <>
             <div className="creater">

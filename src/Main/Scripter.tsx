@@ -2,9 +2,11 @@ import React from 'react';
 import { ItemType } from './Item';
 import { Button } from "@material-ui/core"
 
-class Scripter extends React.Component<{item:ItemType, writer:any}, {item:ItemType, writer:any}> {
+type ScriptInput = {item:ItemType, writer:(data:ItemType) => void}
 
-  constructor(props:{item:ItemType, writer:any}) {
+class Scripter extends React.Component<ScriptInput, ScriptInput> {
+
+  constructor(props:ScriptInput) {
     super(props);
     this.state = {
       item: props.item,

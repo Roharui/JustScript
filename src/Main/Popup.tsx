@@ -5,9 +5,10 @@ import { ItemType } from './Item';
 import Scripter from './Scripter';
 
 export interface Opertion{
-  closer:any,
-  writer:any,
+  closer: () => void,
+  writer?: (data:ItemType) => void,
 }
+
 export interface PopupType{
   item: ItemType,
   oper: Opertion;

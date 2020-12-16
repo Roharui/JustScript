@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import {Item, ItemType} from './Item'
 import Popup, { Opertion } from './Popup'
 import DataSender from '../DataSender/DataSender'
@@ -13,10 +14,15 @@ interface MainState {
     show_popup: boolean;
 }
 
-class Main extends React.Component<any, MainState> {
-    private ds: DataSender;
+type MainProps = RouteComponentProps<any> & {recent?: string | undefined} 
 
-    constructor(props:null) {
+class Main extends React.Component<
+    MainProps, MainState> 
+{
+    private ds: DataSender;
+    private recent: boolean;
+
+    constructor(props:MainProps) {
         super(props);
         this.ds = new DataSender();
         this.state = {
@@ -25,16 +31,16 @@ class Main extends React.Component<any, MainState> {
             wirteAble: false,
             show_popup: false
         }
+        this.recent = props.recent === 'true'
     }
 
     componentDidMount(){
-        !this.props.recent ? this.update() : this.recentUpdate()
+        !this.recent ? this.update() : this.recentUpdate()
     }
 
 // =============
 
     update() {
-        console.log(5)
         this.ds.getItems(5)
         .then(res => this.setState({items: res.data}))
     }
@@ -67,7 +73,7 @@ class Main extends React.Component<any, MainState> {
         this.togglePopup()
     }
 
-    memoSender = (item:ItemType) => {
+    memoSender = (item:ItemType):void => {
         this.setState({
             cur_script : item,
             wirteAble: true
@@ -75,7 +81,7 @@ class Main extends React.Component<any, MainState> {
         this.togglePopup()
     }
 
-    scriptWriter = (data:ItemType) => {
+    scriptWriter = (data:ItemType):void => {
         let id = data.id
         let items = this.state.items.map(el => el.id === id ? data : el)
         this.setState({
@@ -84,12 +90,16 @@ class Main extends React.Component<any, MainState> {
         this.togglePopup()
     }
 
+    toCreate = () => {
+        this.props.history.push("/create")
+    }
+
 // ===============
 
 
     render() {
         let oper:Opertion = { 
-            writer: this.state.wirteAble ? this.scriptWriter : false, 
+            writer: this.state.wirteAble ? this.scriptWriter : undefined, 
             closer: this.togglePopup.bind(this) 
         }
         return <div className="Main">
@@ -107,10 +117,10 @@ class Main extends React.Component<any, MainState> {
                     item={this.state.cur_script}
                     oper={oper} /> 
             : 
-                <button id="add_button" onClick={() => {this.props.history.push('/create')}}>+</button>
+                <button id="add_button" onClick={this.toCreate}>+</button>
             }
         </div>
     }
 }
 
-export default Main;
+export default withRouter(Main);
