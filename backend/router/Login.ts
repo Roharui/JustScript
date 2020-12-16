@@ -47,16 +47,6 @@ loginManager.post("/", async (req: express.Request, res: express.Response) => {
     }
 })
 
-loginManager.post("/profile", async (req: express.Request, res: express.Response) => {
-    let {session} = req.body
-    if(userSession[session]){
-        let x:any = await db.getProfile(userSession[session])
-        res.json(REST(x[0], 200))
-    }else {
-        res.json(REST(null, 404))
-    }
-})
-
 loginManager.post("/logout", async (req: express.Request, res: express.Response) => {
     let {session} = req.body
     if(userSession[session]){
