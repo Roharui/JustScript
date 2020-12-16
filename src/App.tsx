@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import './App.css';
 import Main from './Main'
 import Creater from './Creater'
@@ -7,17 +7,20 @@ import NavMain from './Nav'
 import Profile from './Profile';
 
 class App extends React.Component {
-  componentDidMount(){
+  constructor(props:any){
+    super(props)
     document.title = "JustScript"
   }
 
   render() {
     return <>
       <NavMain />
-      <Route exact path="/" component={() => <Main />} />
-      <Route path="/recent" component={() => <Main recent={true}/>} />
-      <Route path="/create" component={Creater} />
-      <Route path="/profile" component={Profile} />
+      <Switch>
+        <Route exact path="/" component={() => <Main />} />
+        <Route path="/recent" component={() => <Main recent="true"/>} />
+        <Route path="/create" component={Creater} />
+        <Route path="/profile" component={Profile} />
+      </Switch>
     </>
   }
 }
