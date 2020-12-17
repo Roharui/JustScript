@@ -2,6 +2,7 @@
 import React from 'react';
 import './SideNav.css'
 import DataSender from '../DataSender/DataSender'
+import { Link } from 'react-router-dom';
 
 interface profile{
     report_count:number,
@@ -65,9 +66,9 @@ class SideNav extends React.Component<{toggle:boolean}, profile> {
                     <span>작성글 : <span className="num vfi">{this.state.write_count}</span></span>
                 </div>
             </div>
-            <p>Profile</p>
-            <p>Items</p>
-            <p>Tema</p>
+            <Link to="/profile"><p>Profile</p></Link>
+            <Link to="/profile"><p>Items</p></Link>
+            <Link to="/profile"><p>Tema</p></Link>
             <p style={{position: "absolute", bottom: 100}} onClick={this.login}>Logout</p>
         </>
         : 

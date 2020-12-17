@@ -29,6 +29,13 @@ class NavMain extends React.Component<any, {toggle:boolean}> {
       this.props.history.push("/recent")
     }
 
+    navButton({main = "ul", recent = "ul"} = {}){
+      return <>
+        <span className={main} onClick={this.goMain.bind(this)}>검증글</span>
+        <span className={recent} onClick={this.goRecent.bind(this)}>최신글</span>
+      </>
+    }
+
     render() {
       return <>
         <div className="topnav">
@@ -36,12 +43,13 @@ class NavMain extends React.Component<any, {toggle:boolean}> {
             <span className="sNav" onClick={this.toggleSideNav}>&#9776;</span>
             <Switch>
               <Route exact path="/">
-                <span className="ul active" onClick={this.goMain.bind(this)}>검증글</span>
-                <span className="ul" onClick={this.goRecent.bind(this)}>최신글</span>
+                {this.navButton({main:"ul active"})}
               </Route>
               <Route path="/recent">
-                <span className="ul" onClick={this.goMain.bind(this)}>검증글</span>
-                <span className="ul active" onClick={this.goRecent.bind(this)}>최신글</span>
+                {this.navButton({recent:"ul active"})}
+              </Route>
+              <Route>
+                {this.navButton()}
               </Route>
             </Switch>
             <DropDown />
