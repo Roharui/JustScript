@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Button } from "@material-ui/core"
 import DataSender from 'src/DataSender/DataSender';
 
 import './Profile.css'
@@ -14,7 +15,8 @@ class Profile extends React.Component<any, any>{
             write_count:0,
             recomment_count:0,
             nickname:'',
-            profile_img:''
+            profile_img: '',
+            uploadFile: null
         }
         this.ds = new DataSender();
     }
@@ -22,20 +24,38 @@ class Profile extends React.Component<any, any>{
     componentDidMount(){
         let login = sessionStorage.getItem("login")
         if(!login) {
-            alert("You need to login!")
-            this.props.history.push("/")
-        }else{
-            this.setState({...this.state, session: login})
+            this.props.history.push("/");
+            return;
         }
+        this.ds.getProfile(login)
+        .then(({data}) => {
+            if(!data) {
+                this.props.history.push("/")
+                return;
+            }
+            this.setState(data)
+        })
+    }
+
+    handleFile(e:any){
+        this.setState({
+            uploadFile : e.target.files[0]
+        })
     }
 
     render(){
         return <>
-        <div className="content">
-            <div className="card"></div>
-            <div className="screen"></div>
+        <div className="profile content">
+            <div className="image">
+                <img src={this.state.profile_img} alt="프로필" />
+                <input type="file" onChange={e => this.handleFile(e)}/>
+                <Button style={{
+                            backgroundColor: "lightblue",
+                            width: "100px",
+                            height: "30px"
+                        }} >UPDATE</Button>
+            </div>
         </div>
-        <div className="bottom"></div>
         </>
     }
     

@@ -1,22 +1,4 @@
 
-.content {
-
+.profile .content {
     display: flex;
-    overflow: scroll;
-    height: 91%;
-}
-
-.card {
-    flex: 3;
-    float: left;
-    background-color: cadetblue;
-    min-width: 450px;
-    margin-right: 20px;
-}
-
-.screen {
-    width: 75%;
-    float: right;
-    border: solid;
-    padding: 10px;
 }
