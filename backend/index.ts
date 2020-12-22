@@ -15,6 +15,8 @@ class App {
 
 const appbase = new App();
 const app = appbase.application;
+
 app.use("/", router);
+app.use(express.static("public"))
 
 app.listen(3001, () => console.log("Start backend at 3001"))
