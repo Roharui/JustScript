@@ -48,11 +48,17 @@ class Creater extends React.Component<any, CreaterState> {
     componentDidMount(){
         let login = sessionStorage.getItem("login")
         if(!login) {
-            alert("You need to login!")
-            this.props.history.push("/")
-        }else{
-            this.setState({...this.state, session: login})
+            this.props.history.push("/");
+            return;
         }
+        this.ds.getProfile(login)
+        .then(({data}) => {
+            if(!data) {
+                this.props.history.push("/")
+                return;
+            }
+            this.setState({...data, session:login})
+        })
     }
 
     changeEvent = (e:ChangeEvent<HTMLSelectElement>) => {
