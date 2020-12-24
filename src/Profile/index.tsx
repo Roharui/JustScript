@@ -16,6 +16,7 @@ class Profile extends React.Component<any, any>{
             recomment_count:0,
             nickname:'',
             profile_img: '',
+            
             uploadFile: null
         }
         this.ds = new DataSender();
@@ -33,13 +34,21 @@ class Profile extends React.Component<any, any>{
                 this.props.history.push("/")
                 return;
             }
-            this.setState(data)
+            this.setState({...data, session:login})
         })
     }
 
     handleFile(e:any){
         this.setState({
             uploadFile : e.target.files[0]
+        }, () => {console.log(this.state.uploadFile)})
+    }
+    
+    uploadFile(){
+        let {uploadFile, session} = this.state
+        this.ds.sendFile(uploadFile, session)
+        .then((res) => {
+            console.log(res.data)
         })
     }
 
@@ -50,10 +59,10 @@ class Profile extends React.Component<any, any>{
                 <img src={this.state.profile_img} alt="프로필" />
                 <input type="file" onChange={e => this.handleFile(e)}/>
                 <Button style={{
-                            backgroundColor: "lightblue",
-                            width: "100px",
-                            height: "30px"
-                        }} >UPDATE</Button>
+                    backgroundColor: "lightblue",
+                    width: "100px",
+                    height: "30px"
+                }} onClick={() => this.uploadFile()}>UPDATE</Button>
             </div>
         </div>
         </>
