@@ -30,11 +30,11 @@ export class Item extends React.Component<any, ItemType> {
                     <button className="triangle-down"></button>
                 </div>
                 <div className="content">
-                    <div className="profile">
+                    <div className="profile" style={{lineHeight:"32px"}}>
                         <img src={this.state.img} width="32" height="32" alt={this.state.name}/>
-                        <span className="nick">
+                        <div className="nick" style={{height:"32px"}}>
                             {this.state.name}
-                        </span>
+                        </div>
                     </div>
                     <div className="descript">
                         {this.state.descript}

@@ -28,13 +28,19 @@ class LoginDB extends Manager {
         `, [id])
     }
 
-    async updateProfile(values:{_id:number, profile_img:string}){
-        let {_id, profile_img} = values;
+    async updateProfile(values:{
+        _id:number, 
+        nickname:string | null, 
+        profile_img:string | null
+    }){
+        let {_id, nickname, profile_img} = values;
         return this.query(`
             update user
-            set profile_img = ?
+            set 
+            profile_img = ?,
+            nickname = ?
             where _id = ?;
-        `, [profile_img, _id])
+        `, [profile_img, nickname, _id])
     }
 
     async register(register:{id:string, pw:string, pwc:string, nickname:string}) {

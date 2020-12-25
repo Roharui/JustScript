@@ -57,12 +57,13 @@ class DataSender {
         }).then(x => x.json())
     }
 
-    sendFile(file:File, session:string){
+    async sendFile(file:File, session:string, nickname:string){
         let formData = new FormData();
         formData.append('upload_file', file);
         formData.append('session', session);
+        formData.append('nickname', nickname);
 
-        return axios.post(`http://${hostname}:3001/api/image/profile_upload`, formData)
+        return axios.post(`http://${hostname}:3001/api/profile/update`, formData)
     }
     
 }

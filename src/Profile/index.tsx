@@ -43,12 +43,18 @@ class Profile extends React.Component<any, any>{
             uploadFile : e.target.files[0]
         }, () => {console.log(this.state.uploadFile)})
     }
+
+    handleChange(e:any){
+        this.setState({
+            [e.target.name] : e.target.value
+        }, () => console.log(this.state))
+    }
     
     uploadFile(){
-        let {uploadFile, session} = this.state
-        this.ds.sendFile(uploadFile, session)
+        let {uploadFile, session, nickname} = this.state
+        this.ds.sendFile(uploadFile, session, nickname)
         .then((res) => {
-            console.log(res.data)
+            window.location.reload(false);
         })
     }
 
@@ -56,8 +62,14 @@ class Profile extends React.Component<any, any>{
         return <>
         <div className="profile content">
             <div className="image">
-                <img src={this.state.profile_img} alt="프로필" />
-                <input type="file" onChange={e => this.handleFile(e)}/>
+                <img src={this.state.profile_img} alt="프로필" style={{width:"200px", height:"200px"}}/>
+                <input type="file" accept="image/*" onChange={e => this.handleFile(e)}/>
+            </div>
+            <div className="info">
+                <div>
+                    <label htmlFor="nickname">닉네임 : </label>
+                    <input type="text" id="nickname" name="nickname" onChange={e => this.handleChange(e)}/>
+                </div>
                 <Button style={{
                     backgroundColor: "lightblue",
                     width: "100px",
