@@ -43,7 +43,7 @@ class SideNav extends React.Component<{toggle:boolean}, profile> {
         if(!login) return; 
         this.ds.logout(login)
         .then(x => {
-            if(x.code === 404){
+            if(x.status === 404){
                 alert("Input Error!")
             }else{
                 window.location.reload(false);

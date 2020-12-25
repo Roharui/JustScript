@@ -4,7 +4,6 @@ import path from "path"
 
 import LoginDB from "../DB/Login"
 import { userSession } from './Login'
-import REST from "./REST";
 
 const ImageManager:Router = express.Router();
 
@@ -30,9 +29,9 @@ ImageManager.post("/profile_upload", upload.single("upload_file"), async (req: e
     if(userSession[session]){
         let [x]:any = await db.getProfile(userSession[session])
         await db.updateProfile({_id:userSession[session], profile_img:req.file.filename})
-        res.json(REST(x, 200))
+        res.status(200).json({data:x})
     }else {
-        res.json(REST(null, 404))
+        res.status(404)
     }
 })
 

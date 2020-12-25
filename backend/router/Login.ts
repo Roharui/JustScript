@@ -2,8 +2,6 @@
 import express, { Router } from "express";
 import LoginDB from "../DB/Login"
 import { v4 as uuidv4 } from "uuid";
-import REST from "./REST";
-import { RowDataPacket } from 'mysql2'
 
 interface session{
     [key: string] : number
@@ -27,7 +25,7 @@ loginManager.use(function(req:express.Request, res:express.Response, next:Functi
     let body = req.body
     let null_ck = Object.values(body).filter((x) => !x)
     if(null_ck.length){
-        res.json(REST(null, 404));
+        res.status(404)
         return;
     } else {
         next()
@@ -41,9 +39,9 @@ loginManager.post("/", async (req: express.Request, res: express.Response) => {
         let uuid = uuidv4();
         userSession[uuid] = profile[0]._id
         let x = {session:uuid}
-        res.json(REST(x, 200))
+        res.status(200).send({data:x})
     }else {
-        res.json(REST(null, 404))
+        res.status(404)
     }
 })
 
@@ -51,31 +49,31 @@ loginManager.post("/logout", async (req: express.Request, res: express.Response)
     let {session} = req.body
     if(userSession[session]){
         delete userSession[session];
-        res.json(REST(null, 200))
+        res.status(200)
     }else {
-        res.json(REST(null, 404))
+        res.status(400)
     }
 })
 
 loginManager.post("/register", async (req: express.Request, res: express.Response) => {
     let check:any = await db.checkRedupId(req.body.id)
     if(check[0].count){
-        res.json(REST(null, 400))
+        res.status(400)
         return
     }
     db.register(req.body).then(x => {
-        if(x) res.json(REST(null, 200))
-        else  res.json(REST(null, 404))
+        if(x) res.status(200)
+        else res.status(404)
     })
 })
 
 loginManager.post("/overlap", async (req: express.Request, res: express.Response) => {
     let check:any = await db.checkRedupId(req.body.id)
     if(check[0].count){
-        res.json(REST(null, 400))
+        res.status(400)
         return
     }
-    res.json(REST(null, 200))
+    res.status(200)
 })
 
 export default loginManager; 
