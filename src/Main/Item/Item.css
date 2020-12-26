@@ -1,6 +1,6 @@
 .item {
     display: flex;
-    position: static;
+    position: relative;
     flex: 1 1 18%;
     margin-bottom: 10px;
     margin-left: 10px;

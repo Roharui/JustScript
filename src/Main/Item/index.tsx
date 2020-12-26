@@ -1,5 +1,7 @@
 import React from 'react';
 import { Paper, Button } from "@material-ui/core"
+import MenuListComposition from "./itemMenu"
+
 import './Item.css'
 
 export interface ItemType{
@@ -19,6 +21,15 @@ export class Item extends React.Component<any, ItemType> {
     constructor(props: { data: Readonly<ItemType>; }){
         super(props);
         this.state = props.data;
+    }
+
+    handleClick(event:any){
+        console.log(event.currentTarget)
+        // this.setState(event.currentTarget)
+    }
+
+    handleClose(){
+
     }
 
     render(){
@@ -50,7 +61,9 @@ export class Item extends React.Component<any, ItemType> {
                         <Button onClick={() => { alert("Do Not Have Permission") }} variant="contained" disabled>
                             Script
                         </Button>}
-
+                    </div>
+                    <div style={{position:"absolute", top:"0px", right:"0px"}}>
+                        <MenuListComposition />
                     </div>
                 </div>
             </Paper>
