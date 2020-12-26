@@ -57,12 +57,14 @@ class Profile extends React.Component<any, any>{
             window.location.reload(false);
         })
     }
-
+    
     render(){
         return <>
         <div className="profile content">
             <div className="image">
                 <img src={this.state.profile_img} alt="프로필" style={{width:"200px", height:"200px"}}/>
+            </div>
+            <div>
                 <input type="file" accept="image/*" onChange={e => this.handleFile(e)}/>
             </div>
             <div className="info">
@@ -71,7 +73,7 @@ class Profile extends React.Component<any, any>{
                     <input type="text" id="nickname" name="nickname" onChange={e => this.handleChange(e)}/>
                 </div>
                 <Button style={{
-                    backgroundColor: "lightblue",
+                    backgroundColor: "lightgreen",
                     width: "100px",
                     height: "30px"
                 }} onClick={() => this.uploadFile()}>UPDATE</Button>

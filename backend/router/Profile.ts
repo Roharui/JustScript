@@ -45,8 +45,7 @@ ProfileManager.post("/update", upload.single("upload_file"), async (req: express
             nickname:nick, 
             profile_img: file.filename
         })
-        let [c]:any = await db.getProfile(userSession[session])
-        res.status(200).json({data:c})
+        res.status(200)
     }else {
         res.status(404)
     }
