@@ -1,9 +1,10 @@
 
 import React from 'react';
-import './SideNav.css'
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import DataSender from '../lib/DataSender'
-import { Link } from 'react-router-dom';
 import LoginChecker from 'src/lib/LoginChecker';
+
+import './SideNav.css'
 
 interface profile{
     report_count:number,
@@ -13,10 +14,12 @@ interface profile{
     profile_img:string
 }
 
-class SideNav extends React.Component<{toggle:boolean}, profile> {
+type SideProps = RouteComponentProps<any> & {toggle: boolean} 
+
+class SideNav extends React.Component<SideProps, profile> {
     private ds: DataSender;
 
-    constructor(props:{toggle:boolean}){
+    constructor(props:SideProps){
         super(props);
         this.state = {
             report_count:-1,
@@ -32,16 +35,16 @@ class SideNav extends React.Component<{toggle:boolean}, profile> {
         LoginChecker(this)
     }
 
-    login = () => {
+    logout = () => {
         let login = sessionStorage.getItem("login")
         sessionStorage.setItem("login", "")
         if(!login) return; 
         this.ds.logout(login)
         .then(x => {
-            if(x.status === 404){
+            if(x.status === 400){
                 alert("Input Error!")
             }else{
-                window.location.reload(false);
+                window.location.reload();
             }
         })
     }
@@ -64,7 +67,7 @@ class SideNav extends React.Component<{toggle:boolean}, profile> {
             <Link to="/profile"><p>Profile</p></Link>
             <Link to="/itemlist"><p>Items</p></Link>
             <Link to="/profile"><p>Tema</p></Link>
-            <p style={{position: "absolute", bottom: 100}} onClick={this.login}>Logout</p>
+            <p style={{position: "absolute", bottom: 100}} onClick={this.logout}>Logout</p>
         </>
         : 
             <p>로그인 필요</p>}
@@ -73,4 +76,4 @@ class SideNav extends React.Component<{toggle:boolean}, profile> {
     }
 }
 
-export default SideNav;
+export default withRouter(SideNav);;

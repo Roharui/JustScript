@@ -43,6 +43,7 @@ loginManager.post("/", async (req: express.Request, res: express.Response) => {
     }else {
         res.status(404)
     }
+    res.send()
 })
 
 loginManager.post("/logout", async (req: express.Request, res: express.Response) => {
@@ -53,6 +54,7 @@ loginManager.post("/logout", async (req: express.Request, res: express.Response)
     }else {
         res.status(400)
     }
+    res.send()
 })
 
 loginManager.post("/register", async (req: express.Request, res: express.Response) => {
@@ -65,6 +67,7 @@ loginManager.post("/register", async (req: express.Request, res: express.Respons
         if(x) res.status(200)
         else res.status(404)
     })
+    res.send()
 })
 
 loginManager.post("/overlap", async (req: express.Request, res: express.Response) => {
@@ -73,7 +76,7 @@ loginManager.post("/overlap", async (req: express.Request, res: express.Response
         res.status(400)
         return
     }
-    res.status(200)
+    res.status(200).send()
 })
 
 export default loginManager; 

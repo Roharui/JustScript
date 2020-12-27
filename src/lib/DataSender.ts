@@ -44,7 +44,6 @@ class DataSender {
                 session: session
             })
         })
-        .then(x => x.json())
     }
 
     async register(register:{id:string, pw:string, pwc:string, nickname:string}){
