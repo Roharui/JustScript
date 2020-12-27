@@ -24,7 +24,7 @@ ItemManager.get("/", async (req: express.Request, res: express.Response) => {
 ItemManager.post("/insert", async (req: express.Request, res: express.Response) => {
     const body = req.body;
     await db.insert(body.item, userSession[body.session])
-    res.status(200)
+    res.status(200).send()
 })
 
 export default ItemManager; 

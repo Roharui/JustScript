@@ -49,6 +49,7 @@ ProfileManager.post("/update", upload.single("upload_file"), async (req: express
     }else {
         res.status(404)
     }
+    res.send()
 })
 
 export default ProfileManager; 
