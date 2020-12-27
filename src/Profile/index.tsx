@@ -1,7 +1,8 @@
 
 import React from 'react';
 import { Button } from "@material-ui/core"
-import DataSender from 'src/DataSender/DataSender';
+import DataSender from 'src/lib/DataSender';
+import LoginChecker from 'src/lib/LoginChecker';
 
 import './Profile.css'
 
@@ -23,19 +24,7 @@ class Profile extends React.Component<any, any>{
     }
     
     componentDidMount(){
-        let login = sessionStorage.getItem("login")
-        if(!login) {
-            this.props.history.push("/");
-            return;
-        }
-        this.ds.getProfile(login)
-        .then(({data}) => {
-            if(!data) {
-                this.props.history.push("/")
-                return;
-            }
-            this.setState({...data, session:login})
-        })
+        LoginChecker(this)
     }
 
     handleFile(e:any){

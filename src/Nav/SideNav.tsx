@@ -1,8 +1,9 @@
 
 import React from 'react';
 import './SideNav.css'
-import DataSender from '../DataSender/DataSender'
+import DataSender from '../lib/DataSender'
 import { Link } from 'react-router-dom';
+import LoginChecker from 'src/lib/LoginChecker';
 
 interface profile{
     report_count:number,
@@ -28,13 +29,7 @@ class SideNav extends React.Component<{toggle:boolean}, profile> {
     }
 
     componentDidMount(){
-        let login = sessionStorage.getItem("login")
-        if(!login) return;
-        this.ds.getProfile(login)
-        .then(({data}) => {
-            if(!data) return;
-            this.setState(data)
-        })
+        LoginChecker(this)
     }
 
     login = () => {

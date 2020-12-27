@@ -1,10 +1,11 @@
 
 import React, { ChangeEvent } from 'react';
-import DataSender from '../DataSender/DataSender'
+import DataSender from '../lib/DataSender'
 import { ItemType } from '../Main/Item'
 import { Content } from '../Main/Content'
 import { Button } from '@material-ui/core';
 import Popup, { Opertion } from 'src/Main/Popup';
+import LoginChecker from 'src/lib/LoginChecker';
 
 import CodeMirror from '@uiw/react-codemirror';
 import 'codemirror/keymap/sublime';
@@ -17,6 +18,7 @@ interface CreaterState{
     item:ItemType,
     show_popup:boolean
 }
+
 
 class Creater extends React.Component<any, CreaterState> {
     private ds:DataSender;
@@ -46,19 +48,7 @@ class Creater extends React.Component<any, CreaterState> {
     }
 
     componentDidMount(){
-        let login = sessionStorage.getItem("login")
-        if(!login) {
-            this.props.history.push("/");
-            return;
-        }
-        this.ds.getProfile(login)
-        .then(({data}) => {
-            if(!data) {
-                this.props.history.push("/")
-                return;
-            }
-            this.setState({...data, session:login})
-        })
+        LoginChecker(this)
     }
 
     changeEvent = (e:ChangeEvent<HTMLSelectElement>) => {
