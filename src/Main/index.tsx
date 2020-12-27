@@ -14,13 +14,12 @@ interface MainState {
     show_popup: boolean;
 }
 
-type MainProps = RouteComponentProps<any> & {recent?: string | undefined} 
+type MainProps = RouteComponentProps<any> & {tag?: string | undefined} 
 
 class Main extends React.Component<
     MainProps, MainState> 
 {
     private ds: DataSender;
-    private recent: boolean;
 
     constructor(props:MainProps) {
         super(props);
@@ -31,11 +30,18 @@ class Main extends React.Component<
             wirteAble: false,
             show_popup: false
         }
-        this.recent = props.recent === 'true'
     }
 
     componentDidMount(){
-        !this.recent ? this.update() : this.recentUpdate()
+        let tag = this.props.tag
+        // !this.recent ? this.update() : this.recentUpdate()
+        if(tag == undefined){
+            this.update()
+        } else if (tag == "recent") {
+            this.recentUpdate()
+        } else if (tag == "list") {
+
+        }
     }
 
 // =============
@@ -49,6 +55,7 @@ class Main extends React.Component<
         this.ds.getItems(0)
         .then(res => this.setState({items: res.data}))
     }
+    
 // ===============
 
     togglePopup() {

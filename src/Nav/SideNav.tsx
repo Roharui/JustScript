@@ -67,7 +67,7 @@ class SideNav extends React.Component<{toggle:boolean}, profile> {
                 </div>
             </div>
             <Link to="/profile"><p>Profile</p></Link>
-            <Link to="/profile"><p>Items</p></Link>
+            <Link to="/itemlist"><p>Items</p></Link>
             <Link to="/profile"><p>Tema</p></Link>
             <p style={{position: "absolute", bottom: 100}} onClick={this.login}>Logout</p>
         </>
