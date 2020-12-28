@@ -3,7 +3,8 @@ import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import {Item, ItemType} from './Item'
 import Popup, { Opertion } from './Popup'
-import DataSender from '../DataSender/DataSender'
+import DataSender from '../lib/DataSender'
+import LoginChecker from '../lib/LoginChecker';
 
 import './Main.css'
 
@@ -35,12 +36,12 @@ class Main extends React.Component<
     componentDidMount(){
         let tag = this.props.tag
         // !this.recent ? this.update() : this.recentUpdate()
-        if(tag == undefined){
+        if(tag === undefined){
             this.update()
-        } else if (tag == "recent") {
+        } else if (tag === "recent") {
             this.recentUpdate()
-        } else if (tag == "list") {
-
+        } else if (tag === "list") {
+            LoginChecker(this)
         }
     }
 
