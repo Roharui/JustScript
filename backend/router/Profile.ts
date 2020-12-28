@@ -3,7 +3,7 @@ import multer from "multer";
 import path from "path"
 
 import LoginDB from "../DB/Login"
-import { userSession } from './Login'
+import { loginChecker, userSession } from './Login'
 
 const ProfileManager:Router = express.Router();
 
@@ -24,32 +24,23 @@ const upload = multer({
 });
 
 
-ProfileManager.post("/", async (req: express.Request, res: express.Response) => {
+ProfileManager.post("/", loginChecker, async (req: express.Request, res: express.Response) => {
     let {session} = req.body
-    if(userSession[session]){
         let [x]:any = await db.getProfile(userSession[session])
         res.status(200).json({data:x})
-    }else {
-        res.status(404)
-    }
 })
 
-ProfileManager.post("/update", upload.single("upload_file"), async (req: express.Request, res: express.Response) => {
+ProfileManager.post("/update", loginChecker, upload.single("upload_file"), async (req: express.Request, res: express.Response) => {
     let {session, nickname} = req.body
-    if(userSession[session]){
-        let [x]:any = await db.getProfile(userSession[session])
-        let file = req.file != undefined ? req.file : {filename:x.profile_img}
-        let nick = nickname != undefined ? nickname : x.nickname
-        await db.updateProfile({
-            _id:userSession[session], 
-            nickname:nick, 
-            profile_img: file.filename
-        })
-        res.status(200)
-    }else {
-        res.status(404)
-    }
-    res.send()
+    let [x]:any = await db.getProfile(userSession[session])
+    let file = req.file != undefined ? req.file : {filename:x.profile_img}
+    let nick = nickname != undefined ? nickname : x.nickname
+    await db.updateProfile({
+        _id:userSession[session], 
+        nickname:nick, 
+        profile_img: file.filename
+    })
+    res.status(200).send()
 })
 
 export default ProfileManager; 

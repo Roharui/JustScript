@@ -21,16 +21,25 @@ const loginManager:Router = express.Router();
 const db = new LoginDB();
 export const userSession:session = {}
 
-loginManager.use(function(req:express.Request, res:express.Response, next:Function){
-    let body = req.body
-    let null_ck = Object.values(body).filter((x) => !x)
-    if(null_ck.length){
-        res.status(404)
-        return;
-    } else {
+export function loginChecker(req:express.Request, res:express.Response, next:Function){
+    let {session} = req.body
+    if(userSession[session]){
         next()
+    } else {
+        res.status(404).send()
     }
-})
+}
+
+// loginManager.use(function(req:express.Request, res:express.Response, next:Function){
+//     let body = req.body
+//     let null_ck = Object.values(body).filter((x) => !x)
+//     if(null_ck.length){
+//         res.status(404)
+//         return;
+//     } else {
+//         next()
+//     }
+// })
 
 loginManager.post("/", async (req: express.Request, res: express.Response) => {
     let profile:any = await db.login(req.body);
@@ -41,20 +50,14 @@ loginManager.post("/", async (req: express.Request, res: express.Response) => {
         let x = {session:uuid}
         res.status(200).send({data:x})
     }else {
-        res.status(404)
+        res.status(404).send()
     }
-    res.send()
 })
 
-loginManager.post("/logout", async (req: express.Request, res: express.Response) => {
+loginManager.post("/logout", loginChecker ,async (req: express.Request, res: express.Response) => {
     let {session} = req.body
-    if(userSession[session]){
-        delete userSession[session];
-        res.status(200)
-    }else {
-        res.status(400)
-    }
-    res.send()
+    delete userSession[session];
+    res.status(200).send();
 })
 
 loginManager.post("/register", async (req: express.Request, res: express.Response) => {

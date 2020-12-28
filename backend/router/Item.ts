@@ -1,6 +1,6 @@
 import express, { Router } from "express";
 import ItemDB from "../DB"
-import { userSession } from './Login'
+import { userSession, loginChecker } from './Login'
 const ItemManager:Router = express.Router();
 
 const db = new ItemDB();
@@ -21,7 +21,7 @@ ItemManager.get("/", async (req: express.Request, res: express.Response) => {
     res.status(200).json({data:items})
 })
 
-ItemManager.post("/insert", async (req: express.Request, res: express.Response) => {
+ItemManager.post("/insert", loginChecker, async (req: express.Request, res: express.Response) => {
     const body = req.body;
     await db.insert(body.item, userSession[body.session])
     res.status(200).send()
