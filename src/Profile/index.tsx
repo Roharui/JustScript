@@ -24,7 +24,7 @@ class Profile extends React.Component<any, any>{
     }
     
     componentDidMount(){
-        LoginChecker(this)
+        LoginChecker(this).then(data => this.setState(data))
     }
 
     handleFile(e:any){
@@ -59,7 +59,7 @@ class Profile extends React.Component<any, any>{
             <div className="info">
                 <div>
                     <label htmlFor="nickname">닉네임 : </label>
-                    <input type="text" id="nickname" name="nickname" onChange={e => this.handleChange(e)}/>
+                    <input type="text" id="nickname" name="nickname" placeholder={this.state.nickname} onChange={e => this.handleChange(e)}/>
                 </div>
                 <Button style={{
                     backgroundColor: "lightgreen",

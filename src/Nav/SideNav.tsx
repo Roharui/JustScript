@@ -32,7 +32,7 @@ class SideNav extends React.Component<SideProps, profile> {
     }
 
     componentDidMount(){
-        LoginChecker(this)
+        LoginChecker(this).then(data => this.setState(data))
     }
 
     logout = () => {
