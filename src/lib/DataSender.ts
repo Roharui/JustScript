@@ -5,7 +5,19 @@ import axios from "axios";
 const hostname:string = window.location.hostname
 
 class DataSender {
-    async getItems(score:number){
+    async getItems(score:number, session?:string | null){
+        if(session){
+            let rowitems = await fetch(`http://${hostname}:3001/api/item/owner`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                  },
+                body: JSON.stringify({session:session})
+            })
+            let items = await rowitems.json()
+            console.log(items)
+            return items
+        }
         let rowitems = await fetch(`http://${hostname}:3001/api/item?score=${score}`)
         let items = await rowitems.json()
         return items
@@ -32,6 +44,7 @@ class DataSender {
             })
         })
         .then(x => x.json())
+        .catch(err => err)
     }
 
     async logout(session:string){

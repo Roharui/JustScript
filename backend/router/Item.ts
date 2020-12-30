@@ -21,6 +21,12 @@ ItemManager.get("/", async (req: express.Request, res: express.Response) => {
     res.status(200).json({data:items})
 })
 
+ItemManager.post("/owner", loginChecker, async (req: express.Request, res: express.Response) => {
+    const {session} = req.body
+    let items = await db.selectByUser(userSession[session])
+    res.status(200).json({"data":items})
+})
+
 ItemManager.post("/insert", loginChecker, async (req: express.Request, res: express.Response) => {
     const body = req.body;
     await db.insert(body.item, userSession[body.session])

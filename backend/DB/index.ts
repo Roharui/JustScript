@@ -20,6 +20,19 @@ class ItemDB extends Manager {
         `, [score])
     }
 
+    async selectByUser(user_id:number){
+        return this.query(`
+        SELECT 
+            i.*,
+            u.nickname as name,
+            u.profile_img as img
+        FROM 
+            items i 
+            inner join user u on u._id = i.user_id
+        where i.user_id = ?;
+        `, [user_id])
+    }
+
     async insert(data:ItemType, user_id:number){
         let {descript, script, type, width, height} = data;
         this.query(
