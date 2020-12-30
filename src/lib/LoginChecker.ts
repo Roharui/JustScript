@@ -1,22 +1,36 @@
 
 
-function LoginChecker(obj:any) {
+async function LoginCheckerAsString(obj:any):Promise<string> {
 
     let login = sessionStorage.getItem("login")
-    if(!login) {
+    if(login === null) {
         obj.props.history.push("/");
-        return;
     }
-    obj.ds.getProfile(login)
-    .then((x:{data:any}) => {
-        let {data} = x
-        if(!data) {
-            obj.props.history.push("/")
-            return;
-        }
-        obj.setState({...data, session:login})
-    })
 
+    console.log(login)
+
+    let x: { data: any; } = await obj.ds.getProfile(login)
+    let {data} = x
+    if(!data) obj.props.history.push("/")
+
+    return (login as string)
 }
 
+async function LoginChecker(obj:any):Promise<any> {
+
+    let login = sessionStorage.getItem("login")
+    if(login === null) {
+        obj.props.history.push("/");
+    }
+
+    console.log(login)
+
+    let x: { data: any; } = await obj.ds.getProfile(login)
+    let {data} = x
+    if(!data) obj.props.history.push("/")
+
+    return data
+}
+
+export {LoginChecker, LoginCheckerAsString}
 export default LoginChecker
