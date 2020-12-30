@@ -4,7 +4,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import {Item, ItemType} from './Item'
 import Popup, { Opertion } from './Popup'
 import DataSender from '../lib/DataSender'
-import LoginChecker from '../lib/LoginChecker';
+import {LoginCheckerAsString as LoginChecker} from '../lib/LoginChecker';
 
 import './Main.css'
 
@@ -13,6 +13,7 @@ interface MainState {
     cur_script: ItemType;
     wirteAble: boolean;
     show_popup: boolean;
+    session: string;
 }
 
 type MainProps = RouteComponentProps<any> & {tag?: string | undefined} 
@@ -29,7 +30,8 @@ class Main extends React.Component<
             items: [],
             cur_script: {} as ItemType,
             wirteAble: false,
-            show_popup: false
+            show_popup: false,
+            session: ""
         }
     }
 
@@ -42,6 +44,10 @@ class Main extends React.Component<
             this.recentUpdate()
         } else if (tag === "list") {
             LoginChecker(this)
+            .then((login:string) => this.ownerUpdate(login))
+            .catch(err => {
+
+            })
         }
     }
 
@@ -55,6 +61,11 @@ class Main extends React.Component<
     recentUpdate() {
         this.ds.getItems(0)
         .then(res => this.setState({items: res.data}))
+    }
+
+    ownerUpdate(session:string) {
+        this.ds.getItems(0, session)
+        .then(res => this.setState({items : res.data}))
     }
     
 // ===============
