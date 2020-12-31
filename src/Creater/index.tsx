@@ -5,7 +5,7 @@ import { ItemType } from '../Main/Item'
 import { Content } from '../Main/Content'
 import { Button } from '@material-ui/core';
 import Popup, { Opertion } from 'src/Main/Popup';
-import LoginChecker from 'src/lib/LoginChecker';
+import {LoginCheckerAsString as LoginChecker} from 'src/lib/LoginChecker';
 
 import CodeMirror from '@uiw/react-codemirror';
 import 'codemirror/keymap/sublime';
@@ -14,7 +14,7 @@ import 'codemirror/theme/monokai.css';
 import './Creater.css'
 
 interface CreaterState{
-    session:string, 
+    session:string,
     item:ItemType,
     show_popup:boolean
 }
@@ -28,7 +28,7 @@ class Creater extends React.Component<any, CreaterState> {
         super(props);
         this.ds = new DataSender();
         this.state = {
-            session : "None",
+            session:"",
             item: {
                 id:-1,
                 img:"Icon.png", 
@@ -49,7 +49,7 @@ class Creater extends React.Component<any, CreaterState> {
     }
 
     componentDidMount(){
-        LoginChecker(this)
+        LoginChecker(this).then(x => this.setState({...this.state, session:x}))
     }
 
     changeEvent = (e:ChangeEvent<HTMLSelectElement>) => {
@@ -74,7 +74,7 @@ class Creater extends React.Component<any, CreaterState> {
         if(descript !== null){
             let item:ItemType = {...this.state.item, descript:descript}
             this.ds.insertItem({...this.state, item:item})
-            .then(this.props.history.push("/recent"))
+            .then(() => this.props.history.push("/recent"))
         }
     }
 

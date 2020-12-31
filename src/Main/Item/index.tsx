@@ -30,8 +30,11 @@ export class Item extends React.Component<any, ItemType> {
 
     async delete() {
         let data = this.props.data;
-        let session = await LoginChecker(this)
-        await this.ds.deleteItem(data.id, session)
+        if(window.confirm("정말 삭제하시겠습니까?"))
+        {
+            let session = await LoginChecker(this)
+            await this.ds.deleteItem(data.id, session)
+        }
     }
 
     render(){
