@@ -12,11 +12,15 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: 'flex',
+      display: 'flex'
     },
     paper: {
-      marginRight: theme.spacing(2),
+      marginRight: theme.spacing(2)
     },
+    poper: {
+      position: 'relative',
+      zIndex: 999
+    }
   }),
 );
 
@@ -65,17 +69,16 @@ export default function MenuListComposition() {
         >
           <MoreVertIcon />
         </Button>
-        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+        <Popper className={classes.poper} open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
           {({ TransitionProps, placement }) => (
             <Grow
               {...TransitionProps}
-              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'right bottom' }}
+              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
             >
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                    <MenuItem onClick={handleClose}>삭제</MenuItem>
-                    <MenuItem onClick={handleClose}>수정</MenuItem>
+                    <MenuItem onClick={handleClose} style={{color:"red"}}>삭제</MenuItem>
                     <MenuItem onClick={handleClose}>신고</MenuItem>
                   </MenuList>
                 </ClickAwayListener>

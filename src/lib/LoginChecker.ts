@@ -29,7 +29,7 @@ async function LoginChecker(obj:any):Promise<any> {
     let {data} = x
     if(!data) obj.props.history.push("/")
 
-    return data
+    return {...data, session:login}
 }
 
 export {LoginChecker, LoginCheckerAsString}
