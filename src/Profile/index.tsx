@@ -29,6 +29,7 @@ class Profile extends React.Component<any, any>{
 
     handleFile(e:any){
         this.setState({
+            profile_img : URL.createObjectURL(e.target.files[0]),
             uploadFile : e.target.files[0]
         })
     }
@@ -48,27 +49,26 @@ class Profile extends React.Component<any, any>{
     }
     
     render(){
-        return <>
-        <div className="profile content">
+        return <div className="pcontent">
             <div className="image">
                 <img src={this.state.profile_img} alt="프로필" style={{width:"200px", height:"200px"}}/>
             </div>
             <div>
-                <input type="file" accept="image/*" onChange={e => this.handleFile(e)}/>
+                <label id="pfileLable" htmlFor="pfile">파일 바꾸기</label>
+                <input type="file" id="pfile" accept="image/*" style={{display:"none"}} onChange={e => this.handleFile(e)}/>
             </div>
-            <div className="info">
-                <div>
-                    <label htmlFor="nickname">닉네임 : </label>
-                    <input type="text" id="nickname" name="nickname" placeholder={this.state.nickname} onChange={e => this.handleChange(e)}/>
-                </div>
-                <Button style={{
-                    backgroundColor: "lightgreen",
-                    width: "100px",
-                    height: "30px"
-                }} onClick={() => this.uploadFile()}>UPDATE</Button>
+            <div>
+                <label htmlFor="nickname">닉네임 : </label>
+                <input type="text" id="nickname" name="nickname" placeholder={this.state.nickname} onChange={e => this.handleChange(e)}/>
+            </div>
+            <div>
+            <Button style={{
+                backgroundColor: "lightgreen",
+                width: "100px",
+                height: "30px"
+            }} onClick={() => this.uploadFile()}>수정하기</Button>
             </div>
         </div>
-        </>
     }
     
 }

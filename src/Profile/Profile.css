@@ -1,4 +1,19 @@
 
-.profile .content {
-    display: block;
+.pcontent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.pcontent div {
+    margin-top: 40px;
+}
+
+.pcontent #pfileLable {
+    padding: 6px 25px;
+    background-color:skyblue;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
 }
