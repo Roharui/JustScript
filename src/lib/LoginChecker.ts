@@ -7,8 +7,6 @@ async function LoginCheckerAsString(obj:any):Promise<string> {
         obj.props.history.push("/");
     }
 
-    console.log(login)
-
     let x: { data: any; } = await obj.ds.getProfile(login)
     let {data} = x
     if(!data) obj.props.history.push("/")
@@ -22,8 +20,6 @@ async function LoginChecker(obj:any):Promise<any> {
     if(login === null) {
         obj.props.history.push("/");
     }
-
-    console.log(login)
 
     let x: { data: any; } = await obj.ds.getProfile(login)
     let {data} = x

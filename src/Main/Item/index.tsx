@@ -18,9 +18,6 @@ export interface ItemType{
 }
 
 export class Item extends React.Component<any, ItemType> {
-    constructor(props: { data: Readonly<ItemType>; }){
-        super(props);
-    }
 
     render(){
         let data = this.props.data;

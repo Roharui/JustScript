@@ -30,13 +30,13 @@ class Profile extends React.Component<any, any>{
     handleFile(e:any){
         this.setState({
             uploadFile : e.target.files[0]
-        }, () => {console.log(this.state.uploadFile)})
+        })
     }
 
     handleChange(e:any){
         this.setState({
             [e.target.name] : e.target.value
-        }, () => console.log(this.state))
+        })
     }
     
     uploadFile(){
