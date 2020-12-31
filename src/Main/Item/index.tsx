@@ -3,6 +3,8 @@ import { Paper, Button } from "@material-ui/core"
 import MenuListComposition from "./itemMenu"
 
 import './Item.css'
+import DataSender from 'src/lib/DataSender';
+import {LoginCheckerAsString as LoginChecker} from 'src/lib/LoginChecker';
 
 export interface ItemType{
     id : number,
@@ -19,6 +21,18 @@ export interface ItemType{
 }
 
 export class Item extends React.Component<any, ItemType> {
+    private ds:DataSender;
+
+    constructor(props:any) {
+        super(props);
+        this.ds = new DataSender()
+    }
+
+    async delete() {
+        let data = this.props.data;
+        let session = await LoginChecker(this)
+        await this.ds.deleteItem(data.id, session)
+    }
 
     render(){
         let data = this.props.data;
@@ -52,7 +66,7 @@ export class Item extends React.Component<any, ItemType> {
                         </Button>}
                     </div>
                     <div style={{position:"absolute", top:"0px", right:"0px"}}>
-                        <MenuListComposition own={data.own}/>
+                        <MenuListComposition delete={this.delete.bind(this)} own={data.own}/>
                     </div>
                 </div>
             </Paper>

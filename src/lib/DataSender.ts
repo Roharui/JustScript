@@ -9,7 +9,6 @@ class DataSender {
         let surl = session ? `&session=${session}` : ""
         let rowitems = await fetch(`http://${hostname}:3001/api/item?score=${score}` + surl)
         let items = await rowitems.json()
-        console.log(items)
         return items
     }
 
@@ -32,6 +31,19 @@ class DataSender {
                 "Content-Type": "application/json",
               },
             body: JSON.stringify(data)
+        })
+    }
+
+    async deleteItem(id:number, session:string){
+        return fetch(`http://${hostname}:3001/api/item/delete`, {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+              },
+            body: JSON.stringify({
+                id: id,
+                session:session
+            })
         })
     }
 

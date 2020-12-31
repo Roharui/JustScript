@@ -32,7 +32,7 @@ ItemManager.post("/insert", loginChecker, async (req: express.Request, res: expr
 })
 
 ItemManager.delete("/delete", loginChecker, async (req: express.Request, res: express.Response) => {
-    const {_id, id} = req.body;
+    const {id, _id} = req.body;
 
     db.delete(id, _id)
     .then(() => res.status(200))
