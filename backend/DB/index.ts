@@ -7,17 +7,19 @@ class ItemDB extends Manager {
         super();
     }
 
-    async select(score:number){
+    async select(score:number, id?:number){
+        let _id = id ? id : -1
         return this.query(`
         SELECT 
             i.*,
             u.nickname as name,
-            u.profile_img as img
+            u.profile_img as img,
+            (select i.user_id = ?) as own
         FROM 
             items i 
             inner join user u on u._id = i.user_id
         where i.score >= ?;
-        `, [score])
+        `, [_id, score])
     }
 
     async selectByUser(user_id:number){

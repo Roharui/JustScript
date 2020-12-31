@@ -9,6 +9,7 @@ class DataSender {
         let surl = session ? `&session=${session}` : ""
         let rowitems = await fetch(`http://${hostname}:3001/api/item?score=${score}` + surl)
         let items = await rowitems.json()
+        console.log(items)
         return items
     }
 

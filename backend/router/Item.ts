@@ -6,7 +6,7 @@ const ItemManager:Router = express.Router();
 const db = new ItemDB();
 
 ItemManager.get("/", async (req: express.Request, res: express.Response) => {
-    let {score} = req.query
+    let {score, session} = req.query
     let s:number;
     if(typeof score === "string"){
         try{
@@ -17,7 +17,7 @@ ItemManager.get("/", async (req: express.Request, res: express.Response) => {
     } else {
         s = 5;
     }
-    let items = await db.select(s);
+    let items = await db.select(s, userSession[(session as string)]);
     res.status(200).json({data:items})
 })
 
