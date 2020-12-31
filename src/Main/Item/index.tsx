@@ -14,7 +14,8 @@ export interface ItemType{
     score : number,
     openAble: boolean,
     width: string,
-    height: string
+    height: string;
+    own: number;
 }
 
 export class Item extends React.Component<any, ItemType> {
@@ -51,7 +52,7 @@ export class Item extends React.Component<any, ItemType> {
                         </Button>}
                     </div>
                     <div style={{position:"absolute", top:"0px", right:"0px"}}>
-                        <MenuListComposition />
+                        <MenuListComposition own={data.own}/>
                     </div>
                 </div>
             </Paper>

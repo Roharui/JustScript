@@ -39,7 +39,8 @@ class Creater extends React.Component<any, CreaterState> {
                 score:0, 
                 openAble:true,
                 width: "500px",
-                height: "400px"
+                height: "400px",
+                own: 0
             },
             show_popup:false
         }
@@ -73,7 +74,7 @@ class Creater extends React.Component<any, CreaterState> {
         if(descript !== null){
             let item:ItemType = {...this.state.item, descript:descript}
             this.ds.insertItem({...this.state, item:item})
-            .then(this.props.history.push("/"))
+            .then(this.props.history.push("/recent"))
         }
     }
 

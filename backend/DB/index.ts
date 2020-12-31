@@ -27,7 +27,8 @@ class ItemDB extends Manager {
         SELECT 
             i.*,
             u.nickname as name,
-            u.profile_img as img
+            u.profile_img as img,
+            1 as own
         FROM 
             items i 
             inner join user u on u._id = i.user_id
@@ -42,6 +43,13 @@ class ItemDB extends Manager {
             values
             (?, ?, ?, ?, ?, ?)`
             , [descript, script, type, user_id, width, height]
+        )
+    }
+
+    async delete(id:number, user_id:number){
+        this.query(
+            'delete from item where id = ?, user_id = ?;'
+            , [id, user_id]
         )
     }
 }

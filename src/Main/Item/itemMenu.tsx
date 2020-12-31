@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function MenuListComposition() {
+export default function MenuListComposition(props:{own:number}) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
@@ -78,7 +78,7 @@ export default function MenuListComposition() {
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                    <MenuItem onClick={handleClose} style={{color:"red"}}>삭제</MenuItem>
+                    {props.own ? <MenuItem onClick={handleClose} style={{color:"red"}}>삭제</MenuItem> : null}
                     <MenuItem onClick={handleClose}>신고</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
