@@ -7,15 +7,6 @@ interface session{
     [key: string] : number
 }
 
-interface user{
-    _id: number,
-    report_count: number,
-    write_count: number,
-    recomment_count: number,
-    nickname: string,
-    profile_img: string,
-}
-
 const loginManager:Router = express.Router();
 
 const db = new LoginDB();

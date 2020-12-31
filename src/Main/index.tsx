@@ -35,7 +35,6 @@ class Main extends React.Component<
 
     componentDidMount(){
         let tag = this.props.tag
-        // !this.recent ? this.update() : this.recentUpdate()
         if(tag === undefined){
             this.update()
         } else if (tag === "recent") {

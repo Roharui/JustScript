@@ -28,14 +28,10 @@ class Manager {
 
     async query(sql:string, args?:any[]){
         let conn = await this.conn.getConnection()
-        try {
-            const [row] = await conn.query(sql, args)
-            return row
-        } catch (e) {
-            throw new Error(e)
-        } finally {
-           conn.release() // pool 을 돌려주는 역할을 한다.
-        }
+        const [row] = await conn.query(sql, args)
+        conn.release()
+
+        return row
     }
 }
 
