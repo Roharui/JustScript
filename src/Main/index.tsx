@@ -13,7 +13,6 @@ interface MainState {
     cur_script: ItemType;
     wirteAble: boolean;
     show_popup: boolean;
-    session: string;
 }
 
 type MainProps = RouteComponentProps<any> & {tag?: string | undefined} 
@@ -30,8 +29,7 @@ class Main extends React.Component<
             items: [],
             cur_script: {} as ItemType,
             wirteAble: false,
-            show_popup: false,
-            session: ""
+            show_popup: false
         }
     }
 
@@ -45,26 +43,24 @@ class Main extends React.Component<
         } else if (tag === "list") {
             LoginChecker(this)
             .then((login:string) => this.ownerUpdate(login))
-            .catch(err => {
-
-            })
+            .catch(err => {})
         }
     }
 
 // =============
 
     update() {
-        this.ds.getItems(5)
+        this.ds.getItems(5, sessionStorage.getItem("login"))
         .then(res => this.setState({items: res.data}))
     }
     
     recentUpdate() {
-        this.ds.getItems(0)
+        this.ds.getItems(0, sessionStorage.getItem("login"))
         .then(res => this.setState({items: res.data}))
     }
 
     ownerUpdate(session:string) {
-        this.ds.getItems(0, session)
+        this.ds.getOwnItems(session)
         .then(res => this.setState({items : res.data}))
     }
     

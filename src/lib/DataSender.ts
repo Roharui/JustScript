@@ -6,21 +6,22 @@ const hostname:string = window.location.hostname
 
 class DataSender {
     async getItems(score:number, session?:string | null){
-        if(session){
-            let rowitems = await fetch(`http://${hostname}:3001/api/item/owner`, {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                  },
-                body: JSON.stringify({session:session})
-            })
-            let items = await rowitems.json()
-            console.log(items)
-            return items
-        }
-        let rowitems = await fetch(`http://${hostname}:3001/api/item?score=${score}`)
+        let surl = session ? `&session=${session}` : ""
+        let rowitems = await fetch(`http://${hostname}:3001/api/item?score=${score}` + surl)
         let items = await rowitems.json()
         return items
+    }
+
+    async getOwnItems(session:string){
+        return fetch(`http://${hostname}:3001/api/item/owner`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+              },
+            body: JSON.stringify({
+                session: session
+            })
+        }).then(x => x.json())
     }
 
     async insertItem(data:{item:ItemType, session:string}){
