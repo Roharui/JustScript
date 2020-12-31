@@ -24,22 +24,12 @@ export const userSession:session = {}
 export function loginChecker(req:express.Request, res:express.Response, next:Function){
     let {session} = req.body
     if(userSession[session]){
+        req.body._id = userSession[session]
         next()
     } else {
         res.status(404).send()
     }
 }
-
-// loginManager.use(function(req:express.Request, res:express.Response, next:Function){
-//     let body = req.body
-//     let null_ck = Object.values(body).filter((x) => !x)
-//     if(null_ck.length){
-//         res.status(404)
-//         return;
-//     } else {
-//         next()
-//     }
-// })
 
 loginManager.post("/", async (req: express.Request, res: express.Response) => {
     let profile:any = await db.login(req.body);

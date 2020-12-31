@@ -48,7 +48,7 @@ class ItemDB extends Manager {
 
     async delete(id:number, user_id:number){
         this.query(
-            'delete from item where id = ?, user_id = ?;'
+            'delete from items where id = ? and user_id = ?;'
             , [id, user_id]
         )
     }
