@@ -5,6 +5,13 @@ import axios from "axios";
 const hostname:string = window.location.hostname
 
 class DataSender {
+    static instance:DataSender;
+
+    constructor() {
+        if(DataSender.instance) return DataSender.instance;
+        DataSender.instance = this
+    }
+
     async getItems(score:number, session?:string | null){
         let surl = session ? `&session=${session}` : ""
         let rowitems = await fetch(`http://${hostname}:3001/api/item?score=${score}` + surl)
