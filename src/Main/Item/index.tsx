@@ -1,10 +1,10 @@
 import React from 'react';
 import { Paper, Button } from "@material-ui/core"
 import MenuListComposition from "./itemMenu"
-
-import './Item.css'
 import DataSender from 'src/lib/DataSender';
 import {LoginCheckerAsString as LoginChecker} from 'src/lib/LoginChecker';
+
+import './Item.css'
 
 export interface ItemType{
     id : number,
@@ -40,10 +40,17 @@ export class Item extends React.Component<Readonly<ItemProps>, ItemType> {
         let data = this.props.data;
         if(window.confirm("정말 삭제하시겠습니까?"))
         {
-            let session = await LoginChecker(this)
+            let session = await LoginChecker()
             await this.ds.deleteItem(data.id, session)
             await this.props.updater()
         }
+    }
+
+    recomment() {
+        LoginChecker()
+        .then(session => {
+
+        })
     }
 
     render(){

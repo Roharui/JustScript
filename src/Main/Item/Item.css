@@ -65,6 +65,13 @@
     padding-left: 12px;
 }
 
+.recommend button{
+    outline:none;
+ }
+ .recommend button::-moz-focus-inner {
+    border: 0;
+ }
+
 .triangle-up {
     position: relative;
     width: 0;
