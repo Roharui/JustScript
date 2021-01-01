@@ -24,7 +24,9 @@ class Profile extends React.Component<any, any>{
     }
     
     componentDidMount(){
-        LoginChecker(this).then(data => this.setState(data))
+        LoginChecker()
+        .then(data => this.setState(data))
+        .catch(e => this.props.history.push("/"))
     }
 
     handleFile(e:any){

@@ -14,7 +14,7 @@ interface profile{
     profile_img:string
 }
 
-type SideProps = RouteComponentProps<any> & {toggle: boolean} 
+type SideProps = RouteComponentProps<any> & {toggle: boolean}
 
 class SideNav extends React.Component<SideProps, profile> {
     private ds: DataSender;
@@ -32,7 +32,13 @@ class SideNav extends React.Component<SideProps, profile> {
     }
 
     componentDidMount(){
-        LoginChecker(this).then(data => this.setState(data))
+        this.update()
+    }
+
+    update(){        
+        LoginChecker()
+        .then(data => this.setState(data))
+        .catch(err => this.setState({profile_img:''}))
     }
 
     logout = () => {
@@ -41,11 +47,8 @@ class SideNav extends React.Component<SideProps, profile> {
         if(!login) return; 
         this.ds.logout(login)
         .then(x => {
-            if(x.status === 400){
-                alert("Input Error!")
-            }else{
-                window.location.reload();
-            }
+            if(x.status === 400) alert("Input Error!")
+            else this.setState({profile_img:''})
         })
     }
 

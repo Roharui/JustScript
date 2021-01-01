@@ -49,7 +49,9 @@ class Creater extends React.Component<any, CreaterState> {
     }
 
     componentDidMount(){
-        LoginChecker(this).then(x => this.setState({...this.state, session:x}))
+        LoginChecker()
+        .then(x => this.setState({...this.state, session:x}))
+        .catch(e => this.props.history.push("/recent"))
     }
 
     changeEvent = (e:ChangeEvent<HTMLSelectElement>) => {

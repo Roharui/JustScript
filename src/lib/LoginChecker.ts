@@ -1,29 +1,31 @@
+import DataSender from "./DataSender"
 
+const ds = new DataSender;
 
-async function LoginCheckerAsString(obj:any):Promise<string> {
+async function LoginCheckerAsString():Promise<string> {
 
     let login = sessionStorage.getItem("login")
     if(login === null) {
-        obj.props.history.push("/");
+        throw new Error("세션이 만료되었습니다.")
     }
 
-    let x: { data: any; } = await obj.ds.getProfile(login)
+    let x: { data: any; } = await ds.getProfile(login)
     let {data} = x
-    if(!data) obj.props.history.push("/")
+    if(!data) throw new Error("세션이 만료되었습니다.")
 
     return (login as string)
 }
 
-async function LoginChecker(obj:any):Promise<any> {
+async function LoginChecker():Promise<any> {
 
     let login = sessionStorage.getItem("login")
     if(login === null) {
-        obj.props.history.push("/");
+        throw new Error("세션이 만료되었습니다.")
     }
 
-    let x: { data: any; } = await obj.ds.getProfile(login)
+    let x: { data: any; } = await ds.getProfile((login as string))
     let {data} = x
-    if(!data) obj.props.history.push("/")
+    if(!data) throw new Error("세션이 만료되었습니다.")
 
     return {...data, session:login}
 }

@@ -41,15 +41,14 @@ class Main extends React.Component<
 
     update(){
         let tag = this.props.tag
-        console.log(tag)
-        if(tag === undefined){
+        if(!tag){
             this._update()
         } else if (tag === "recent") {
             this.recentUpdate()
         } else if (tag === "list") {
-            LoginChecker(this)
+            LoginChecker()
             .then((login:string) => this.ownerUpdate(login))
-            .catch(err => {})
+            .catch(err => this.props.history.push("/"))
         }
     }
 
@@ -80,7 +79,13 @@ class Main extends React.Component<
 
     itemMapper = (data:ItemType[]) => {
         return data.map((x, i) => {
-            return <Item key={i} data={x} sender={this.scriptSender} popup={this.memoSender} updater={this.update.bind(this)} />
+            return <Item 
+                key={i} 
+                data={x} 
+                sender={this.scriptSender} 
+                popup={this.memoSender} 
+                updater={this.update.bind(this)} 
+            />
         })
     }
 
