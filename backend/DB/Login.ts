@@ -18,14 +18,14 @@ class LoginDB extends Manager {
 
     async getProfile(id:number){
         return this.query(`
-            select
-                report_count,
-                write_count,
-                recomment_count,
-                nickname,
-                profile_img
-            from user where _id=?;
-        `, [id])
+        select
+            u.report_count,
+            (select count(*) from items where user_id = ?) as write_count,
+            u.recomment_count,
+            u.nickname,
+            u.profile_img
+        from user u where _id=?;
+        `, [id,id])
     }
 
     async updateProfile(values:{
