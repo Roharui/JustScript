@@ -20,10 +20,18 @@ export interface ItemType{
     own: number;
 }
 
-export class Item extends React.Component<any, ItemType> {
+type ItemProps = {
+    key: number;
+    data: ItemType;
+    sender:Function;
+    popup:Function;
+    updater:Function;
+}
+
+export class Item extends React.Component<Readonly<ItemProps>, ItemType> {
     private ds:DataSender;
 
-    constructor(props:any) {
+    constructor(props:Readonly<ItemProps>) {
         super(props);
         this.ds = new DataSender()
     }
@@ -34,6 +42,7 @@ export class Item extends React.Component<any, ItemType> {
         {
             let session = await LoginChecker(this)
             await this.ds.deleteItem(data.id, session)
+            await this.props.updater()
         }
     }
 

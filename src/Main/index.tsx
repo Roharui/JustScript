@@ -34,9 +34,16 @@ class Main extends React.Component<
     }
 
     componentDidMount(){
+        this.update()
+    }
+
+// =============
+
+    update(){
         let tag = this.props.tag
+        console.log(tag)
         if(tag === undefined){
-            this.update()
+            this._update()
         } else if (tag === "recent") {
             this.recentUpdate()
         } else if (tag === "list") {
@@ -46,9 +53,7 @@ class Main extends React.Component<
         }
     }
 
-// =============
-
-    update() {
+    _update() {
         this.ds.getItems(5, sessionStorage.getItem("login"))
         .then(res => this.setState({items: res.data}))
     }
@@ -75,7 +80,7 @@ class Main extends React.Component<
 
     itemMapper = (data:ItemType[]) => {
         return data.map((x, i) => {
-            return <Item key={i} data={x} sender={this.scriptSender} popup={this.memoSender}/>
+            return <Item key={i} data={x} sender={this.scriptSender} popup={this.memoSender} updater={this.update.bind(this)} />
         })
     }
 
