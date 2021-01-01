@@ -23,11 +23,11 @@ export function loginChecker(req:express.Request, res:express.Response, next:Fun
 }
 
 loginManager.post("/", async (req: express.Request, res: express.Response) => {
-    let profile:any = await db.login(req.body);
+    let [profile] = await db.login(req.body) as any[];
 
     if(profile){
         let uuid = uuidv4();
-        userSession[uuid] = profile[0]._id
+        userSession[uuid] = profile._id
         let x = {session:uuid}
         res.status(200).send({data:x})
     }else {

@@ -25,7 +25,7 @@ class LoginDB extends Manager {
             u.nickname,
             u.profile_img
         from user u where _id=?;
-        `, [id,id])
+        `, [id, id])
     }
 
     async updateProfile(values:{
