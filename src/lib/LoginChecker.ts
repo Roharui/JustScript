@@ -1,6 +1,6 @@
 import DataSender from "./DataSender"
 
-const ds = new DataSender;
+const ds = new DataSender();
 
 async function LoginCheckerAsString():Promise<string> {
 
