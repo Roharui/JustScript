@@ -14,11 +14,19 @@ class ItemDB extends Manager {
             i.*,
             u.nickname as name,
             u.profile_img as img,
+            ifnull(r.score, 0) as score,
+            ru.score as recommended,
             (select i.user_id = ?) as own
         FROM 
-            items i 
+            items i
+            left outer join (
+                select rr.item_id, sum(rr.score) as score 
+                from recommend rr 
+                group by rr.item_id
+            ) r on r.item_id = i.id
+            left outer join recommend ru on ru.user_id = i.user_id and ru.item_id = i.id
             inner join user u on u._id = i.user_id
-        where i.score >= ?;
+        where ifnull(r.score, 0) >= ?;
         `, [_id, score])
     }
 

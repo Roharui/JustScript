@@ -40,7 +40,8 @@ class Creater extends React.Component<any, CreaterState> {
                 openAble:true,
                 width: "500px",
                 height: "400px",
-                own: 0
+                own: 0,
+                recommended:0
             },
             show_popup:false
         }

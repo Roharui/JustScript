@@ -58,7 +58,7 @@ class Main extends React.Component<
     }
     
     recentUpdate() {
-        this.ds.getItems(0, sessionStorage.getItem("login"))
+        this.ds.getItems(-5, sessionStorage.getItem("login"))
         .then(res => this.setState({items: res.data}))
     }
 

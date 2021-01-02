@@ -90,6 +90,16 @@ class DataSender {
         }).then(x => x.json())
     }
 
+    async recommend(data:{item_id:number, session:string, flag:number}){
+        return fetch(`http://${hostname}:3001/api/item/recommend`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+              },
+            body: JSON.stringify(data)
+        })
+    }
+
     async sendFile(file:File, session:string, nickname:string){
         let formData = new FormData();
         formData.append('upload_file', file);
@@ -98,7 +108,6 @@ class DataSender {
 
         return axios.post(`http://${hostname}:3001/api/profile/update`, formData)
     }
-    
 }
 
 export default DataSender

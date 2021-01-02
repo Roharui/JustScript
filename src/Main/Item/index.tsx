@@ -18,6 +18,7 @@ export interface ItemType{
     width: string,
     height: string;
     own: number;
+    recommended: number;
 }
 
 type ItemProps = {
@@ -28,7 +29,7 @@ type ItemProps = {
     updater:Function;
 }
 
-export class Item extends React.Component<Readonly<ItemProps>, ItemType> {
+export class Item extends React.Component<Readonly<ItemProps>, any> {
     private ds:DataSender;
 
     constructor(props:Readonly<ItemProps>) {
@@ -37,30 +38,49 @@ export class Item extends React.Component<Readonly<ItemProps>, ItemType> {
     }
 
     async delete() {
-        let data = this.props.data;
+        let {id} = this.props.data;
         if(window.confirm("정말 삭제하시겠습니까?"))
         {
             let session = await LoginChecker()
-            await this.ds.deleteItem(data.id, session)
+            await this.ds.deleteItem(id, session)
             await this.props.updater()
         }
     }
-
-    recommend() {
-        LoginChecker()
-        .then(session => {
-            
+    
+    async recommend(flag:number) {
+        let {id} = this.props.data;
+        let session;
+        try{
+            session = await LoginChecker()
+        } catch(e) {
+            alert("로그인이 되어있지 않습니다.")
+            return;
+        }
+        await this.ds.recommend({
+            item_id: id,
+            session:session,
+            flag: flag
         })
+        await this.props.updater()
     }
 
     render(){
         let data = this.props.data;
+
+        let recommend = data.recommended
+
+        let {up, down} = recommend > 0 ? 
+        {up:"35px solid orange", down:"35px solid lightgray"} 
+        : 
+        {up:"35px solid lightgray", down:"35px solid orange"} 
+        down = recommend ? down : "35px solid lightgray"
+        
         return <>
             <Paper id={data.id.toString()} elevation={3} className="item">
                 <div className="recommend">
-                    <button className="triangle-up"></button>
+                    <button className="triangle-up" style={{borderBottom:up}}  onClick={()=> this.recommend(1)}></button>
                         <h1 style={{width:"30px"}}>{data.score}</h1>
-                    <button className="triangle-down"></button>
+                    <button className="triangle-down" style={{borderTop:down}} onClick={()=> this.recommend(-1)}></button>
                 </div>
                 <div className="content">
                     <div className="profile" style={{lineHeight:"32px"}}>
