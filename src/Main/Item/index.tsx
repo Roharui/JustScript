@@ -46,10 +46,10 @@ export class Item extends React.Component<Readonly<ItemProps>, ItemType> {
         }
     }
 
-    recomment() {
+    recommend() {
         LoginChecker()
         .then(session => {
-
+            
         })
     }
 

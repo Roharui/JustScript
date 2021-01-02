@@ -31,6 +31,12 @@ ItemManager.post("/insert", loginChecker, async (req: express.Request, res: expr
     res.status(200).send()
 })
 
+ItemManager.post("/recommend", loginChecker, async (req: express.Request, res: express.Response) => {
+    const {item_id, _id, flag} = req.body;
+    db.recommend(item_id, _id, flag)
+    res.status(200).send()
+})
+
 ItemManager.delete("/delete", loginChecker, async (req: express.Request, res: express.Response) => {
     const {id, _id} = req.body;
 

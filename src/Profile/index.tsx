@@ -14,7 +14,7 @@ class Profile extends React.Component<any, any>{
         this.state = {
             report_count:-1,
             write_count:0,
-            recomment_count:0,
+            recommend_count:0,
             nickname:'',
             profile_img: '',
             

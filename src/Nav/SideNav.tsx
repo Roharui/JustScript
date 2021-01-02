@@ -9,7 +9,7 @@ import './SideNav.css'
 interface profile{
     report_count:number,
     write_count:number,
-    recomment_count:number,
+    recommend_count:number,
     nickname:string,
     profile_img:string
 }
@@ -24,7 +24,7 @@ class SideNav extends React.Component<SideProps, profile> {
         this.state = {
             report_count:-1,
             write_count:0,
-            recomment_count:0,
+            recommend_count:0,
             nickname:'',
             profile_img:''
         }
@@ -63,7 +63,7 @@ class SideNav extends React.Component<SideProps, profile> {
                     <h3>{this.state.nickname}</h3>
                 </div>
                 <div className="w-info">
-                    <span>추천수 : <span className="num rcmd">{this.state.recomment_count}</span></span>
+                    <span>추천수 : <span className="num rcmd">{this.state.recommend_count}</span></span>
                     <span>작성글 : <span className="num vfi">{this.state.write_count}</span></span>
                 </div>
             </div>
