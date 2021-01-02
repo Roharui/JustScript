@@ -2,18 +2,18 @@ import express, { Router } from "express";
 import multer from "multer";
 import path from "path"
 
-import LoginDB from "../DB/Login"
+import ProfileDB from "../DB/Profile"
 import { loginChecker, userSession } from './Login'
 
 const ProfileManager:Router = express.Router();
 
-const db = new LoginDB();
+const db = new ProfileDB();
 
 interface user{
     _id: number,
     report_count: number,
     write_count: number,
-    recomment_count: number,
+    recommend_count: number,
     nickname: string,
     profile_img: string,
 }
