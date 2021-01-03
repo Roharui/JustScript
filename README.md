@@ -13,7 +13,7 @@ React-typescript와 Express 모듈을 동시에 실행시키는 법을 몰라서
 
 2020-12-02
 
-[![Video Label](http://img.youtube.com/vi/kIkiL5pj0J4/0.jpg)](https://youtu.be/kIkiL5pj0J4)
+[![Video Label](http://img.youtube.com/vi/Rdm_DjFScxo/0.jpg)](https://youtu.be/Rdm_DjFScxo)
 
 # 앞으로의 계획
 
