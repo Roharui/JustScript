@@ -70,14 +70,20 @@ class ItemDB extends Manager {
     }
 
     async recommend(item_id:number, user_id:number, flag:number){
-        let [exist] = await this.query(
-            `select count(*) as count from recommend where item_id = ? and user_id = ?;`, 
-            [item_id, user_id]) as any
+        let exist = await this.query(
+            `select score from recommend where item_id = ? and user_id = ?;`, 
+            [item_id, user_id]) as {score:number}[]
         
-        if(exist.count) {
-            await this.query(`update recommend set score = ? 
-            where item_id = ? and user_id = ?;`,
-            [flag, item_id, user_id])
+        if(exist.length) {
+            if (exist[0].score == flag){
+                await this.query(`update recommend set score = 0
+                where item_id = ? and user_id = ?;`,
+                [item_id, user_id])
+            } else {
+                await this.query(`update recommend set score = ? 
+                where item_id = ? and user_id = ?;`,
+                [flag, item_id, user_id])
+            }
         } else {
             await this.query(`INSERT INTO recommend (item_id, user_id, score) VALUES(?, ?, ?)`,
             [item_id, user_id, flag])
