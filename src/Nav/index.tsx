@@ -1,14 +1,16 @@
 
 import React from 'react';
-import { Switch, Route, withRouter } from "react-router-dom";
+import { Switch, Route, withRouter, RouteComponentProps } from "react-router-dom";
 import Search from './Search'
 import SideNav from './SideNav';
 import DropDown from './NavDropDown';
 import './Nav.css'
 
-class NavMain extends React.Component<any, {toggle:boolean}> {
+type NavProps = RouteComponentProps<any> & {changeFilter:Function} 
 
-    constructor(props:any) {
+class NavMain extends React.Component<NavProps, {toggle:boolean}> {
+
+    constructor(props:NavProps) {
       super(props);
       this.state = {
         toggle: false
@@ -52,7 +54,7 @@ class NavMain extends React.Component<any, {toggle:boolean}> {
                 {this.navButton()}
               </Route>
             </Switch>
-            <DropDown />
+            <DropDown changeFilter={this.props.changeFilter} />
             <Search />
         </div>
         <SideNav toggle={this.state.toggle}/>

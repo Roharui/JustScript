@@ -15,7 +15,7 @@ interface MainState {
     show_popup: boolean;
 }
 
-type MainProps = RouteComponentProps<any> & {tag?: string | undefined} 
+type MainProps = RouteComponentProps<any> & {tag?: string , filter:string[]} 
 
 class Main extends React.Component<
     MainProps, MainState> 
@@ -53,12 +53,12 @@ class Main extends React.Component<
     }
 
     _update() {
-        this.ds.getItems(5, sessionStorage.getItem("login"))
+        this.ds.getItems(5, this.props.filter, sessionStorage.getItem("login"))
         .then(res => this.setState({items: res.data}))
     }
-    
+
     recentUpdate() {
-        this.ds.getItems(-5, sessionStorage.getItem("login"))
+        this.ds.getItems(-5, this.props.filter, sessionStorage.getItem("login"))
         .then(res => this.setState({items: res.data}))
     }
 

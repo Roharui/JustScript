@@ -1,6 +1,7 @@
 
 import {ItemType} from '../Main/Item'
 import axios from "axios";
+import {URL} from 'url'
 
 const hostname:string = window.location.hostname
 
@@ -12,9 +13,9 @@ class DataSender {
         DataSender.instance = this
     }
 
-    async getItems(score:number, session?:string | null){
+    async getItems(score:number, filter:string[], session?:string | null){
         let surl = session ? `&session=${session}` : ""
-        let rowitems = await fetch(`http://${hostname}:3001/api/item?score=${score}` + surl)
+        let rowitems = await fetch(`http://${hostname}:3001/api/item?score=${score}&filter=${filter.toString()}` + surl)
         let items = await rowitems.json()
         return items
     }

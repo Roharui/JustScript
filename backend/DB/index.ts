@@ -7,8 +7,9 @@ class ItemDB extends Manager {
         super();
     }
 
-    async select(score:number, id?:number){
+    async select(score:number, filter:Array<any>, id?:number){
         let _id = id ? id : -1
+        let params = [_id, score].concat(filter)
         return this.query(`
         SELECT 
             i.*,
@@ -26,8 +27,8 @@ class ItemDB extends Manager {
             ) r on r.item_id = i.id
             left outer join recommend ru on ru.user_id = i.user_id and ru.item_id = i.id
             inner join user u on u._id = i.user_id
-        where ifnull(r.score, 0) >= ?;
-        `, [_id, score])
+        where ifnull(r.score, 0) >= ? and i.type IN (?,?,?);
+        `, params)
     }
 
     async selectByUser(user_id:number){

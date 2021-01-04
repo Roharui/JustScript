@@ -7,9 +7,9 @@ import React from 'react';
 //     html: true
 // }
 
-class DropDown extends React.Component<any, any> {
+class DropDown extends React.Component<{changeFilter:Function}, any> {
 
-    constructor(props:any) {
+    constructor(props:{changeFilter:Function}) {
         super(props)
         this.state = {
             tema: true,
@@ -21,7 +21,16 @@ class DropDown extends React.Component<any, any> {
     toggleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         this.setState(
             {[e.target.name] : !this.state[e.target.name]}
-        )
+        , () => {
+
+            let arr = Object.entries(this.state).map(([name, flag]) => {
+                if(flag) return name
+                return 'X'
+            })
+    
+            this.props.changeFilter(arr)
+        })
+
     }
 
     render() {

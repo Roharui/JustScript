@@ -6,19 +6,28 @@ import Creater from './Creater'
 import NavMain from './Nav'
 import Profile from './Profile';
 
-class App extends React.Component {
+class App extends React.Component<any, {typeFilter:string[]}> {
   constructor(props:any){
     super(props)
     document.title = "JustScript"
+
+    this.state = {
+      typeFilter : ["html", "canvas", "tema"]
+    }
+
+  }
+
+  changeFilter = (arr:string[]) => {
+    this.setState({typeFilter:arr})
   }
 
   render() {
     return <>
-      <NavMain />
+      <NavMain changeFilter={this.changeFilter} />
       <Switch>
-        <Route exact path="/" component={() => <Main />} />
-        <Route path="/recent" component={() => <Main tag="recent"/>} />
-        <Route path="/itemlist" component={() => <Main tag="list"/>} />
+        <Route exact path="/" component={() => <Main filter={this.state.typeFilter}/>} />
+        <Route path="/recent" component={() => <Main filter={this.state.typeFilter} tag="recent"/>} />
+        <Route path="/itemlist" component={() => <Main filter={this.state.typeFilter} tag="list"/>} />
         <Route path="/create" component={Creater} />
         <Route path="/profile" component={Profile} />
       </Switch>
