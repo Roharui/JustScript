@@ -1,7 +1,6 @@
 
 import {ItemType} from '../Main/Item'
 import axios from "axios";
-import {URL} from 'url'
 
 const hostname:string = window.location.hostname
 
