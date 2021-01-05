@@ -12,6 +12,10 @@ class DataSender {
         DataSender.instance = this
     }
 
+    toRealPath(src:string){
+        return `http://${hostname}:3001/${src}`
+    }
+
     async getItems(score:number, filter:string[], session?:string | null){
         let surl = session ? `&session=${session}` : ""
         let rowitems = await fetch(`http://${hostname}:3001/api/item?score=${score}&filter=${filter.toString()}` + surl)

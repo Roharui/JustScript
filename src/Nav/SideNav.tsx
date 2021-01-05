@@ -53,13 +53,14 @@ class SideNav extends React.Component<SideProps, profile> {
     }
 
     render() {
+        let src = this.ds.toRealPath(this.state.profile_img)
       return <>
       <div id="mySidenav" className="sidenav" style={{width: this.props.toggle ? "250px" : "0px"}}>
       {this.state.profile_img.length ?         
         <>
             <div className="profile">
                 <div className="pro-img">
-                    <img src={this.state.profile_img} alt="프로필" />
+                    <img src={src} alt="프로필" />
                     <h3>{this.state.nickname}</h3>
                 </div>
                 <div className="w-info">

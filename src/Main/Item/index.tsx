@@ -74,6 +74,8 @@ export class Item extends React.Component<Readonly<ItemProps>, any> {
         : 
         {up:"35px solid lightgray", down:"35px solid orange"} 
         down = recommend ? down : "35px solid lightgray"
+
+        let src = this.ds.toRealPath(data.img)
         
         return <>
             <Paper id={data.id.toString()} elevation={3} className="item">
@@ -84,7 +86,7 @@ export class Item extends React.Component<Readonly<ItemProps>, any> {
                 </div>
                 <div className="content">
                     <div className="profile" style={{lineHeight:"32px"}}>
-                        <img src={data.img} width="32" height="32" alt={data.name}/>
+                        <img src={src} width="32" height="32" alt={data.name}/>
                         <div className="nick" style={{height:"32px"}}>
                             {data.name}
                         </div>

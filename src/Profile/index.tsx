@@ -25,6 +25,7 @@ class Profile extends React.Component<any, any>{
     
     componentDidMount(){
         LoginChecker()
+        .then(data => {return {...data, profile_img:this.ds.toRealPath(data.profile_img)}})
         .then(data => this.setState(data))
         .catch(e => this.props.history.push("/"))
     }
@@ -51,6 +52,7 @@ class Profile extends React.Component<any, any>{
     }
     
     render(){
+        
         return <div className="pcontent">
             <div className="image">
                 <img src={this.state.profile_img} alt="프로필" style={{width:"200px", height:"200px"}}/>
