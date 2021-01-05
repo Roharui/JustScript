@@ -20,7 +20,7 @@ interface user{
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb){
-        cb(null, path.join(__dirname + '../../../../build'))
+        cb(null, path.join(__dirname, "../"))
     },
     filename: function(req, file, cb){
         cb(null, "img/" + file.fieldname + "-" + Date.now() + path.extname(file.originalname))
