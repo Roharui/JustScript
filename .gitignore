@@ -156,4 +156,4 @@ ts-react-tutorial
 example/*
 build
 
-public/img
+backend/img/*.png
