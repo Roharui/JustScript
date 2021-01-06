@@ -9,7 +9,6 @@ class ItemDB extends Manager {
 
     async select(score:number, filter:Array<any>, id?:number){
         let _id = id ? id : -1
-        let params = [_id, score].concat(filter)
         return this.query(`
         SELECT 
             i.*,
@@ -17,7 +16,7 @@ class ItemDB extends Manager {
             u.profile_img as img,
             ifnull(r.score, 0) as score,
             ru.score as recommended,
-            (select i.user_id = ?) as own
+            (select i.user_id = ${_id}) as own
         FROM 
             items i
             left outer join (
@@ -25,10 +24,10 @@ class ItemDB extends Manager {
                 from recommend rr 
                 group by rr.item_id
             ) r on r.item_id = i.id
-            left outer join recommend ru on ru.user_id = i.user_id and ru.item_id = i.id
+            left outer join recommend ru on ru.user_id = ${_id} and ru.item_id = i.id
             inner join user u on u._id = i.user_id
-        where ifnull(r.score, 0) >= ? and i.type IN (?,?,?);
-        `, params)
+        where ifnull(r.score, 0) >= ${score} and i.type IN (?,?,?);
+        `, filter)
     }
 
     async selectByUser(user_id:number){
@@ -47,10 +46,10 @@ class ItemDB extends Manager {
                 from recommend rr 
                 group by rr.item_id
             ) r on r.item_id = i.id
-            left outer join recommend ru on ru.user_id = i.user_id and ru.item_id = i.id
+            left outer join recommend ru on ru.user_id = ? and ru.item_id = i.id
             inner join user u on u._id = i.user_id
         where i.user_id = ?;
-        `, [user_id])
+        `, [user_id, user_id])
     }
 
     async insert(data:ItemType, user_id:number){
