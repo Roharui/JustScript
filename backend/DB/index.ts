@@ -7,7 +7,7 @@ class ItemDB extends Manager {
         super();
     }
 
-    async select(score:number, filter:Array<any>, id?:number){
+    async select(score:number, filter:string[], id?:number){
         let _id = id ? id : -1
         return this.query(`
         SELECT 

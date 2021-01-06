@@ -9,11 +9,8 @@ ItemManager.get("/", async (req: express.Request, res: express.Response) => {
     let {score, session, filter} = req.query
     let s:number = 5;
     if(typeof score === "string"){
-        try{
-            s = parseInt(score);
-        } catch(e){
-            s = 5;
-        }
+        try{ s = parseInt(score);} 
+        catch(e){ s = 5; }
     }
 
     let f = (filter as string).split(",")

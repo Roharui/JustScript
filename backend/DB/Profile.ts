@@ -12,10 +12,14 @@ class ProfileDB extends Manager {
         select
             u.report_count,
             (select count(*) from items where user_id = ?) as write_count,
-            u.recommend_count,
+            sum(r.score) as recommend_count,
             u.nickname,
             u.profile_img
-        from user u where _id=?;
+        from 
+            user u
+            inner join items i on i.user_id = u._id
+            inner join recommend r on r.item_id = i.id
+        where u._id=?;
         `, [id, id])
     }
 
