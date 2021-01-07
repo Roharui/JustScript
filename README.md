@@ -5,6 +5,17 @@
 
 React-typescript와 Express 모듈을 동시에 실행시키는 법을 몰라서 /backend 폴더에 새로운 패키지를 설치했습니다.
 
+# 실행하기
+
+```
+# npm start
+```
+프론트 엔드 작동
+
+```
+# cd backend/ & run
+```
+
 # 중간 보고
 
 2020-11-24
