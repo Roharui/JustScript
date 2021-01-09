@@ -54,7 +54,7 @@ class ItemDB extends Manager {
 
     async insert(data:ItemType, user_id:number){
         let {descript, script, type, width, height} = data;
-        this.query(
+        await this.query(
             `insert into justscript.items (descript, script, type, user_id, width, height)
             values
             (?, ?, ?, ?, ?, ?)`
@@ -63,7 +63,7 @@ class ItemDB extends Manager {
     }
 
     async delete(id:number, user_id:number){
-        this.query(
+        await this.query(
             'delete from items where id = ? and user_id = ?;'
             , [id, user_id]
         )

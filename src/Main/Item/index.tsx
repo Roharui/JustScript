@@ -39,9 +39,16 @@ export class Item extends React.Component<Readonly<ItemProps>, any> {
 
     async delete() {
         let {id} = this.props.data;
+        let session = ""
+        try{
+            session = await LoginChecker()
+        } catch(e) {
+            alert("로그인이 되어있지 않습니다.")
+            return;
+        }
+
         if(window.confirm("정말 삭제하시겠습니까?"))
         {
-            let session = await LoginChecker()
             await this.ds.deleteItem(id, session)
             await this.props.updater()
         }
@@ -64,9 +71,13 @@ export class Item extends React.Component<Readonly<ItemProps>, any> {
         await this.props.updater()
     }
 
+    async report(){
+        let { id } = this.props.data;
+        return id
+    }
+
     render(){
         let data = this.props.data;
-
         let recommend = data.recommended
 
         let {up, down} = recommend > 0 ? 
@@ -107,7 +118,7 @@ export class Item extends React.Component<Readonly<ItemProps>, any> {
                         </Button>}
                     </div>
                     <div style={{position:"absolute", top:"0px", right:"0px"}}>
-                        <MenuListComposition delete={this.delete.bind(this)} own={data.own}/>
+                        <MenuListComposition delete={this.delete.bind(this)} report={this.report.bind(this)} own={data.own}/>
                     </div>
                 </div>
             </Paper>
