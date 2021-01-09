@@ -15,7 +15,7 @@ interface MainState {
     show_popup: boolean;
 }
 
-type MainProps = RouteComponentProps<any> & {tag?: string , filter:string[]} 
+type MainProps = RouteComponentProps<any> & {filter:string[]} 
 
 class Main extends React.Component<
     MainProps, MainState> 
@@ -40,15 +40,17 @@ class Main extends React.Component<
 // =============
 
     update(){
-        let tag = this.props.tag
-        if(!tag){
-            this._update()
-        } else if (tag === "recent") {
-            this.recentUpdate()
-        } else if (tag === "list") {
-            LoginChecker()
-            .then((login:string) => this.ownerUpdate(login))
-            .catch(err => this.props.history.push("/"))
+        let tag = this.props.location.pathname
+        switch(tag){
+            case "/recent":
+                this.recentUpdate()
+                break
+            case "/itemlist":
+                this.ownerUpdate()
+                break
+            default:
+                this._update()
+                break
         }
     }
 
@@ -62,9 +64,13 @@ class Main extends React.Component<
         .then(res => this.setState({items: res.data}))
     }
 
-    ownerUpdate(session:string) {
-        this.ds.getOwnItems(session)
-        .then(res => this.setState({items : res.data}))
+    ownerUpdate() {
+        LoginChecker()
+        .then((login:string) => {
+            this.ds.getOwnItems(login)
+            .then(res => this.setState({items : res.data}))
+        })
+        .catch(err => this.props.history.push("/"))
     }
     
 // ===============
