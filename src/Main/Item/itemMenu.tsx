@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function MenuListComposition(props:{own:number, delete:Function}) {
+export default function MenuListComposition(props:{own:number, delete:Function, report:Function}) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
@@ -41,17 +41,25 @@ export default function MenuListComposition(props:{own:number, delete:Function})
     setOpen(false);
   };
 
-  function handleDelete(event: React.MouseEvent<EventTarget>){
-    handleClose(event)
-    props.delete()
-  }
-
   function handleListKeyDown(event: React.KeyboardEvent) {
     if (event.key === 'Tab') {
       event.preventDefault();
       setOpen(false);
     }
   }
+
+  // Custom Code
+
+  function handleDelete(event: React.MouseEvent<EventTarget>){
+    handleClose(event)
+    props.delete()
+  }
+  
+  function handleReport(event: React.MouseEvent<EventTarget>){
+    handleClose(event)
+    props.report()
+  }
+
 
   // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open);
@@ -84,7 +92,7 @@ export default function MenuListComposition(props:{own:number, delete:Function})
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                     {props.own ? <MenuItem onClick={handleDelete} style={{color:"red"}}>삭제</MenuItem> : null}
-                    <MenuItem onClick={handleClose}>신고</MenuItem>
+                    <MenuItem onClick={handleReport}>신고</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
