@@ -2,7 +2,6 @@
 import React from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import DataSender from '../lib/DataSender'
-import LoginChecker from 'src/lib/LoginChecker';
 
 import './SideNav.css'
 
@@ -36,20 +35,13 @@ class SideNav extends React.Component<SideProps, profile> {
     }
 
     update(){        
-        LoginChecker()
-        .then(data => this.setState(data))
-        .catch(err => this.setState({profile_img:''}))
+        this.ds.getProfile()
+        .then(({data}) => this.setState(data))
     }
 
     logout = () => {
-        let login = sessionStorage.getItem("login")
-        sessionStorage.setItem("login", "")
-        if(!login) return; 
-        this.ds.logout(login)
-        .then(x => {
-            if(x.status === 400) alert("Input Error!")
-            else this.setState({profile_img:''})
-        })
+        this.ds.logout()
+        .then(() => this.setState({profile_img:''}))
     }
 
     render() {
@@ -75,7 +67,7 @@ class SideNav extends React.Component<SideProps, profile> {
             <p style={{position: "absolute", bottom: 100}} onClick={this.logout}>Logout</p>
         </>
         : 
-            <p>로그인 필요</p>}
+            <p onClick={this.update.bind(this)}>로그인 필요</p>}
         </div>
       </>
     }

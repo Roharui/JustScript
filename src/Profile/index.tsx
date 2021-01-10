@@ -2,7 +2,6 @@
 import React from 'react';
 import { Button } from "@material-ui/core"
 import DataSender from 'src/lib/DataSender';
-import LoginChecker from 'src/lib/LoginChecker';
 
 import './Profile.css'
 
@@ -24,10 +23,11 @@ class Profile extends React.Component<any, any>{
     }
     
     componentDidMount(){
-        LoginChecker()
-        .then(data => {return {...data, profile_img:this.ds.toRealPath(data.profile_img)}})
-        .then(data => this.setState(data))
-        .catch(e => this.props.history.push("/"))
+        // this.ds.getProfile()
+        // .then(data => {if data.status})
+        // .then(data => {return {...data, profile_img:this.ds.toRealPath(data.profile_img)}})
+        // .then(data => this.setState(data))
+        // .catch(e => this.props.history.push("/"))
     }
 
     handleFile(e:any){
@@ -44,8 +44,8 @@ class Profile extends React.Component<any, any>{
     }
     
     uploadFile(){
-        let {uploadFile, session, nickname} = this.state
-        this.ds.sendFile(uploadFile, session, nickname)
+        let {uploadFile, nickname} = this.state
+        this.ds.sendFile(uploadFile, nickname)
         .then((res) => {
             window.location.reload(false);
         })

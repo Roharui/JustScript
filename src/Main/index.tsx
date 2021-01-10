@@ -4,7 +4,6 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import {Item, ItemType} from './Item'
 import Popup, { Opertion } from './Popup'
 import DataSender from '../lib/DataSender'
-import {LoginCheckerAsString as LoginChecker} from '../lib/LoginChecker';
 
 import './Main.css'
 
@@ -55,21 +54,18 @@ class Main extends React.Component<
     }
 
     _update() {
-        this.ds.getItems(5, this.props.filter, sessionStorage.getItem("login"))
+        this.ds.getItems(5, this.props.filter)
         .then(res => this.setState({items: res.data}))
     }
 
     recentUpdate() {
-        this.ds.getItems(-5, this.props.filter, sessionStorage.getItem("login"))
+        this.ds.getItems(-5, this.props.filter)
         .then(res => this.setState({items: res.data}))
     }
 
     ownerUpdate() {
-        LoginChecker()
-        .then((login:string) => {
-            this.ds.getOwnItems(login)
-            .then(res => this.setState({items : res.data}))
-        })
+        this.ds.getOwnItems()
+        .then(res => this.setState({items : res.data}))
         .catch(err => this.props.history.push("/"))
     }
     

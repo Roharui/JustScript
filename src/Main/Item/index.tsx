@@ -2,7 +2,6 @@ import React from 'react';
 import { Paper, Button } from "@material-ui/core"
 import MenuListComposition from "./itemMenu"
 import DataSender from 'src/lib/DataSender';
-import {LoginCheckerAsString as LoginChecker} from 'src/lib/LoginChecker';
 
 import './Item.css'
 
@@ -39,33 +38,18 @@ export class Item extends React.Component<Readonly<ItemProps>, any> {
 
     async delete() {
         let {id} = this.props.data;
-        let session = ""
-        try{
-            session = await LoginChecker()
-        } catch(e) {
-            alert("로그인이 되어있지 않습니다.")
-            return;
-        }
 
         if(window.confirm("정말 삭제하시겠습니까?"))
         {
-            await this.ds.deleteItem(id, session)
+            await this.ds.deleteItem(id)
             await this.props.updater()
         }
     }
     
     async recommend(flag:number) {
         let {id} = this.props.data;
-        let session;
-        try{
-            session = await LoginChecker()
-        } catch(e) {
-            alert("로그인이 되어있지 않습니다.")
-            return;
-        }
         await this.ds.recommend({
             item_id: id,
-            session:session,
             flag: flag
         })
         await this.props.updater()

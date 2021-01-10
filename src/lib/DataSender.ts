@@ -4,6 +4,20 @@ import axios from "axios";
 
 const hostname:string = window.location.hostname
 
+const header = (method:"GET"|"POST"|"DELETE"|"PUT", data?:any):RequestInit => {
+    return {
+        method: method,
+        mode: 'cors',
+        headers: {
+            'Accept':  'application/json',
+            'Content-Type': 'application/json',
+            'Cache': 'no-cache'
+        },
+        credentials: 'include',
+        body:JSON.stringify(data)
+    }
+}
+
 class DataSender {
     static instance:DataSender;
 
@@ -16,101 +30,65 @@ class DataSender {
         return `http://${hostname}:3001/${src}`
     }
 
-    async getItems(score:number, filter:string[], session?:string | null){
-        let surl = session ? `&session=${session}` : ""
-        let rowitems = await fetch(`http://${hostname}:3001/api/item?score=${score}&filter=${filter.toString()}` + surl)
+    async getItems(score:number, filter:string[]){
+        let rowitems = await fetch(
+            `http://${hostname}:3001/api/item?score=${score}&filter=${filter.toString()}`,
+            header("GET")
+        )
         let items = await rowitems.json()
         return items
     }
 
-    async getOwnItems(session:string){
-        return fetch(`http://${hostname}:3001/api/item/owner`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-              },
-            body: JSON.stringify({
-                session: session
-            })
-        }).then(x => x.json())
+    async getOwnItems(){
+        let rowitems = await fetch(
+            `http://${hostname}:3001/api/item/owner`,
+            header("GET")
+        )
+        let items = await rowitems.json()
+        return items
     }
 
-    async insertItem(data:{item:ItemType, session:string}){
-        return fetch(`http://${hostname}:3001/api/item/insert`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-              },
-            body: JSON.stringify(data)
-        })
+    async insertItem(data:{item:ItemType}){
+        return fetch(`http://${hostname}:3001/api/item/insert`, 
+            header("POST", data)
+        )
     }
 
-    async deleteItem(id:number, session:string){
-        return fetch(`http://${hostname}:3001/api/item/delete`, {
-            method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-              },
-            body: JSON.stringify({
-                id: id,
-                session:session
-            })
-        })
+    async deleteItem(id:number){
+        return fetch(
+            `http://${hostname}:3001/api/item/delete`, 
+            header("DELETE", {id})
+        )
     }
 
-    async getProfile(session:string){
-        return fetch(`http://${hostname}:3001/api/profile`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-              },
-            body: JSON.stringify({
-                session: session
-            })
-        })
+    async getProfile(){
+        return fetch(
+            `http://${hostname}:3001/api/profile`,
+            header("GET")
+        )
         .then(x => x.json())
         .catch(err => err)
     }
 
-    async logout(session:string){
-        return fetch(`http://${hostname}:3001/api/login/logout`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-              },
-            body: JSON.stringify({
-                session: session
-            })
-        })
+    async logout(){
+        return fetch(`http://${hostname}:3001/api/login/logout`, header("DELETE"))
     }
 
     async register(register:{id:string, pw:string, pwc:string, nickname:string}){
-        return fetch(`http://${hostname}:3001/api/login/register`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-              },
-            body: JSON.stringify(register)
-        }).then(x => x.json())
+        return fetch(`http://${hostname}:3001/api/login/register`, header("POST", register))
+        .then(x => x.json())
     }
 
-    async recommend(data:{item_id:number, session:string, flag:number}){
-        return fetch(`http://${hostname}:3001/api/item/recommend`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-              },
-            body: JSON.stringify(data)
-        })
+    async recommend(data:{item_id:number, flag:number}){
+        return fetch(`http://${hostname}:3001/api/item/recommend`, header("POST", data))
     }
 
-    async sendFile(file:File, session:string, nickname:string){
+    async sendFile(file:File, nickname:string){
         let formData = new FormData();
         formData.append('upload_file', file);
-        formData.append('session', session);
         formData.append('nickname', nickname);
 
-        return axios.post(`http://${hostname}:3001/api/profile/update`, formData)
+        return axios.put(`http://${hostname}:3001/api/profile/update`, formData, {withCredentials:true})
     }
 }
 

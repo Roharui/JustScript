@@ -5,7 +5,6 @@ import { ItemType } from '../Main/Item'
 import { Content } from '../Main/Content'
 import { Button } from '@material-ui/core';
 import Popup, { Opertion } from 'src/Main/Popup';
-import {LoginCheckerAsString as LoginChecker} from 'src/lib/LoginChecker';
 
 import CodeMirror from '@uiw/react-codemirror';
 import 'codemirror/keymap/sublime';
@@ -50,9 +49,10 @@ class Creater extends React.Component<any, CreaterState> {
     }
 
     componentDidMount(){
-        LoginChecker()
-        .then(x => this.setState({...this.state, session:x}))
-        .catch(e => this.props.history.push("/recent"))
+        this.ds.getProfile()
+        .then(x => {
+            if(x.status === 404) this.props.history.push("/recent")
+        })
     }
 
     changeEvent = (e:ChangeEvent<HTMLSelectElement>) => {
