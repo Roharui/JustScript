@@ -55,7 +55,7 @@ class ItemDB extends Manager {
     async insert(data:ItemType, user_id:number){
         let {descript, script, type, width, height} = data;
         await this.query(
-            `insert into justscript.items (descript, script, type, user_id, width, height)
+            `insert into items (descript, script, type, user_id, width, height)
             values
             (?, ?, ?, ?, ?, ?)`
             , [descript, script, type, user_id, width, height]

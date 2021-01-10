@@ -20,7 +20,7 @@ class LoginDB extends Manager {
         if(register.pw !== register.pwc) return false
         let {id, pw, nickname} = register
         return this.query(
-            `insert into justscript.user (user_id, password, nickname)
+            `insert into user (user_id, password, nickname)
             values
             (?, ?, ?)`, [id, pw, nickname]
         )
@@ -28,7 +28,7 @@ class LoginDB extends Manager {
 
     async checkRedupId(id:string) {
         return this.query(
-            `select count(*) as count from justscript.user where user_id = ?;`, [id]
+            `select count(*) as count from user where user_id = ?;`, [id]
         )
     }
 }
