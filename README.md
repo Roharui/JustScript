@@ -10,11 +10,13 @@ React-typescript와 Express 모듈을 동시에 실행시키는 법을 몰라서
 ```
 # npm start
 ```
-프론트 엔드 작동
+프론트 엔드 서버 실행
 
 ```
 # cd backend/ & run
 ```
+
+백엔드 서버 실행
 
 # 중간 보고
 
