@@ -14,7 +14,8 @@ class ProfileDB extends Manager {
             (select count(*) from items where user_id = ?) as write_count,
             sum(r.score) as recommend_count,
             u.nickname,
-            u.profile_img
+            u.profile_img,
+            u.permission
         from 
             user u
             inner join items i on i.user_id = u._id
