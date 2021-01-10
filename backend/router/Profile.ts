@@ -3,7 +3,7 @@ import multer from "multer";
 import path from "path"
 
 import ProfileDB from "../DB/Profile"
-import { loginChecker, userSession } from './Login'
+import { loginChecker } from './Login'
 
 const ProfileManager:Router = express.Router();
 
@@ -32,15 +32,14 @@ const upload = multer({
     , limits : { fileSize: 5 * 1024 * 1024 }
 });
 
-ProfileManager.post("/", loginChecker, async (req: express.Request, res: express.Response) => {
+ProfileManager.get("/", loginChecker, async (req: express.Request, res: express.Response) => {
     let {_id} = req.body
-        let [x]:any = await db.getProfile(_id)
-        res.status(200).json({data:x})
+    let [x]:any = await db.getProfile(_id)
+    res.status(200).json({data:x})
 })
 
-ProfileManager.post("/update", upload.single("upload_file"), async (req: express.Request, res: express.Response) => {
-    let {nickname, session} = req.body
-    let _id = userSession[session]
+ProfileManager.put("/", loginChecker, upload.single("upload_file"), async (req: express.Request, res: express.Response) => {
+    let {nickname, _id} = req.body
 
     let [x]:any = await db.getProfile(_id)
     let file = req.file != undefined ? req.file : {filename:x.profile_img}
