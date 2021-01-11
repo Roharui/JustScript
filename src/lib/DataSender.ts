@@ -2,8 +2,6 @@
 import {ItemType} from '../Main/Item'
 import axios from "axios";
 
-const hostname:string = window.location.hostname
-
 const header = (method:"GET"|"POST"|"DELETE"|"PUT", data?:any):RequestInit => {
     return {
         method: method,
@@ -18,69 +16,103 @@ const header = (method:"GET"|"POST"|"DELETE"|"PUT", data?:any):RequestInit => {
     }
 }
 
+function handleErrors(response:Response) {
+    if (!response.ok) {
+        console.log(response)
+        throw Error(response.statusText);
+    }
+    return response;
+}
+
 class DataSender {
     static instance:DataSender;
+    private host!: string;
 
     constructor() {
         if(DataSender.instance) return DataSender.instance;
+        this.host = `http://${window.location.hostname}:3001` as string
         DataSender.instance = this
     }
 
     toRealPath(src:string){
-        return `http://${hostname}:3001/${src}`
+        return `${this.host}/${src}`
+    }
+
+    request(url:string, method:"GET"|"POST"|"DELETE"|"PUT", data?:any){
+        return fetch(url, header(method, data))
+        .then(handleErrors)
+        .then(x => x.json())
+        .catch(err => {
+            console.log(err)
+            return {}
+        })
     }
 
     async getItems(score:number, filter:string[]){
-        let rowitems = await fetch(
-            `http://${hostname}:3001/api/item?score=${score}&filter=${filter.toString()}`,
-            header("GET")
+        return this.request(
+            `${this.host}/api/item?score=${score}&filter=${filter.toString()}`,
+            "GET"
         )
-        let items = await rowitems.json()
-        return items
     }
 
     async getOwnItems(){
-        let rowitems = await fetch(
-            `http://${hostname}:3001/api/item/owner`,
-            header("GET")
+        return this.request(
+            `${this.host}/api/item/owner`,
+            "GET"
         )
-        let items = await rowitems.json()
-        return items
+    }
+
+    async checkLogin(){
+        return this.request(
+            `${this.host}/api/login`,
+            "GET"
+        )
     }
 
     async insertItem(data:{item:ItemType}){
-        return fetch(`http://${hostname}:3001/api/item/insert`, 
-            header("POST", data)
+        return this.request(
+            `${this.host}/api/item`,
+            "POST", 
+            data
         )
     }
 
     async deleteItem(id:number){
-        return fetch(
-            `http://${hostname}:3001/api/item/delete`, 
-            header("DELETE", {id})
+        return this.request(
+            `${this.host}/api/item`,
+            "DELETE", 
+            {id}
         )
     }
 
     async getProfile(){
-        return fetch(
-            `http://${hostname}:3001/api/profile`,
-            header("GET")
+        return this.request(
+            `${this.host}/api/profile`,
+            "GET"
         )
-        .then(x => x.json())
-        .catch(err => err)
     }
 
     async logout(){
-        return fetch(`http://${hostname}:3001/api/login/logout`, header("DELETE"))
+        return this.request(
+            `${this.host}/api/login`,
+            "DELETE"
+        )
     }
 
     async register(register:{id:string, pw:string, pwc:string, nickname:string}){
-        return fetch(`http://${hostname}:3001/api/login/register`, header("POST", register))
-        .then(x => x.json())
+        return this.request(
+            `${this.host}/api/login/register`,
+            "POST", 
+            register
+        )
     }
 
     async recommend(data:{item_id:number, flag:number}){
-        return fetch(`http://${hostname}:3001/api/item/recommend`, header("POST", data))
+        return this.request(
+            `${this.host}/api/item/recommend`,
+            "POST", 
+            data
+        )
     }
 
     async sendFile(file:File, nickname:string){
@@ -88,7 +120,7 @@ class DataSender {
         formData.append('upload_file', file);
         formData.append('nickname', nickname);
 
-        return axios.put(`http://${hostname}:3001/api/profile/update`, formData, {withCredentials:true})
+        return axios.put(`${this.host}/api/profile`, formData, {withCredentials:true})
     }
 }
 
