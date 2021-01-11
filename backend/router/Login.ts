@@ -1,5 +1,5 @@
 
-import express, { Router } from "express";
+import express, { Router,Request,Response } from "express";
 import LoginDB from "../DB/Login"
 import { v4 as uuidv4 } from "uuid";
 
@@ -12,22 +12,23 @@ const loginManager:Router = express.Router();
 const db = new LoginDB();
 export const userSession:session = {}
 
-export function loginChecker(req:express.Request, res:express.Response, next:Function){
-    console.log(req.session!.key)
+export function loginChecker(req:Request, res:Response, next:Function){
     if(req.session!.key){
         let key = req.session!.key
         if(userSession[key]){
             req.body._id = userSession[key]
             next()
         } else {
-            res.status(400).send({error : "Wrong Session"})
+            res.status(400).send("Wrong Session")
         }
     } else {
-        res.status(404).send({error : "Need To Login first"})
+        res.status(404).send('Need To Login first')
     }
 }
 
-loginManager.post("/", async (req: express.Request, res: express.Response) => {
+loginManager.get("/", loginChecker, async (_, res:Response) => res.status(200).send())
+
+loginManager.post("/", async (req:Request, res:Response) => {
     let [profile] = await db.login(req.body) as any[];
 
     if(profile){
@@ -36,21 +37,21 @@ loginManager.post("/", async (req: express.Request, res: express.Response) => {
         userSession[key] = profile._id
         res.status(200).send()
     }else {
-        res.status(404).send({error : "Wrong id or password"})
+        res.status(404).send("Wrong id or password")
     }
 })
 
-loginManager.delete("/", loginChecker ,async (req: express.Request, res: express.Response) => {
-    req.session!.destroy((err) => {
-        if (err) res.status(400).send({error : err})
+loginManager.delete("/", loginChecker ,async (req:Request, res:Response) => {
+    req.session!.destroy((err:Error) => {
+        if (err) res.status(400).send(err.message)
         else res.status(200).send();
     })
 })
 
-loginManager.post("/register", async (req: express.Request, res: express.Response) => {
+loginManager.post("/register", async (req:Request, res:Response) => {
     let check:any = await db.checkRedupId(req.body.id)
     if(check[0].count){
-        res.status(400).send({error : "Overlaped User ID"})
+        res.status(400).send("Overlaped User ID")
         return
     }
 
@@ -60,7 +61,7 @@ loginManager.post("/register", async (req: express.Request, res: express.Respons
     res.send({})
 })
 
-loginManager.post("/overlap", async (req: express.Request, res: express.Response) => {
+loginManager.post("/overlap", async (req:Request, res:Response) => {
     let check:any = await db.checkRedupId(req.body.id)
     res.status(200).json({able: Boolean(check[0].count)})
 })

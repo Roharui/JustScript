@@ -1,4 +1,4 @@
-import express, { Router } from "express";
+import express, { Router, Request, Response } from "express";
 import ItemDB from "../DB"
 import { userSession, loginChecker } from './Login'
 
@@ -6,25 +6,25 @@ const ItemManager:Router = express.Router();
 
 const db = new ItemDB();
 
-ItemManager.get("/owner", loginChecker, async (req: express.Request, res: express.Response) => {
+ItemManager.get("/owner", loginChecker, async (req: Request, res: Response) => {
     const {_id} = req.body
     let items = await db.selectByUser(_id)
     res.status(200).json({"data":items})
 })
 
-ItemManager.post("/recommend", loginChecker, async (req: express.Request, res: express.Response) => {
+ItemManager.post("/recommend", loginChecker, async (req: Request, res: Response) => {
     const {item_id, _id, flag} = req.body;
     await db.recommend(item_id, _id, flag)
     res.status(200).send()
 })
 
-ItemManager.post("/", loginChecker, async (req: express.Request, res: express.Response) => {
+ItemManager.post("/", loginChecker, async (req: Request, res: Response) => {
     const {item, _id} = req.body;
     await db.insert(item, _id)
     res.status(200).send()
 })
 
-ItemManager.delete("/", loginChecker, async (req: express.Request, res: express.Response) => {
+ItemManager.delete("/", loginChecker, async (req: Request, res: Response) => {
     const {id, _id} = req.body;
 
     db.delete(id, _id)
@@ -34,7 +34,7 @@ ItemManager.delete("/", loginChecker, async (req: express.Request, res: express.
     res.send()
 })
 
-ItemManager.get("/", async (req: express.Request, res: express.Response) => {
+ItemManager.get("/", async (req: Request, res: Response) => {
     let {score, filter: _filter} = req.query
     let s:number = score ? parseInt(score as string) : 5 
 

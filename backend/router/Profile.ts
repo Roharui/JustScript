@@ -1,4 +1,4 @@
-import express, { Router } from "express";
+import express, { Router, Request, Response } from "express";
 import multer from "multer";
 import path from "path"
 
@@ -32,13 +32,13 @@ const upload = multer({
     , limits : { fileSize: 5 * 1024 * 1024 }
 });
 
-ProfileManager.get("/", loginChecker, async (req: express.Request, res: express.Response) => {
+ProfileManager.get("/", loginChecker, async (req: Request, res: Response) => {
     let {_id} = req.body
     let [x]:any = await db.getProfile(_id)
     res.status(200).json({data:x})
 })
 
-ProfileManager.put("/", loginChecker, upload.single("upload_file"), async (req: express.Request, res: express.Response) => {
+ProfileManager.put("/", loginChecker, upload.single("upload_file"), async (req: Request, res: Response) => {
     let {nickname, _id} = req.body
 
     let [x]:any = await db.getProfile(_id)
