@@ -7,29 +7,35 @@ const ItemManager:Router = express.Router();
 const db = new ItemDB();
 
 ItemManager.get("/owner", loginChecker, async (req: Request, res: Response) => {
-    const {_id} = req.body
+    const {_id} = res.locals
     let items = await db.selectByUser(_id)
     res.status(200).json({"data":items})
 })
 
 ItemManager.post("/recommend", loginChecker, async (req: Request, res: Response) => {
-    const {item_id, _id, flag} = req.body;
+    const {item_id, flag} = req.body;
+    const {_id} = res.locals
     await db.recommend(item_id, _id, flag)
     res.status(200).send()
 })
 
 ItemManager.post("/", loginChecker, async (req: Request, res: Response) => {
-    const {item, _id} = req.body;
+    const {item} = req.body;
+    const {_id} = res.locals
     await db.insert(item, _id)
     res.status(200).send()
 })
 
 ItemManager.delete("/", loginChecker, async (req: Request, res: Response) => {
-    const {id, _id} = req.body;
+    const {id} = req.body;
+    const {_id} = res.locals
 
     db.delete(id, _id)
     .then(() => res.status(200))
-    .catch(() => res.status(400))
+    .catch(err => {
+        res.statusMessage = err.message
+        res.status(400)
+    })
     
     res.send()
 })

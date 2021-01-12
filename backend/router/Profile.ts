@@ -33,17 +33,19 @@ const upload = multer({
 });
 
 ProfileManager.get("/", loginChecker, async (req: Request, res: Response) => {
-    let {_id} = req.body
+    let {_id} = res.locals
     let [x]:any = await db.getProfile(_id)
     res.status(200).json({data:x})
 })
 
 ProfileManager.put("/", loginChecker, upload.single("upload_file"), async (req: Request, res: Response) => {
-    let {nickname, _id} = req.body
+    let {nickname} = req.body
+    let {_id}      = res.locals
 
     let [x]:any = await db.getProfile(_id)
     let file = req.file != undefined ? req.file : {filename:x.profile_img}
     let nick = nickname != undefined ? nickname : x.nickname
+
     await db.updateProfile({
         _id:_id, 
         nickname:nick, 

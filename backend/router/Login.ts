@@ -16,13 +16,15 @@ export function loginChecker(req:Request, res:Response, next:Function){
     if(req.session!.key){
         let key = req.session!.key
         if(userSession[key]){
-            req.body._id = userSession[key]
+            res.locals._id = userSession[key]
             next()
         } else {
-            res.status(400).send("Wrong Session")
+            res.statusMessage = "Wrong Session"
+            res.status(400).send()
         }
     } else {
-        res.status(404).send('Need To Login first')
+        res.statusMessage = 'Need To Login first'
+        res.status(404).send()
     }
 }
 
@@ -37,13 +39,17 @@ loginManager.post("/", async (req:Request, res:Response) => {
         userSession[key] = profile._id
         res.status(200).send()
     }else {
-        res.status(404).send("Wrong id or password")
+        res.statusMessage = "Wrong id or password"
+        res.status(404).send()
     }
 })
 
 loginManager.delete("/", loginChecker ,async (req:Request, res:Response) => {
     req.session!.destroy((err:Error) => {
-        if (err) res.status(400).send(err.message)
+        if (err) {
+            res.statusMessage = err.message
+            res.status(400).send()
+        }
         else res.status(200).send();
     })
 })
@@ -51,7 +57,8 @@ loginManager.delete("/", loginChecker ,async (req:Request, res:Response) => {
 loginManager.post("/register", async (req:Request, res:Response) => {
     let check:any = await db.checkRedupId(req.body.id)
     if(check[0].count){
-        res.status(400).send("Overlaped User ID")
+        res.statusMessage = "Overlaped User ID"
+        res.status(400).send()
         return
     }
 
