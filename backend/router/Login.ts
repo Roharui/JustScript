@@ -16,7 +16,7 @@ export function loginChecker(req:Request, res:Response, next:Function){
     if(req.session!.key){
         let key = req.session!.key
         if(userSession[key]){
-            req.body._id = userSession[key]
+            res.locals._id = userSession[key]
             next()
         } else {
             res.statusMessage = "Wrong Session"
