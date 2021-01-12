@@ -29,7 +29,10 @@ ItemManager.delete("/", loginChecker, async (req: Request, res: Response) => {
 
     db.delete(id, _id)
     .then(() => res.status(200))
-    .catch(() => res.status(400))
+    .catch(err => {
+        res.statusMessage = err.message
+        res.status(400)
+    })
     
     res.send()
 })
