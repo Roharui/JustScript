@@ -18,7 +18,6 @@ const header = (method:"GET"|"POST"|"DELETE"|"PUT", data?:any):RequestInit => {
 
 function handleErrors(response:Response) {
     if (!response.ok) {
-        console.log(response)
         throw Error(response.statusText);
     }
     return response;
@@ -42,10 +41,6 @@ class DataSender {
         return fetch(url, header(method, data))
         .then(handleErrors)
         .then(x => x.json())
-        .catch(err => {
-            console.log(err)
-            return {}
-        })
     }
 
     async getItems(score:number, filter:string[]){

@@ -50,8 +50,8 @@ class Creater extends React.Component<any, CreaterState> {
 
     componentDidMount(){
         this.ds.getProfile()
-        .then(x => {
-            if(x.status === 404) this.props.history.push("/recent")
+        .catch(x => {
+            this.props.history.push("/recent")
         })
     }
 

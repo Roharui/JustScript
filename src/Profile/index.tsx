@@ -23,11 +23,10 @@ class Profile extends React.Component<any, any>{
     }
     
     componentDidMount(){
-        // this.ds.getProfile()
-        // .then(data => {if data.status})
-        // .then(data => {return {...data, profile_img:this.ds.toRealPath(data.profile_img)}})
-        // .then(data => this.setState(data))
-        // .catch(e => this.props.history.push("/"))
+        this.ds.getProfile()
+        .then(({data}) => {return {...data, profile_img:this.ds.toRealPath(data.profile_img)}})
+        .then(data => this.setState(data))
+        .catch(e => this.props.history.push("/"))
     }
 
     handleFile(e:any){
