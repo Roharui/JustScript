@@ -8,13 +8,14 @@ import Tema    from './Tema';
 
 import './App.css';
 
-class App extends React.Component<any, {typeFilter:string[]}> {
+class App extends React.Component<any, {typeFilter:string[], styleLink:string}> {
   constructor(props:any){
     super(props)
     document.title = "JustScript"
 
     this.state = {
-      typeFilter : ["html", "canvas", "tema"]
+      typeFilter : ["html", "canvas", "tema"],
+      styleLink : "http://localhost:3001/api/tema/"
     }
   }
 
@@ -24,6 +25,7 @@ class App extends React.Component<any, {typeFilter:string[]}> {
 
   render() {
     return <>
+      <link href={this.state.styleLink} rel="stylesheet"></link>
       <NavMain changeFilter={this.changeFilter} />
       <Switch>
         <Route exact path="/"   component={() => <Main filter={this.state.typeFilter}/>} />
@@ -32,7 +34,7 @@ class App extends React.Component<any, {typeFilter:string[]}> {
         <Route path="/report"   component={() => <Main filter={this.state.typeFilter}/>} />
         <Route path="/create"   component={Creater} />
         <Route path="/profile"  component={Profile} />
-        <Route path="/tema"     component={Tema} />
+        <Route path="/tema"     component={Tema}    />
       </Switch>
     </>
   }
