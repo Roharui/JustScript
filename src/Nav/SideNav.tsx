@@ -1,5 +1,4 @@
 
-import { TransferWithinAStationSharp } from '@material-ui/icons';
 import React from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import DataSender from '../lib/DataSender'
