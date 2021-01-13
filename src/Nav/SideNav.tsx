@@ -1,4 +1,5 @@
 
+import { TransferWithinAStationSharp } from '@material-ui/icons';
 import React from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import DataSender from '../lib/DataSender'
@@ -10,7 +11,8 @@ interface profile{
     write_count:number,
     recommend_count:number,
     nickname:string,
-    profile_img:string
+    profile_img:string,
+    permission:number
 }
 
 type SideProps = RouteComponentProps<any> & {toggle: boolean}
@@ -25,7 +27,8 @@ class SideNav extends React.Component<SideProps, profile> {
             write_count:0,
             recommend_count:0,
             nickname:'',
-            profile_img:''
+            profile_img:'',
+            permission: 0
         }
         this.ds = new DataSender();
     }
@@ -48,6 +51,7 @@ class SideNav extends React.Component<SideProps, profile> {
 
     render() {
         let src = this.ds.toRealPath(this.state.profile_img)
+        let report = this.state.permission ? <Link to="/report"><p>Report</p></Link> : null
         return <>
         <div id="mySidenav" className="sidenav" style={{width: this.props.toggle ? "250px" : "0px"}}>
         {this.state.profile_img.length ?         
@@ -65,7 +69,7 @@ class SideNav extends React.Component<SideProps, profile> {
                 <Link to="/profile"><p>Profile</p></Link>
                 <Link to="/itemlist"><p>Items</p></Link>
                 <Link to="/tema"><p>Tema</p></Link>
-                <Link to="/report"><p>Report</p></Link>
+                {report}
                 <p style={{position: "absolute", bottom: 100}} onClick={this.logout}>Logout</p>
             </>
         : 

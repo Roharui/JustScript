@@ -16,14 +16,14 @@ ItemManager.post("/recommend", loginChecker, async (req: Request, res: Response)
     const {item_id, flag} = req.body;
     const {_id} = res.locals
     await db.recommend(item_id, _id, flag)
-    res.status(200).send()
+    res.status(200).json({})
 })
 
 ItemManager.post("/", loginChecker, async (req: Request, res: Response) => {
     const {item} = req.body;
     const {_id} = res.locals
     await db.insert(item, _id)
-    res.status(200).send()
+    res.status(200).json({})
 })
 
 ItemManager.delete("/", loginChecker, async (req: Request, res: Response) => {
@@ -37,7 +37,7 @@ ItemManager.delete("/", loginChecker, async (req: Request, res: Response) => {
         res.status(400)
     })
     
-    res.send()
+    res.json({})
 })
 
 ItemManager.get("/", async (req: Request, res: Response) => {

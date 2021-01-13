@@ -51,7 +51,7 @@ ProfileManager.put("/", loginChecker, upload.single("upload_file"), async (req: 
         nickname:nick, 
         profile_img: file.filename
     })
-    res.status(200).send()
+    res.status(200).json({})
 })
 
 export default ProfileManager; 
