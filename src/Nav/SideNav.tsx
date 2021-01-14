@@ -43,9 +43,13 @@ class SideNav extends React.Component<SideProps, profile> {
     }
 
     logout = () => {
-        this.ds.logout()
-        .then(() => this.setState({profile_img:''}))
-        .catch(e => alert(e.message))
+        if(window.confirm("로그아웃하시겠습니까?")){
+            this.ds.logout()
+            .then(() => {
+                window.location.reload()
+            })
+            .catch(e => alert(e.message))
+        }
     }
 
     render() {
