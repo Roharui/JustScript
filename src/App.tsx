@@ -8,14 +8,14 @@ import Tema    from './Tema';
 
 import './App.css';
 
-class App extends React.Component<any, {typeFilter:string[], styleLink:string}> {
+class App extends React.Component<any, {typeFilter:string[], styleLink:string[]}> {
   constructor(props:any){
     super(props)
     document.title = "JustScript"
 
     this.state = {
       typeFilter : ["html", "canvas", "tema"],
-      styleLink : "http://localhost:3001/api/tema/"
+      styleLink : []
     }
   }
 
@@ -23,15 +23,22 @@ class App extends React.Component<any, {typeFilter:string[], styleLink:string}> 
     this.setState({typeFilter:arr})
   }
 
+  changeTema = (arr:string[]) => {
+    this.setState({styleLink:arr})
+  }
+
   render() {
+    const typefilter = this.state.typeFilter
     return <>
-      <link href={this.state.styleLink} rel="stylesheet"></link>
+    {
+      this.state.styleLink.map(x => <link href={x} rel="stylesheet"></link>)
+    }
       <NavMain changeFilter={this.changeFilter} />
       <Switch>
-        <Route exact path="/"   component={() => <Main filter={this.state.typeFilter}/>} />
-        <Route path="/recent"   component={() => <Main filter={this.state.typeFilter}/>} />
-        <Route path="/itemlist" component={() => <Main filter={this.state.typeFilter}/>} />
-        <Route path="/report"   component={() => <Main filter={this.state.typeFilter}/>} />
+        <Route exact path="/"   component={() => <Main filter={typefilter}/>} />
+        <Route path="/recent"   component={() => <Main filter={typefilter}/>} />
+        <Route path="/itemlist" component={() => <Main filter={typefilter}/>} />
+        <Route path="/report"   component={() => <Main filter={typefilter}/>} />
         <Route path="/create"   component={Creater} />
         <Route path="/profile"  component={Profile} />
         <Route path="/tema"     component={Tema}    />

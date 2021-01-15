@@ -60,15 +60,19 @@ export class Item extends React.Component<Readonly<ItemProps>, any> {
         return id
     }
 
-    render(){
-        let data = this.props.data;
-        let recommend = data.recommended
-
+    rcmBtnClass(recommend:number):{up:string, down:string}{
         let {up, down} = recommend > 0 ? 
         {up:"35px solid orange", down:"35px solid lightgray"} 
         : 
         {up:"35px solid lightgray", down:"35px solid orange"} 
         down = recommend ? down : "35px solid lightgray"
+
+        return {up, down}
+    }
+
+    render(){
+        let data = this.props.data;
+        let {up, down} = this.rcmBtnClass(data.recommended)
 
         let src = this.ds.toRealPath(data.img)
         
@@ -83,7 +87,7 @@ export class Item extends React.Component<Readonly<ItemProps>, any> {
                     <div className="profile" style={{lineHeight:"32px"}}>
                         <img src={src} width="32" height="32" alt={data.name}/>
                         <div className="nick" style={{height:"32px"}}>
-                            {data.name}
+                            {data.name}@{data.type.toUpperCase()}
                         </div>
                     </div>
                     <div className="descript">
