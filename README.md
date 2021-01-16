@@ -28,6 +28,10 @@ React-typescript와 Express 모듈을 동시에 실행시키는 법을 몰라서
 
 [![Video Label](http://img.youtube.com/vi/Rdm_DjFScxo/0.jpg)](https://youtu.be/Rdm_DjFScxo)
 
+2021-01-16
+
+[![Video Label](http://img.youtube.com/vi/Rdm_DjFScxo/0.jpg)](https://youtu.be/Rdm_DjFScxo)
+
 # 앞으로의 계획
 
 * 클라우드 서버에 올려서 운영하기
