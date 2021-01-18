@@ -50,9 +50,9 @@ class DataSender {
         )
     }
 
-    async getOwnItems(){
+    async getOwnItems(filter:string[]){
         return this.request(
-            `${this.host}/api/item/owner`,
+            `${this.host}/api/item/owner?filter=${filter.toString()}`,
             "GET"
         )
     }

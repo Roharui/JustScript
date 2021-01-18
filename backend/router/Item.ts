@@ -8,7 +8,11 @@ const db = new ItemDB();
 
 ItemManager.get("/owner", loginChecker, async (req: Request, res: Response) => {
     const {_id} = res.locals
-    let items = await db.selectByUser(_id)
+    const {filter:_filter} = req.query
+
+    let f = _filter ? (_filter as string).split(",") : ["html", "canvas", "tema"]
+
+    let items = await db.selectByUser(_id, f)
     res.status(200).json({"data":items})
 })
 
@@ -38,6 +42,11 @@ ItemManager.delete("/", loginChecker, async (req: Request, res: Response) => {
     })
     
     res.json({})
+})
+
+ItemManager.get("/search", async (req: Request, res: Response) => {
+    const {param} = req.query
+
 })
 
 ItemManager.get("/", async (req: Request, res: Response) => {

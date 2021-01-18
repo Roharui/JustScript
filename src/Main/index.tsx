@@ -67,7 +67,7 @@ class Main extends React.Component<
     }
 
     ownerUpdate() {
-        this.ds.getOwnItems()
+        this.ds.getOwnItems(this.props.filter)
         .then(res => this.setState({items : res.data}))
         .catch(err => this.props.history.push("/"))
     }

@@ -30,7 +30,8 @@ class ItemDB extends Manager {
         `, filter)
     }
 
-    async selectByUser(user_id:number){
+    async selectByUser(user_id:number, filter:string[]){
+        const elementLst = ([user_id, user_id] as Array<any>).concat(filter)
         return this.query(`
         SELECT 
             i.*,
@@ -48,8 +49,8 @@ class ItemDB extends Manager {
             ) r on r.item_id = i.id
             left outer join recommend ru on ru.user_id = ? and ru.item_id = i.id
             inner join user u on u._id = i.user_id
-        where i.user_id = ?;
-        `, [user_id, user_id])
+        where i.user_id = ? and i.type IN (?,?,?);
+        `, elementLst)
     }
 
     async insert(data:ItemType, user_id:number){
