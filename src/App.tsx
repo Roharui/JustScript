@@ -39,6 +39,7 @@ class App extends React.Component<any, {typeFilter:string[], styleLink:string[]}
         <Route path="/recent"   component={() => <Main filter={typefilter}/>} />
         <Route path="/itemlist" component={() => <Main filter={typefilter}/>} />
         <Route path="/report"   component={() => <Main filter={typefilter}/>} />
+        <Route path="/search"   component={() => <Main filter={typefilter}/>} />
         <Route path="/create"   component={Creater} />
         <Route path="/profile"  component={Profile} />
         <Route path="/tema"     component={Tema}    />

@@ -47,6 +47,9 @@ class Main extends React.Component<
             case "/itemlist":
                 this.ownerUpdate()
                 break
+            case "/search":
+                this.searchUpdate()
+                break
             default:
                 this._update()
                 break
@@ -67,6 +70,10 @@ class Main extends React.Component<
         this.ds.getOwnItems()
         .then(res => this.setState({items : res.data}))
         .catch(err => this.props.history.push("/"))
+    }
+
+    searchUpdate() {
+        
     }
     
 // ===============

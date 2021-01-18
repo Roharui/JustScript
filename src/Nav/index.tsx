@@ -38,6 +38,13 @@ class NavMain extends React.Component<NavProps, {toggle:boolean}> {
       </>
     }
 
+    search = (value:string) => {
+      this.props.history.push({
+        pathname:"/search",
+        search:"?param=" + value
+      })
+    }
+
     render() {
       return <>
         <div className="topnav">
@@ -55,7 +62,7 @@ class NavMain extends React.Component<NavProps, {toggle:boolean}> {
               </Route>
             </Switch>
             <DropDown changeFilter={this.props.changeFilter} />
-            <Search />
+            <Search search={this.search}/>
         </div>
         <SideNav toggle={this.state.toggle}/>
       </>
