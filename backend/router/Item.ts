@@ -45,7 +45,9 @@ ItemManager.delete("/", loginChecker, async (req: Request, res: Response) => {
 })
 
 ItemManager.get("/search", async (req: Request, res: Response) => {
-    const {param} = req.query
+    const {param, filter:_filter} = req.query
+
+    
 
 })
 
