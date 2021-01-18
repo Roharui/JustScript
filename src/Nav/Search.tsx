@@ -18,7 +18,7 @@ class Search extends React.Component<{search:Function}, {value:string}> {
   }
 
   enter = (e:React.KeyboardEvent) => {
-    if(e.key == "Enter") {
+    if(e.key === "Enter") {
       this.props.search(this.state.value)
     }
   }

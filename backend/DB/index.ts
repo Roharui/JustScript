@@ -53,6 +53,29 @@ class ItemDB extends Manager {
         `, elementLst)
     }
 
+    async search(query:string, filter:string[], id?:number){
+        let _id = id || -1
+        return this.query(`
+        SELECT 
+            i.*,
+            u.nickname as name,
+            u.profile_img as img,
+            ifnull(r.score, 0) as score,
+            ru.score as recommended,
+            (select i.user_id = ${_id}) as own
+        FROM 
+            items i
+            left outer join (
+                select rr.item_id, sum(rr.score) as score 
+                from recommend rr 
+                group by rr.item_id
+            ) r on r.item_id = i.id
+            left outer join recommend ru on ru.user_id = ${_id} and ru.item_id = i.id
+            inner join user u on u._id = i.user_id
+        where  and i.type IN (?,?,?);
+        `, filter)
+    }
+
     async insert(data:ItemType, user_id:number){
         let {descript, script, type, width, height} = data;
         await this.query(

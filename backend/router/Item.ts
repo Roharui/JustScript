@@ -47,8 +47,12 @@ ItemManager.delete("/", loginChecker, async (req: Request, res: Response) => {
 ItemManager.get("/search", async (req: Request, res: Response) => {
     const {param, filter:_filter} = req.query
 
-    
+    let f = _filter ? (_filter as string).split(",") : ["html", "canvas", "tema"]
 
+    let items;
+    if(req.session!.key) items = await db.search((param as string), f, userSession[req.session!.key]);
+    else items = await db.search((param as string), f);
+    res.status(200).json({data:items})
 })
 
 ItemManager.get("/", async (req: Request, res: Response) => {
