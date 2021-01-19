@@ -57,6 +57,14 @@ class DataSender {
         )
     }
 
+    async searchItems(query:string, filter:string[]){
+        console.log(query)
+        return this.request(
+            `${this.host}/api/item/search?param=${query}&filter=${filter.toString()}`,
+            "GET"
+        )
+    }
+
     async checkLogin(){
         return this.request(
             `${this.host}/api/login`,

@@ -46,12 +46,24 @@ ItemManager.delete("/", loginChecker, async (req: Request, res: Response) => {
 
 ItemManager.get("/search", async (req: Request, res: Response) => {
     const {param, filter:_filter} = req.query
+    let p:{[key:string] : string} | string = {};
+    let f: string[] = _filter ? (_filter as string).split(",") : ["html", "canvas", "tema"]
 
-    let f = _filter ? (_filter as string).split(",") : ["html", "canvas", "tema"]
+    try {
+
+        (param as string).split(",").forEach((x:string) => {
+            const [k, v] = x.split(":");
+            if(v === undefined) throw new Error("No Key");
+            (p as {[key:string] : string})[k] = v
+        })
+
+    } catch(e) {
+        p = param as string
+    }
 
     let items;
-    if(req.session!.key) items = await db.search((param as string), f, userSession[req.session!.key]);
-    else items = await db.search((param as string), f);
+    if(req.session!.key) items = await db.search(p, f, userSession[req.session!.key]);
+    else items = await db.search(p, f);
     res.status(200).json({data:items})
 })
 

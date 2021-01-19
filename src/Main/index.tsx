@@ -73,7 +73,9 @@ class Main extends React.Component<
     }
 
     searchUpdate() {
-        
+        const param = this.props.location.search.replace("?param=", "")
+        this.ds.searchItems(param, this.props.filter)
+        .then(res => this.setState({items: res.data}))
     }
     
 // ===============

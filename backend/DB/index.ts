@@ -1,6 +1,12 @@
 
 import { Manager, ItemType } from './Base';
 
+interface SearchByTag {
+    descript?:string;
+     script?:string;
+      nickname?:string;
+}
+
 class ItemDB extends Manager {
 
     constructor() {
@@ -53,8 +59,28 @@ class ItemDB extends Manager {
         `, elementLst)
     }
 
-    async search(query:string, filter:string[], id?:number){
+    async search(query:SearchByTag | string, filter:string[], id?:number){
         let _id = id || -1
+        let sql = {descript:`i.descript like '%?%'`, script:`i.script like '%?%'` , nickname:`u.nickname like '%?%'`}
+        let x = ""
+
+        const isTag = (x: SearchByTag | string): x is SearchByTag => {
+            return (<string>x).length === undefined
+        }
+
+        if(isTag(query)){
+            Object.entries(query).forEach(([key, value]) => {
+                const k = key as 'descript' | 'script' | 'nickname'
+                if(x.length) x += " or ";
+                x += sql[k].replace("?", value!)
+            })
+        } else {
+            Object.values(sql).forEach((v:string) => {
+                if(x.length) x += " or ";
+                x += v.replace("?", query)
+            })
+        }
+
         return this.query(`
         SELECT 
             i.*,
@@ -72,8 +98,8 @@ class ItemDB extends Manager {
             ) r on r.item_id = i.id
             left outer join recommend ru on ru.user_id = ${_id} and ru.item_id = i.id
             inner join user u on u._id = i.user_id
-        where  and i.type IN (?,?,?);
-        `, filter)
+        where (${x}) and i.type IN (?,?,?);
+        `,  filter)
     }
 
     async insert(data:ItemType, user_id:number){
