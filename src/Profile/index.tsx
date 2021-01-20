@@ -4,11 +4,22 @@ import { Button } from "@material-ui/core"
 import DataSender from 'src/lib/DataSender';
 
 import './Profile.css'
+import { RouteComponentProps } from 'react-router-dom';
 
-class Profile extends React.Component<any, any>{
+type ProfileState = {
+    report_count:number,
+    write_count:number,
+    recommend_count:number,
+    nickname:string,
+    profile_img: string,
+    
+    uploadFile: any
+}
+
+class Profile extends React.Component<RouteComponentProps, any>{
     private ds: DataSender;
     
-    constructor(props:any){
+    constructor(props:RouteComponentProps){
         super(props);
         this.state = {
             report_count:-1,
@@ -37,14 +48,14 @@ class Profile extends React.Component<any, any>{
         .then(data => this.setState(data))
     }
 
-    handleFile(e:any){
+    handleFile(e:React.ChangeEvent<HTMLInputElement>){
         this.setState({
-            profile_img : URL.createObjectURL(e.target.files[0]),
-            uploadFile : e.target.files[0]
+            profile_img : URL.createObjectURL(e.target.files![0]),
+            uploadFile : e.target.files![0]
         })
     }
 
-    handleChange(e:any){
+    handleChange(e:React.ChangeEvent<HTMLInputElement>){
         this.setState({
             [e.target.name] : e.target.value
         })
@@ -52,6 +63,7 @@ class Profile extends React.Component<any, any>{
     
     uploadFile(){
         let {uploadFile, nickname} = this.state
+
         this.ds.sendFile(uploadFile, nickname)
         .then((res) => {
             window.location.reload(false);

@@ -1,15 +1,16 @@
 import React from 'react';
 import { ItemType } from '.';
 
-class Canvas extends React.Component<{item:ItemType}, any>{
-    private canvas: any;
-    private ctx: any;
+class Canvas extends React.Component<{item:ItemType}, {}>{
+    private canvas?: HTMLCanvasElement;
+    private ctx: CanvasRenderingContext2D | null ;
     private refCaller: (element: HTMLCanvasElement) => void;
 
     constructor(props:{item:ItemType}){
         super(props);
 
-        this.canvas = null;
+        this.canvas = undefined;
+        this.ctx    = null;
 
         this.refCaller = (element:HTMLCanvasElement) => {
             this.canvas = element
@@ -17,7 +18,7 @@ class Canvas extends React.Component<{item:ItemType}, any>{
     }
 
     componentDidMount(){
-        this.ctx = this.canvas.getContext("2d");
+        this.ctx = this.canvas!.getContext("2d");
         let func = new Function(this.props.item.script).bind(this)
         func()
     }

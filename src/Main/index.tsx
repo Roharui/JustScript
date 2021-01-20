@@ -13,7 +13,7 @@ interface MainState {
     show_popup: boolean;
 }
 
-type MainProps = RouteComponentProps<any> & {filter:string[]} 
+type MainProps = RouteComponentProps<{}> & {filter:string[]} 
 
 class Main extends React.Component<
     MainProps, MainState> 

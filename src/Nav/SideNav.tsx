@@ -14,7 +14,7 @@ interface profile{
     permission:number
 }
 
-type SideProps = RouteComponentProps<any> & {toggle: boolean}
+type SideProps = RouteComponentProps<{}> & {toggle: boolean}
 
 class SideNav extends React.Component<SideProps, profile> {
     private ds: DataSender;

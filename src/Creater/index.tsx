@@ -1,5 +1,6 @@
 
 import React, { ChangeEvent } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 import DataSender from '../lib/DataSender'
 import { ItemType } from '../Main/Item'
 import { Content } from '../Main/Content'
@@ -19,11 +20,11 @@ interface CreaterState{
 }
 
 
-class Creater extends React.Component<any, CreaterState> {
+class Creater extends React.Component<RouteComponentProps, CreaterState> {
     private ds:DataSender;
     private mirror: string;
 
-    constructor(props:any){
+    constructor(props:RouteComponentProps){
         super(props);
         this.ds = new DataSender();
         this.state = {
