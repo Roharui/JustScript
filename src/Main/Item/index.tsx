@@ -4,6 +4,7 @@ import MenuListComposition from "./itemMenu"
 import DataSender from 'src/lib/DataSender';
 
 import './Item.css'
+import Popup from '../Popup';
 
 export interface ItemType{
     id : number,
@@ -23,18 +24,29 @@ export interface ItemType{
 type ItemProps = {
     key: number;
     data: ItemType;
-    sender:Function;
-    popup:Function;
     updater:Function;
 }
 
-export class Item extends React.Component<Readonly<ItemProps>, any> {
+type ItemState = {
+    popup: boolean;
+    type: "html" | "canvas" | "tema" | "writer";
+    script? : string;
+}
+
+export class Item extends React.Component<Readonly<ItemProps>, ItemState> {
     private ds:DataSender;
 
     constructor(props:Readonly<ItemProps>) {
         super(props);
+        this.state = {
+            popup: false,
+            type: this.props.data.type
+        }
+
         this.ds = new DataSender()
     }
+
+    // Item Controll
 
     async delete() {
         let {id} = this.props.data;
@@ -59,6 +71,29 @@ export class Item extends React.Component<Readonly<ItemProps>, any> {
         let { id } = this.props.data;
         return id
     }
+
+    //===
+
+    scriptWriter = (script:string):void => {
+        this.setState({
+            script:script
+        })
+        this.togglePopup()
+    }
+
+    togglePopup = () => {
+        this.setState({
+          popup: !this.state.popup
+        });
+    }
+
+    getScript():ItemType {
+        let item = {...this.props.data}
+        item.script = this.state.script || item.script
+        return item
+    }
+
+    // ===
 
     rcmBtnClass(recommend:number):{up:string, down:string}{
         let {up, down} = recommend > 0 ? 
@@ -87,18 +122,18 @@ export class Item extends React.Component<Readonly<ItemProps>, any> {
                     <div className="profile" style={{lineHeight:"32px"}}>
                         <img src={src} width="32" height="32" alt={data.name}/>
                         <div className="nick" style={{height:"32px"}}>
-                            {data.name}@{data.type.toUpperCase()}
+                            {data.name}@{data.type.toUpperCase()} { this.state.script ? "수정됨" : ""}
                         </div>
                     </div>
                     <div className="descript">
                         {data.descript}
                     </div>
                     <div className="buttons">
-                        <Button onClick={() => { this.props.sender(data) }} variant="contained" color="primary">
+                        <Button onClick={() => { this.setState({type:this.props.data.type}, () => this.togglePopup()) }} variant="contained" color="primary">
                             Execute
                         </Button>
                         { data.openAble ?                         
-                        <Button onClick={() => { this.props.popup(data) }} variant="contained" color="secondary">
+                        <Button onClick={() => { this.setState({type:"writer"}, () => this.togglePopup()) }} variant="contained" color="secondary">
                             Script
                         </Button> :
                         <Button onClick={() => { alert("Do Not Have Permission") }} variant="contained" disabled>
@@ -110,6 +145,12 @@ export class Item extends React.Component<Readonly<ItemProps>, any> {
                     </div>
                 </div>
             </Paper>
+            {
+                this.state.popup ? 
+                <Popup item={(this.getScript())} 
+                type={this.state.type} 
+                oper={{closer:this.togglePopup, writer:this.scriptWriter}}/> : null
+            }
         </>
     }
 }

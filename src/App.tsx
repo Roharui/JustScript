@@ -8,8 +8,8 @@ import Tema    from './Tema';
 
 import './App.css';
 
-class App extends React.Component<any, {typeFilter:string[], styleLink:string[]}> {
-  constructor(props:any){
+class App extends React.Component<{}, {typeFilter:string[], styleLink:string[]}> {
+  constructor(props:{}){
     super(props)
     document.title = "JustScript"
 

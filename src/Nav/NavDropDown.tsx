@@ -1,11 +1,11 @@
 
 import React from 'react';
 
-// const itemFilter = {
-//     tema: true,
-//     canvas: true,
-//     html: true
-// }
+type itemFilter = {
+    tema: boolean,
+    canvas: boolean,
+    html: boolean
+}
 
 class DropDown extends React.Component<{changeFilter:Function}, any> {
 
@@ -19,8 +19,9 @@ class DropDown extends React.Component<{changeFilter:Function}, any> {
     }
 
     toggleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        let name = e.target.name
         this.setState(
-            {[e.target.name] : !this.state[e.target.name]}
+            {[name] : !this.state[name]}
         , () => {
 
             let arr = Object.entries(this.state).map(([name, flag]) => {
@@ -30,7 +31,6 @@ class DropDown extends React.Component<{changeFilter:Function}, any> {
     
             this.props.changeFilter(arr)
         })
-
     }
 
     render() {
@@ -40,7 +40,7 @@ class DropDown extends React.Component<{changeFilter:Function}, any> {
             <i className="fa fa-caret-down"></i>
         </button>
         <div className="dropdown-content">
-            {/* <div className="d-option">
+            <div className="d-option">
                 <label>
                     TEMA
                     <input
@@ -50,7 +50,7 @@ class DropDown extends React.Component<{changeFilter:Function}, any> {
                         checked={this.state.tema}
                         onChange={this.toggleChange}/>
                 </label>
-            </div> */}
+            </div>
             <div className="d-option">
                 <label>
                     CANVAS

@@ -6,7 +6,7 @@ import SideNav from './SideNav';
 import DropDown from './NavDropDown';
 import './Nav.css'
 
-type NavProps = RouteComponentProps<any> & {changeFilter:Function} 
+type NavProps = RouteComponentProps<{}> & {changeFilter:Function} 
 
 class NavMain extends React.Component<NavProps, {toggle:boolean}> {
 

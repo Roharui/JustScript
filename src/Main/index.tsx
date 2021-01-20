@@ -1,8 +1,7 @@
 
 import React from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import {Item, ItemType} from './Item'
-import Popup, { Opertion } from './Popup'
 import DataSender from '../lib/DataSender'
 
 import './Main.css'
@@ -14,7 +13,7 @@ interface MainState {
     show_popup: boolean;
 }
 
-type MainProps = RouteComponentProps<any> & {filter:string[]} 
+type MainProps = RouteComponentProps<{}> & {filter:string[]} 
 
 class Main extends React.Component<
     MainProps, MainState> 
@@ -77,66 +76,24 @@ class Main extends React.Component<
         this.ds.searchItems(param, this.props.filter)
         .then(res => this.setState({items: res.data}))
     }
-    
-// ===============
-
-    togglePopup() {
-        this.setState({
-          show_popup: !this.state.show_popup
-        });
-    }
 
 // ===============
+
 
     itemMapper = (data:ItemType[]) => {
         return data.map((x, i) => {
             return <Item 
                 key={i} 
                 data={x} 
-                sender={this.scriptSender} 
-                popup={this.memoSender} 
                 updater={this.update.bind(this)} 
             />
         })
-    }
-
-    scriptSender = (item:ItemType) => {
-        this.setState({
-            cur_script : item,
-            wirteAble: false
-        })
-        this.togglePopup()
-    }
-
-    memoSender = (item:ItemType):void => {
-        this.setState({
-            cur_script : item,
-            wirteAble: true
-        })
-        this.togglePopup()
-    }
-
-    scriptWriter = (data:ItemType):void => {
-        let id = data.id
-        let items = this.state.items.map(el => el.id === id ? data : el)
-        this.setState({
-            items: []
-        }, () => {this.setState({items})})
-        this.togglePopup()
-    }
-
-    toCreate = () => {
-        this.props.history.push("/create")
     }
 
 // ===============
 
 
     render() {
-        let oper:Opertion = { 
-            writer: this.state.wirteAble ? this.scriptWriter : undefined, 
-            closer: this.togglePopup.bind(this) 
-        }
         return <div className="Main">
             {this.itemMapper(this.state.items)}
             
@@ -144,16 +101,9 @@ class Main extends React.Component<
             <div className="item"/>
             <div className="item"/>
             <div className="item"/>
-
-            {
-                this.state.show_popup 
-            ?
-                <Popup
-                    item={this.state.cur_script}
-                    oper={oper} /> 
-            : 
-                <button id="add_button" onClick={this.toCreate}>+</button>
-            }
+            
+            <Link to="/create"><button id="add_button">+</button></Link>
+            
         </div>
     }
 }
