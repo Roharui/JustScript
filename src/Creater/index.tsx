@@ -153,7 +153,7 @@ class Creater extends React.Component<RouteComponentProps, CreaterState> {
                     height: "40px"
                 }} onClick={this.uploadItem}>UPLOAD</Button>
             </div>
-            {this.state.show_popup ? <Popup item={this.state.item} type="iframe" oper={oper} /> : null}
+            {this.state.show_popup ? <Popup item={this.state.item} type={this.state.item.type} oper={oper} /> : null}
         </>
     }
 }

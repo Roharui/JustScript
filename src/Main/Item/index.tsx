@@ -29,7 +29,7 @@ type ItemProps = {
 
 type ItemState = {
     popup: boolean;
-    type: "iframe" | "writer";
+    type: "html" | "canvas" | "tema" | "writer";
     script? : string;
 }
 
@@ -40,7 +40,7 @@ export class Item extends React.Component<Readonly<ItemProps>, ItemState> {
         super(props);
         this.state = {
             popup: false,
-            type: "iframe"
+            type: this.props.data.type
         }
 
         this.ds = new DataSender()
@@ -73,22 +73,6 @@ export class Item extends React.Component<Readonly<ItemProps>, ItemState> {
     }
 
     //===
-
-    // scriptSender = (item:ItemType) => {
-    //     this.setState({
-    //         cur_script : item,
-    //         wirteAble: false
-    //     })
-    //     this.togglePopup()
-    // }
-
-    // memoSender = (item:ItemType):void => {
-    //     this.setState({
-    //         cur_script : item,
-    //         wirteAble: true
-    //     })
-    //     this.togglePopup()
-    // }
 
     scriptWriter = (script:string):void => {
         this.setState({
@@ -145,7 +129,7 @@ export class Item extends React.Component<Readonly<ItemProps>, ItemState> {
                         {data.descript}
                     </div>
                     <div className="buttons">
-                        <Button onClick={() => { this.setState({type:"iframe"}, () => this.togglePopup()) }} variant="contained" color="primary">
+                        <Button onClick={() => { this.setState({type:this.props.data.type}, () => this.togglePopup()) }} variant="contained" color="primary">
                             Execute
                         </Button>
                         { data.openAble ?                         

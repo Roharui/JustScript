@@ -40,7 +40,7 @@ class DropDown extends React.Component<{changeFilter:Function}, any> {
             <i className="fa fa-caret-down"></i>
         </button>
         <div className="dropdown-content">
-            {/* <div className="d-option">
+            <div className="d-option">
                 <label>
                     TEMA
                     <input
@@ -50,7 +50,7 @@ class DropDown extends React.Component<{changeFilter:Function}, any> {
                         checked={this.state.tema}
                         onChange={this.toggleChange}/>
                 </label>
-            </div> */}
+            </div>
             <div className="d-option">
                 <label>
                     CANVAS

@@ -90,10 +90,6 @@ class Main extends React.Component<
         })
     }
 
-    toCreate = () => {
-        this.props.history.push("/create")
-    }
-
 // ===============
 
 
@@ -105,14 +101,6 @@ class Main extends React.Component<
             <div className="item"/>
             <div className="item"/>
             <div className="item"/>
-
-            {/* {
-                this.state.show_popup 
-            ?
-                <Popup
-                    item={this.state.cur_script}
-                    oper={oper} /> 
-            :  */}
             
             <Link to="/create"><button id="add_button">+</button></Link>
             

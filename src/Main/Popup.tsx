@@ -11,13 +11,13 @@ export interface Opertion{
 
 export interface PopupType{
   item: ItemType,
-  type: "iframe" | "writer"
+  type: "html" | "canvas" | "tema" | "writer"
   oper: Opertion;
 }
 
 export default function Popup(props:PopupType){
   let oper = props.oper;
-  let {width, height} = props.type === "iframe" ? props.item : {width:"50%",height:"50%"}
+  let {width, height} = props.type !== "writer" ? props.item : {width:"50%",height:"50%"}
   return (
     <div className='popup'>
       <Button style={{position:"fixed", top:"10px", right:"10px", backgroundColor: "white"}} onClick={oper.closer}>X</Button>
