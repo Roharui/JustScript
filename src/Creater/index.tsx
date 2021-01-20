@@ -91,7 +91,8 @@ class Creater extends React.Component<any, CreaterState> {
     render() {
         let item = this.state.item;
         let oper:Opertion = { 
-            closer: this.togglePopup.bind(this)
+            closer: this.togglePopup.bind(this),
+            writer: (x:string) => {} 
         }
         return <>
             <div className="creater">
@@ -151,7 +152,7 @@ class Creater extends React.Component<any, CreaterState> {
                     height: "40px"
                 }} onClick={this.uploadItem}>UPLOAD</Button>
             </div>
-            {this.state.show_popup ? <Popup item={this.state.item} oper={oper} /> : null}
+            {this.state.show_popup ? <Popup item={this.state.item} type="iframe" oper={oper} /> : null}
         </>
     }
 }
