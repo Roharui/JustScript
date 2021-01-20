@@ -37,7 +37,7 @@ class ItemDB extends Manager {
     }
 
     async selectByUser(user_id:number, filter:string[]){
-        const elementLst = ([user_id, user_id] as Array<any>).concat(filter)
+        const elementLst = ([user_id, user_id] as Array<number | string>).concat(filter)
         return this.query(`
         SELECT 
             i.*,

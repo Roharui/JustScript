@@ -2,7 +2,7 @@
 import {ItemType} from '../Main/Item'
 import axios from "axios";
 
-const header = (method:"GET"|"POST"|"DELETE"|"PUT", data?:any):RequestInit => {
+const header = (method:"GET"|"POST"|"DELETE"|"PUT", data?:object):RequestInit => {
     return {
         method: method,
         mode: 'cors',
@@ -37,7 +37,7 @@ class DataSender {
         return `${this.host}/${src}`
     }
 
-    request(url:string, method:"GET"|"POST"|"DELETE"|"PUT", data?:any){
+    request(url:string, method:"GET"|"POST"|"DELETE"|"PUT", data?:object){
         return fetch(url, header(method, data))
         .then(handleErrors)
         .then(x => x.json())
