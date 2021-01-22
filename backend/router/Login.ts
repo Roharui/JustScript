@@ -73,4 +73,4 @@ loginManager.post("/overlap", async (req:Request, res:Response) => {
     res.status(200).json({able: Boolean(check[0].count)})
 })
 
-export default loginManager; 
+export default loginManager;  
