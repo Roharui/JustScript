@@ -28,9 +28,20 @@ class Search extends React.Component<{search:Function}, {value:string}> {
         <div className="search-bar">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" 
               integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossOrigin="anonymous" />
-            <div className="search-content">
-                <input type="search" className="search-input" onKeyUp={this.enter} onChange={this.onChange}/>
-                <i className="fa fa-search" onClick={() => this.props.search(this.state.value)}></i>
+            <div className="search-content" style={ this.state.value.length ? {width:"300px"} : {}}>
+                <input 
+                type="search" 
+                className="search-input" 
+                style={this.state.value.length ? {
+                    display: "block"
+                } : {}} 
+                onKeyUp={this.enter} onChange={this.onChange}/>
+                <i className="fa fa-search" 
+                  style={this.state.value.length ? {
+                      background: "#07051a",
+                      color: "white"
+                  } : {}} 
+                  onClick={() => this.props.search(this.state.value)}></i>
             </div>
         </div>
       </>
