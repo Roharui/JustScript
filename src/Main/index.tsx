@@ -35,6 +35,11 @@ class Main extends React.Component<
         this.update()
     }
 
+    componentDidUpdate(preProps:MainProps){
+        if(this.props.location.pathname === '/search' && this.props.location.search !== preProps.location.search)
+            this.searchUpdate()
+    }
+
 // =============
 
     update(){
