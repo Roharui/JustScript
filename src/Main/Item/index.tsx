@@ -110,6 +110,9 @@ export class Item extends React.Component<Readonly<ItemProps>, ItemState> {
         let {up, down} = this.rcmBtnClass(data.recommended)
 
         let src = this.ds.toRealPath(data.img)
+
+        const openAble = (<Button onClick={() => { this.setState({type:"writer"}, () => this.togglePopup()) }} variant="contained" color="secondary">Script</Button>)
+        const disabled = (<Button onClick={() => { alert("Do Not Have Permission") }} variant="contained" disabled>Script</Button>)
         
         return <>
             <Paper id={data.id.toString()} elevation={3} className="item">
@@ -132,13 +135,7 @@ export class Item extends React.Component<Readonly<ItemProps>, ItemState> {
                         <Button onClick={() => { this.setState({type:this.props.data.type}, () => this.togglePopup()) }} variant="contained" color="primary">
                             Execute
                         </Button>
-                        { data.openAble ?                         
-                        <Button onClick={() => { this.setState({type:"writer"}, () => this.togglePopup()) }} variant="contained" color="secondary">
-                            Script
-                        </Button> :
-                        <Button onClick={() => { alert("Do Not Have Permission") }} variant="contained" disabled>
-                            Script
-                        </Button>}
+                        { data.openAble ? openAble : disabled}
                     </div>
                     <div style={{position:"absolute", top:"0px", right:"0px"}}>
                         <MenuListComposition delete={this.delete.bind(this)} report={this.report.bind(this)} own={data.own}/>
@@ -147,7 +144,8 @@ export class Item extends React.Component<Readonly<ItemProps>, ItemState> {
             </Paper>
             {
                 this.state.popup ? 
-                <Popup item={(this.getScript())} 
+                <Popup 
+                item={(this.getScript())} 
                 type={this.state.type} 
                 oper={{closer:this.togglePopup, writer:this.scriptWriter}}/> : null
             }
