@@ -35,8 +35,9 @@ class Main extends React.Component<
         this.update()
     }
     
-    componentDidUpdate(){
-        this.update()
+    componentDidUpdate(prev:MainProps){
+        if(this.props.location !== prev.location)
+            this.update()
     }
 
 // =============
@@ -113,6 +114,8 @@ class Main extends React.Component<
             <div className="item"/>
             <div className="item"/>
             <div className="item"/>
+
+            {!this.state.items.length ? <h1 className="no_item">아이템이 존재하지 않습니다.</h1> : null}
             
             <Link to="/create"><button id="add_button">+</button></Link>
             
