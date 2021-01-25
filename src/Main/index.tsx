@@ -13,7 +13,7 @@ interface MainState {
     show_popup: boolean;
 }
 
-type MainProps = RouteComponentProps<{}> & {filter:string[]} 
+type MainProps = RouteComponentProps<{}> & {filter:string[], changeCss:(arr:string[])=>void, getCss:()=>string[]} 
 
 class Main extends React.Component<
     MainProps, MainState> 
@@ -34,10 +34,9 @@ class Main extends React.Component<
     componentDidMount(){
         this.update()
     }
-
-    componentDidUpdate(preProps:MainProps){
-        if(this.props.location.pathname === '/search' && this.props.location.search !== preProps.location.search)
-            this.searchUpdate()
+    
+    componentDidUpdate(){
+        this.update()
     }
 
 // =============
