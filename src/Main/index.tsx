@@ -13,7 +13,9 @@ interface MainState {
     show_popup: boolean;
 }
 
-type MainProps = RouteComponentProps<{}> & {filter:string[], changeCss:(arr:string[])=>void, getCss:()=>string[]} 
+type MainProps = RouteComponentProps<{}> & {
+    filter:string[]
+} 
 
 class Main extends React.Component<
     MainProps, MainState> 
@@ -109,13 +111,18 @@ class Main extends React.Component<
     render() {
         return <div className="Main">
             {this.itemMapper(this.state.items)}
-            
-            <div className="item"/>
-            <div className="item"/>
-            <div className="item"/>
-            <div className="item"/>
 
-            {!this.state.items.length ? <h1 className="no_item">아이템이 존재하지 않습니다.</h1> : null}
+            {!this.state.items.length ? 
+            <div className="no_item">
+                <h1>아이템이 존재하지 않습니다.</h1>
+            </div>
+            : 
+            <>
+                <div className="item"/>
+                <div className="item"/>
+                <div className="item"/>
+                <div className="item"/>
+            </>}
             
             <Link to="/create"><button id="add_button">+</button></Link>
             

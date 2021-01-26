@@ -58,9 +58,6 @@
   }
 
   .no_item {
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    margin-top: -100px; /* Negative half of height. */
-    margin-left: -250px; /* Negative half of width. */
+    flex: 1 1 100%;
+    text-align: center;
   }

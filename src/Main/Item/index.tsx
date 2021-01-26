@@ -1,7 +1,8 @@
 import React from 'react';
 import { Paper, Button } from "@material-ui/core"
-import MenuListComposition from "./itemMenu"
 import DataSender from 'src/lib/DataSender';
+import MenuListComposition from "./itemMenu"
+import { getInstance, TemaManager } from 'src/lib/TemaManager';
 
 import './Item.css'
 import Popup from '../Popup';
@@ -35,6 +36,7 @@ type ItemState = {
 
 export class Item extends React.Component<Readonly<ItemProps>, ItemState> {
     private ds:DataSender;
+    private tm?: TemaManager;
 
     constructor(props:Readonly<ItemProps>) {
         super(props);
@@ -44,6 +46,9 @@ export class Item extends React.Component<Readonly<ItemProps>, ItemState> {
         }
 
         this.ds = new DataSender()
+        
+        if(props.data.type === 'tema')
+            this.tm = getInstance();
     }
 
     // Item Controll
@@ -111,6 +116,25 @@ export class Item extends React.Component<Readonly<ItemProps>, ItemState> {
 
         let src = this.ds.toRealPath(data.img)
 
+        const tema = (
+            <Button 
+            onClick={() => {
+                let id =  this.props.data.id
+                if(this.tm?.isin(id))
+                    this.tm?.pop(id)
+                else
+                    this.tm?.push(id)
+            }} 
+            variant="contained" color={this.tm?.isin(this.props.data.id) ? "default" : "primary"} >
+                Execute
+            </Button>
+        )
+        const notTema = (
+            <Button onClick={() => { this.setState({type:this.props.data.type}, () => this.togglePopup()) }} variant="contained" color="primary">
+                Execute
+            </Button>
+        )
+
         const openAble = (<Button onClick={() => { this.setState({type:"writer"}, () => this.togglePopup()) }} variant="contained" color="secondary">Script</Button>)
         const disabled = (<Button onClick={() => { alert("Do Not Have Permission") }} variant="contained" disabled>Script</Button>)
         
@@ -132,9 +156,7 @@ export class Item extends React.Component<Readonly<ItemProps>, ItemState> {
                         {data.descript}
                     </div>
                     <div className="buttons">
-                        <Button onClick={() => { this.setState({type:this.props.data.type}, () => this.togglePopup()) }} variant="contained" color="primary">
-                            Execute
-                        </Button>
+                        { data.type === "tema" ? tema : notTema}
                         { data.openAble ? openAble : disabled}
                     </div>
                     <div style={{position:"absolute", top:"0px", right:"0px"}}>

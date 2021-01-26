@@ -5,10 +5,13 @@ import Creater from './Creater'
 import NavMain from './Nav'
 import Profile from './Profile';
 import Tema    from './Tema';
+import {TemaManager, init} from './lib/TemaManager';
 
 import './App.css';
+import DataSender from './lib/DataSender';
 
-class App extends React.Component<{}, {typeFilter:string[], styleLink:string[]}> {
+class App extends React.Component<{}, {typeFilter:string[], styleLink:number[]}> {
+
   constructor(props:{}){
     super(props)
     document.title = "JustScript"
@@ -17,28 +20,30 @@ class App extends React.Component<{}, {typeFilter:string[], styleLink:string[]}>
       typeFilter : ["html", "canvas", "tema"],
       styleLink : []
     }
+
+    init(new TemaManager(this.changeTema, this.getTema))
   }
 
   changeFilter = (arr:string[]) => {
     this.setState({typeFilter:arr})
   }
 
-  changeTema = (arr:string[]) => {
+  changeTema = (arr:number[]) => {
     this.setState({styleLink:arr})
   }
 
-  getTema = ():string[] => {
+  getTema = ():number[] => {
     return this.state.styleLink
   } 
 
   render() {
     const typefilter = this.state.typeFilter
     const mainElement = () => 
-     <Main filter={typefilter} changeCss={this.changeTema} getCss={this.getTema}/>
-     
+     <Main filter={typefilter}/>
+
     return <>
     {
-      this.state.styleLink.map(x => <link href={x} rel="stylesheet"></link>)
+      this.state.styleLink.map((x, i) => <link key={i} href={`http://${window.location.hostname}:3001/api/tema/${x}`} rel="stylesheet"></link>)
     }
       <NavMain changeFilter={this.changeFilter} />
       <Switch>
