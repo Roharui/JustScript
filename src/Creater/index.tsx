@@ -99,32 +99,36 @@ class Creater extends React.Component<RouteComponentProps, CreaterState> {
             <div className="creater">
                 <div className="preview">
                     <div className="controller">
-                        <label>
-                        width : 
-                            <input type="text" id="sizeX" name="width" onChange={this.changeSize} value={item.width}/>
-                        </label>
-                        <label>
-                        height : 
-                            <input type="text" id="sizeY" name="height" onChange={this.changeSize} value={item.height}/>
-                        </label>
-                        <label>
-                            Type : 
+                        {item.type === "tema" ? null : 
+                        <>
+                            <label>
+                                width:
+                                <input type="text" id="sizeX" name="width" onChange={this.changeSize} value={item.width} />
+                            </label>
+                            <label>
+                                height:
+                                <input type="text" id="sizeY" name="height" onChange={this.changeSize} value={item.height} />
+                            </label>
+                        </>
+                        }
+                            Type:
                             <select className="ItemType" onChange={this.changeEvent}>
                                 <option value="html">HTML</option>
                                 <option value="canvas">Canvas</option>
                                 <option value="tema">Tema</option>
                             </select>
-                        </label>
-                        <Button style={{
-                            backgroundColor: "lightblue",
-                            width: "100px",
-                            height: "40px"
-                        }} onClick={this.updateScript}>UPDATE</Button>
-                        <Button style={{
-                            backgroundColor: "lightblue",
-                            width: "100px",
-                            height: "40px"
-                        }} onClick={this.togglePopup.bind(this)}>Show in popup</Button>
+                            <Button style={{
+                                backgroundColor: "lightblue",
+                                width: "100px",
+                                height: "40px"
+                            }} onClick={this.updateScript}>UPDATE</Button>
+                            {item.type === "tema" ? null : 
+                            <Button style={{
+                                backgroundColor: "lightblue",
+                                width: "100px",
+                                height: "40px"
+                            }} onClick={this.togglePopup.bind(this)}>Show in popup</Button>
+                            }
                     </div>
                     <div className='inner' style={{width: item.width, height: item.height}}>
                         {Content(item)}
