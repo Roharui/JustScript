@@ -52,6 +52,7 @@ class Creater extends React.Component<RouteComponentProps, CreaterState> {
     componentDidMount(){
         this.ds.getProfile()
         .catch(x => {
+            alert("로그인이 필요합니다.")
             this.props.history.push("/recent")
         })
     }
@@ -130,9 +131,13 @@ class Creater extends React.Component<RouteComponentProps, CreaterState> {
                             }} onClick={this.togglePopup.bind(this)}>Show in popup</Button>
                             }
                     </div>
-                    <div className='inner' style={{width: item.width, height: item.height}}>
-                        {Content(item)}
-                    </div>
+                    {item.type === "tema" ? 
+                        <h1>Tema는 미리보기를 지원하지 않습니다.</h1> 
+                    : 
+                        <div className='inner' style={{width: item.width, height: item.height}}>
+                            {Content(item)}
+                        </div>
+                    }
                 </div>
                 <div className="mirror">
                     {!this.state.show_popup ?
@@ -148,6 +153,7 @@ class Creater extends React.Component<RouteComponentProps, CreaterState> {
                     }}
                   /> : null}
                 </div>
+
                 <Button style={{
                     position:"absolute", 
                     bottom: "30px", 
@@ -156,6 +162,7 @@ class Creater extends React.Component<RouteComponentProps, CreaterState> {
                     width: "100px",
                     height: "40px"
                 }} onClick={this.uploadItem}>UPLOAD</Button>
+                
             </div>
             {this.state.show_popup ? <Popup item={this.state.item} type={this.state.item.type} oper={oper} /> : null}
         </>
