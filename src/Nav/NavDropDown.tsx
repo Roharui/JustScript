@@ -37,7 +37,6 @@ class DropDown extends React.Component<{changeFilter:Function}, any> {
       return <div className="dropdown">
         <button className="dropbtn">
             <span className="ul">필터</span>
-            <i className="fa fa-caret-down"></i>
         </button>
         <div className="dropdown-content">
             <div className="d-option">
