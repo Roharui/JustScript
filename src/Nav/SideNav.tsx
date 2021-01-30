@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { getInstance, TemaManager } from 'src/lib/TemaManager';
 import DataSender from '../lib/DataSender'
 
 import './SideNav.css'
@@ -18,6 +19,7 @@ type SideProps = RouteComponentProps<{}> & {toggle: boolean}
 
 class SideNav extends React.Component<SideProps, profile> {
     private ds: DataSender;
+    private tm: TemaManager;
 
     constructor(props:SideProps){
         super(props);
@@ -30,6 +32,7 @@ class SideNav extends React.Component<SideProps, profile> {
             permission: 0
         }
         this.ds = new DataSender();
+        this.tm = getInstance()
     }
 
     componentDidMount(){
@@ -39,6 +42,12 @@ class SideNav extends React.Component<SideProps, profile> {
     update(){        
         this.ds.getProfile()
         .then(({data}) => this.setState(data))
+        .catch(() => {})
+
+        this.ds.record()
+        .then((data) => {
+            this.tm.setter(data)
+        })
         .catch(() => {})
     }
 

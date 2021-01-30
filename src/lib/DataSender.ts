@@ -125,6 +125,13 @@ class DataSender {
 
         return axios.put(`${this.host}/api/profile`, formData, {withCredentials:true})
     }
+
+    async record(){
+        return this.request(
+            `${this.host}/api/tema/record`,
+            "POST"
+        )
+    }
 }
 
 export default DataSender

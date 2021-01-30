@@ -8,7 +8,6 @@ import Tema    from './Tema';
 import {TemaManager, init} from './lib/TemaManager';
 
 import './App.css';
-import DataSender from './lib/DataSender';
 
 class App extends React.Component<{}, {typeFilter:string[], styleLink:number[]}> {
 
@@ -29,7 +28,7 @@ class App extends React.Component<{}, {typeFilter:string[], styleLink:number[]}>
   }
 
   changeTema = (arr:number[]) => {
-    this.setState({styleLink:arr})
+    this.setState({styleLink:arr}, () => console.log(this.state))
   }
 
   getTema = ():number[] => {
