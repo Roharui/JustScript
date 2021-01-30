@@ -58,6 +58,8 @@ class SideNav extends React.Component<SideProps, profile> {
                 window.location.reload()
             })
             .catch(e => alert(e.message))
+
+            this.tm.setter([])
         }
     }
 

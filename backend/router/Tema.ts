@@ -12,11 +12,11 @@ TemaManager.post("/push", loginChecker, function (req:Request, res:Response){
 
     db.temaPush(tema, _id)
     .then(x => {
-        res.status(200).send({})
+        res.status(200).json({})
     })
     .catch(x => {
         res.statusMessage = "Error occuerd at DB"
-        res.status(500).send({})
+        res.status(500).json({})
     })
 })
 

@@ -126,7 +126,7 @@ export class Item extends React.Component<Readonly<ItemProps>, ItemState> {
                     this.tm?.push(id)
             }} 
             variant="contained" color={this.tm?.isin(this.props.data.id) ? "default" : "primary"} >
-                Execute
+                {this.tm?.isin(this.props.data.id) ? "Cancle" : "Execute"}
             </Button>
         )
         const notTema = (

@@ -21,7 +21,7 @@ class TemaDB extends Manager {
 
     async recordTema(_id:number) {
         return this.query(
-            `select distinct tema_id from tema where user_id = ?;`, [_id]
+            `select tema_id from tema where user_id = ? order by priority desc;`, [_id]
         )
     }
 }
