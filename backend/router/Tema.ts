@@ -7,15 +7,16 @@ const TemaManager:Router = express.Router();
 
 const db = new TemaDB();
 
-TemaManager.post("/push", loginChecker, function (req:Request, res:Response){
-    let {_id, tema} = req.body;
+TemaManager.post("/", loginChecker, function (req:Request, res:Response){
+    let _id = res.locals._id
+    let {tema} = req.body;
 
     db.temaPush(tema, _id)
     .then(x => {
         res.status(200).json({})
     })
-    .catch(x => {
-        res.statusMessage = "Error occuerd at DB"
+    .catch(e => {
+        res.statusMessage = e.message
         res.status(500).json({})
     })
 })
@@ -27,6 +28,20 @@ TemaManager.post("/record", loginChecker, function(req:Request, res:Response){
         res.status(200).json(x.map((i:{tema_id:number}) => {
             return i.tema_id
         }))
+    })
+})
+
+TemaManager.delete("/", loginChecker, function (req:Request, res:Response) {
+    let _id = res.locals._id
+    let { tema } = req.body
+
+    db.deleteTema(_id, tema)
+    .then(x => {
+        res.status(200).json({})
+    })
+    .catch(e => {
+        res.statusMessage = e.message
+        res.send(500).json({})
     })
 })
 
@@ -46,5 +61,7 @@ TemaManager.get("/:id", function (req:Request, res:Response) {
         else  res.status(404).send()
     })
 })
+
+
 
 export default TemaManager; 

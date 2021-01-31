@@ -1,3 +1,4 @@
+import DataSender from "./DataSender";
 
 var instance: TemaManager;
 
@@ -13,23 +14,39 @@ class TemaManager {
     static instance:TemaManager;
     setter!: (arr: number[]) => void;
     getter!:()=>number[]
+    ds: DataSender
+    
 
     constructor(changeCss:(arr:number[])=>void, getCss:()=>number[]) {
         this.setter = changeCss
         this.getter = getCss
+
+        this.ds = new DataSender
     }
 
     push(ele:number) {
-        let arr = this.getter()
-        arr.push(ele)
-        this.setter(arr)
+        this.ds.pushTema(ele)
+        .then(x => {
+            let arr = this.getter()
+            arr.unshift(ele)
+            this.setter(arr)
+        })
+        .catch(e => {
+            alert(e.message)
+        })
     }
 
     pop(ele:number){
-        let arr = this.getter()
-        const idx = arr.indexOf(ele) 
-        if (idx > -1) arr.splice(idx, 1)
-        this.setter(arr)
+        this.ds.deleteTema(ele)
+        .then(x => {
+            let arr = this.getter()
+            const idx = arr.indexOf(ele) 
+            if (idx > -1) arr.splice(idx, 1)
+            this.setter(arr)
+        })
+        .catch(e => {
+            alert(e.message)
+        })
     }
 
     isin(ele:number){

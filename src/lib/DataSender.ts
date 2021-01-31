@@ -132,6 +132,22 @@ class DataSender {
             "POST"
         )
     }
+
+    async pushTema(tema:number){
+        return this.request(
+            `${this.host}/api/tema/`,
+            "POST",
+            {tema}
+        )
+    }
+
+    async deleteTema(id:number){
+        return this.request(
+            `${this.host}/api/tema/`,
+            "DELETE",
+            {id}
+        )
+    }
 }
 
 export default DataSender
