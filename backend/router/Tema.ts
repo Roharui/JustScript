@@ -33,7 +33,7 @@ TemaManager.post("/record", loginChecker, function(req:Request, res:Response){
 
 TemaManager.delete("/", loginChecker, function (req:Request, res:Response) {
     let _id = res.locals._id
-    let { tema } = req.body
+    let { id:tema } = req.body
 
     db.deleteTema(_id, tema)
     .then(x => {

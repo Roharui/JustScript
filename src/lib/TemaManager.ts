@@ -21,7 +21,7 @@ class TemaManager {
         this.setter = changeCss
         this.getter = getCss
 
-        this.ds = new DataSender
+        this.ds = new DataSender()
     }
 
     push(ele:number) {
