@@ -1,17 +1,12 @@
 
 import React from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
-import {Item, ItemType} from './Item'
+import { Item } from './Item'
 import DataSender from '../lib/DataSender'
 
-import './Main.css'
+import {ItemType, MainState} from 'src/type'
 
-interface MainState {
-    items:ItemType[];
-    cur_script: ItemType;
-    wirteAble: boolean;
-    show_popup: boolean;
-}
+import './Main.css'
 
 type MainProps = RouteComponentProps<{}> & {
     filter:string[]

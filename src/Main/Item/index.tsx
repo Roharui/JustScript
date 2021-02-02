@@ -3,30 +3,11 @@ import { Paper, Button } from "@material-ui/core"
 import DataSender from 'src/lib/DataSender';
 import MenuListComposition from "./itemMenu"
 import { getInstance, TemaManager } from 'src/lib/TemaManager';
+import Popup from '../Popup';
+import { ItemProps, ItemType } from 'src/type'
 
 import './Item.css'
-import Popup from '../Popup';
 
-export interface ItemType{
-    id : number,
-    type: 'tema' | 'canvas' | 'html' | 'writer',
-    img : string,
-    name : string,
-    descript: string,
-    script: string,
-    score : number,
-    openAble: boolean,
-    width: string,
-    height: string;
-    own: number;
-    recommended: number;
-}
-
-type ItemProps = {
-    key: number;
-    data: ItemType;
-    updater:Function;
-}
 
 type ItemState = {
     popup: boolean;
@@ -120,10 +101,8 @@ export class Item extends React.Component<Readonly<ItemProps>, ItemState> {
             <Button 
             onClick={() => {
                 let id =  this.props.data.id
-                if(this.tm?.isin(id))
-                    this.tm?.pop(id)
-                else
-                    this.tm?.push(id)
+                if(this.tm?.isin(id)) this.tm?.pop(id)
+                else this.tm?.push(id)
             }} 
             variant="contained" color={this.tm?.isin(this.props.data.id) ? "default" : "primary"} >
                 {this.tm?.isin(this.props.data.id) ? "Cancle" : "Execute"}

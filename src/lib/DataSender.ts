@@ -1,5 +1,5 @@
 
-import {ItemType} from '../Main/Item'
+import { ItemType } from 'src/type'
 import axios from "axios";
 
 const header = (method:"GET"|"POST"|"DELETE"|"PUT", data?:object):RequestInit => {

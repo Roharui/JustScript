@@ -2,23 +2,16 @@
 import React, { ChangeEvent } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import DataSender from '../lib/DataSender'
-import { ItemType } from '../Main/Item'
 import { Content } from '../Main/Content'
 import { Button } from '@material-ui/core';
-import Popup, { Opertion } from 'src/Main/Popup';
+import Popup from 'src/Main/Popup';
+import { ItemType, Opertion, CreaterState } from 'src/type'
 
 import CodeMirror from '@uiw/react-codemirror';
 import 'codemirror/keymap/sublime';
 import 'codemirror/theme/monokai.css';
 
 import './Creater.css'
-
-interface CreaterState{
-    session:string,
-    item:ItemType,
-    show_popup:boolean
-}
-
 
 class Creater extends React.Component<RouteComponentProps, CreaterState> {
     private ds:DataSender;

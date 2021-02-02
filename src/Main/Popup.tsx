@@ -1,19 +1,9 @@
 import React from 'react';
 import { Button } from "@material-ui/core"
 import { Content } from './Content'
-import { ItemType } from './Item';
 import Scripter from './Scripter';
+import { PopupType } from 'src/type'
 
-export interface Opertion{
-  closer: () => void,
-  writer: (script:string) => void,
-}
-
-export interface PopupType{
-  item: ItemType,
-  type: "html" | "canvas" | "tema" | "writer"
-  oper: Opertion;
-}
 
 export default function Popup(props:PopupType){
   let oper = props.oper;

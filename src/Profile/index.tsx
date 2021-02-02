@@ -6,16 +6,6 @@ import DataSender from 'src/lib/DataSender';
 import './Profile.css'
 import { RouteComponentProps } from 'react-router-dom';
 
-type ProfileState = {
-    report_count:number,
-    write_count:number,
-    recommend_count:number,
-    nickname:string,
-    profile_img: string,
-    
-    uploadFile: any
-}
-
 class Profile extends React.Component<RouteComponentProps, any>{
     private ds: DataSender;
     

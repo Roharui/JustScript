@@ -1,5 +1,5 @@
 import React from 'react';
-import { ItemType } from './Item';
+import {ItemType} from '../type'
 import { Button } from "@material-ui/core"
 
 type ScriptInput = {item:ItemType, writer:(script:string) => void}

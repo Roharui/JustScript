@@ -3,17 +3,9 @@ import React from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { getInstance, TemaManager } from 'src/lib/TemaManager';
 import DataSender from '../lib/DataSender'
+import { profile } from 'src/type'
 
 import './SideNav.css'
-
-interface profile{
-    report_count:number,
-    write_count:number,
-    recommend_count:number,
-    nickname:string,
-    profile_img:string,
-    permission:number
-}
 
 type SideProps = RouteComponentProps<{}> & {toggle: boolean}
 
