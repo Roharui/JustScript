@@ -38,6 +38,7 @@ class SideNav extends React.Component<SideProps, profile> {
 
         this.ds.record()
         .then((data) => {
+            console.log(data)
             this.tm.setter(data)
         })
         .catch(() => {})

@@ -25,9 +25,8 @@ TemaManager.post("/record", loginChecker, function(req:Request, res:Response){
     let _id = res.locals._id
 
     db.recordTema(_id).then((x:any) => {
-        res.status(200).json(x.map((i:{tema_id:number}) => {
-            return i.tema_id
-        }))
+        let data = x.map((y:{tema_id:number}) => y.tema_id)
+        res.status(200).json(data)
     })
 })
 

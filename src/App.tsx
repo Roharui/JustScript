@@ -28,7 +28,7 @@ class App extends React.Component<{}, {typeFilter:string[], styleLink:number[]}>
   }
 
   changeTema = (arr:number[]) => {
-    this.setState({styleLink:arr}, () => console.log(this.state))
+    this.setState({styleLink:arr})
   }
 
   getTema = ():number[] => {
