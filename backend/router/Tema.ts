@@ -44,6 +44,19 @@ TemaManager.delete("/", loginChecker, function (req:Request, res:Response) {
     })
 })
 
+TemaManager.get("/list", loginChecker, function (req:Request, res:Response) {
+    const _id = res.locals._id
+
+    db.temaLst(_id)
+    .then(x => {
+        res.status(200).json(x)
+    })
+    .catch(e => {
+        res.statusMessage = e.message
+        res.send(500).json({})
+    })
+})
+
 TemaManager.get("/:id", function (req:Request, res:Response) {
     res.contentType("text/css")
     let id = req.params.id

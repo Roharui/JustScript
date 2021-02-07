@@ -13,6 +13,17 @@ class TemaDB extends Manager {
         `, [id, "tema"])
     }
 
+    async temaLst(id:number){
+        return this.query(`
+        select i.id, i.descript, i.script, u.nickname, t.priority
+        from tema t
+        inner join items i on i.id = t.tema_id
+        inner join user  u on u._id = i.user_id
+        where t.user_id = ?
+        order by t.priority;
+        `, [id])
+    }
+
     async temaPush(tema:number, _id:number){
         return this.query(`
             insert into tema(user_id, tema_id, priority) select ?, ?, 

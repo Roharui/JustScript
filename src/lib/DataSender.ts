@@ -133,6 +133,13 @@ class DataSender {
         )
     }
 
+    async temaLst(){
+        return this.request(
+            `${this.host}/api/tema/list`,
+            "GET"
+        )
+    }
+
     async pushTema(tema:number){
         return this.request(
             `${this.host}/api/tema/`,
