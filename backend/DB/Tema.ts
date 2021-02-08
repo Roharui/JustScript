@@ -45,9 +45,9 @@ class TemaDB extends Manager {
 
     async updatePrio(_id:number, id:number, flag:number) {
         return this.query(`
-        update tema set priority = priority + ?
+        update tema set priority = if(priority + ? < 1, 1, priority + ?)
         where user_id = ? and tema_id = ?;`,
-        [flag, _id, id])
+        [flag, flag, _id, id])
     }
 }
 
