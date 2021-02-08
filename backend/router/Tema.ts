@@ -30,6 +30,20 @@ TemaManager.post("/record", loginChecker, function(req:Request, res:Response){
     })
 })
 
+TemaManager.post("/prio", loginChecker, function(req:Request, res:Response){
+    let _id = res.locals._id
+    let { id, flag } = req.body
+
+    db.updatePrio(_id, id, flag)
+    .then(x => {
+        res.status(200).json({})
+    })
+    .catch(e => {
+        res.statusMessage = e.message
+        res.send(500).json({})
+    })
+})
+
 TemaManager.delete("/", loginChecker, function (req:Request, res:Response) {
     let _id = res.locals._id
     let { id:tema } = req.body

@@ -155,6 +155,15 @@ class DataSender {
             {id}
         )
     }
+
+    async updatePrio(id:number, flag:number){
+        return this.request(
+            `${this.host}/api/tema/prio`,
+            "POST",
+            {id, flag}
+        )
+    }
+
 }
 
 export default DataSender

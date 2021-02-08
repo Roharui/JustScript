@@ -7,6 +7,9 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import DataSender from 'src/lib/DataSender';
 import { getInstance } from 'src/lib/TemaManager';
@@ -37,8 +40,8 @@ const columns: Column[] = [
   {
     id: 'priority',
     label: '우선도',
-    minWidth: 170,
-    align: 'left',
+    maxWidth: 5,
+    align: 'center',
   },
 ];
 
@@ -50,19 +53,30 @@ interface Data {
 }
 
 const ds = new DataSender()
-const tm = getInstance()
 
 export default function Tema() {
   const [page, setPage] = React.useState(0);
   const [rows, setRows] = React.useState<Data[]>([])
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
+  const [render, reRender] = React.useState(0)
+  const tm = getInstance()
+  
   React.useEffect(() => {
     ds.temaLst()
     .then(x => {
       setRows(x)
     })
-  })
+  }, [render])
+
+  const deleteTema = (event: unknown, id:any) => {
+    tm.pop(id)
+    reRender(render + 1)
+  }
+
+  const updatePrio = (event: unknown, id:any, flag:any) => {
+    tm.changePrio(id, flag)
+    reRender(render + 1)
+  }
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -92,6 +106,16 @@ export default function Tema() {
                   {column.label}
                 </TableCell>
               ))}
+                <TableCell
+                  align="center"
+                >
+                  우선도 조작
+                </TableCell>
+                <TableCell
+                  align="center"
+                >
+                  삭제
+                </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -106,6 +130,13 @@ export default function Tema() {
                       </TableCell>
                     );
                   })}
+                  <TableCell align="center">
+                    <p onClick={(e) => updatePrio(e, row.id, -1)}><ArrowDropUpIcon/></p>
+                    <p onClick={(e) => updatePrio(e, row.id, 1)}><ArrowDropDownIcon/></p>
+                  </TableCell>
+                  <TableCell align="center">
+                    <p onClick={(e) => deleteTema(e, row.id)}><DeleteIcon/></p>
+                  </TableCell>
                 </TableRow>
               );
             })}

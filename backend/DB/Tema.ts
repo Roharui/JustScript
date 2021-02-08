@@ -42,6 +42,13 @@ class TemaDB extends Manager {
             `delete from tema where user_id = ? and tema_id = ?;`
         , [_id, tema])
     }
+
+    async updatePrio(_id:number, id:number, flag:number) {
+        return this.query(`
+        update tema set priority = priority + ?
+        where user_id = ? and tema_id = ?;`,
+        [flag, _id, id])
+    }
 }
 
 export default TemaDB;

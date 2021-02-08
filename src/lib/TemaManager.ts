@@ -53,6 +53,16 @@ class TemaManager {
         return this.getter().includes(ele)
     }
 
+    changePrio(id:number, flag:number){
+        this.ds.updatePrio(id, flag)
+        .then(_ => {
+            this.ds.record()
+            .then(x => {
+                this.setter(x)
+            })
+        })
+    }
+
 }
 
 export {TemaManager, init, getInstance}
