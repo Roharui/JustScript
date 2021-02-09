@@ -66,6 +66,10 @@ export default function Tema() {
     .then(x => {
       setRows(x)
     })
+    .catch(e => {
+      alert(e.message)
+      window.location.pathname = "/"
+    })
   }, [render])
 
   const deleteTema = (event: unknown, id:any) => {

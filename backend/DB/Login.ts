@@ -26,6 +26,12 @@ class LoginDB extends Manager {
         )
     }
 
+    async permission(_id:number) {
+        return this.query(
+            `select permission = 1 as permission from user where _id = ?`, [_id]
+        ).then((x:any) => x[0].permission)
+    }
+
     async checkRedupId(id:string) {
         return this.query(
             `select count(*) as count from user where user_id = ?;`, [id]

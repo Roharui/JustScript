@@ -51,9 +51,11 @@ class Main extends React.Component<
             case "/search":
                 this.searchUpdate()
                 break
+            case "/report":
+                this.reportUpdate()
+                break
             default:
                 this._update()
-                break
         }
     }
 
@@ -70,6 +72,12 @@ class Main extends React.Component<
     ownerUpdate() {
         this.ds.getOwnItems(this.props.filter)
         .then(res => this.setState({items : res.data}))
+        .catch(err => this.props.history.push("/"))
+    }
+
+    reportUpdate() {
+        this.ds.reportUpdate()
+        .then(res => this.setState({items: res.data}))
         .catch(err => this.props.history.push("/"))
     }
 

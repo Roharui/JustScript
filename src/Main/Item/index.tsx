@@ -55,6 +55,7 @@ export class Item extends React.Component<Readonly<ItemProps>, ItemState> {
 
     async report(){
         let { id } = this.props.data;
+        
         return id
     }
 

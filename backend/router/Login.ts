@@ -20,11 +20,20 @@ export function loginChecker(req:Request, res:Response, next:Function){
             next()
         } else {
             res.statusMessage = "Wrong Session"
-            res.status(400).json({})
+            res.status(401).json({})
         }
     } else {
         res.statusMessage = 'Need To Login first'
-        res.status(404).json({})
+        res.status(401).json({})
+    }
+}
+
+export function AdminChecker(_:Request, res:Response, next:Function){
+    if(db.permission(res.locals._id)){
+        next()
+    } else {
+        res.statusMessage = 'You are Not Admin user'
+        res.status(401).json({})
     }
 }
 
