@@ -171,6 +171,14 @@ class DataSender {
         )
     }
 
+    async report(item:number){
+        return this.request(
+            `${this.host}/api/report/`,
+            "POST",
+            {item}
+        )
+    }
+
 }
 
 export default DataSender

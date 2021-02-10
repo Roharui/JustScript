@@ -55,8 +55,10 @@ export class Item extends React.Component<Readonly<ItemProps>, ItemState> {
 
     async report(){
         let { id } = this.props.data;
-        
-        return id
+        this.ds.report(id)
+        .then(() => {
+            alert("신고가 완료되었습니다.")
+        })
     }
 
     //===
