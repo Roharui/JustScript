@@ -19,6 +19,19 @@ ReportManager.post("/list", loginChecker, AdminChecker, function (req:Request, r
     })
 })
 
+ReportManager.delete("/", loginChecker, AdminChecker, function(req:Request, res:Response) {
+    let { item } = req.body
+
+    db.forceDelete(item)
+    .then(x => {
+        res.status(200).json()
+    })
+    .catch(e => {
+        res.statusMessage = e.message
+        res.status(500).json({})
+    })
+})
+
 ReportManager.post("/", loginChecker, function (req:Request, res:Response){
     let _id = res.locals._id
     let {item} = req.body;

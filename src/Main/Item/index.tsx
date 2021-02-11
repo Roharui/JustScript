@@ -39,7 +39,11 @@ export class Item extends React.Component<Readonly<ItemProps>, ItemState> {
 
         if(window.confirm("정말 삭제하시겠습니까?"))
         {
-            await this.ds.deleteItem(id)
+            if(this.props.isAdmin){
+                await this.ds.forceDelete(id)
+            } else {
+                await this.ds.deleteItem(id)
+            }
             await this.props.updater()
         }
     }

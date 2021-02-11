@@ -24,7 +24,8 @@ class Main extends React.Component<
             items: [],
             cur_script: {} as ItemType,
             wirteAble: false,
-            show_popup: false
+            show_popup: false,
+            isAdmin: false
         }
     }
 
@@ -77,7 +78,9 @@ class Main extends React.Component<
 
     reportUpdate() {
         this.ds.reportUpdate()
-        .then(res => this.setState({items: res.data}))
+        .then(res => {
+            this.setState({items: res.data, isAdmin: true})
+        })
         .catch(err => this.props.history.push("/"))
     }
 
@@ -104,6 +107,7 @@ class Main extends React.Component<
                 key={i} 
                 data={x} 
                 updater={this.update.bind(this)} 
+                isAdmin={this.state.isAdmin}
             />
         })
     }

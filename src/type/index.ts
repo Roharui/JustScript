@@ -44,6 +44,7 @@ export interface MainState {
     cur_script: ItemType;
     wirteAble: boolean;
     show_popup: boolean;
+    isAdmin:boolean;
 }
 
 
@@ -61,4 +62,5 @@ export type ItemProps = {
     key: number;
     data: ItemType;
     updater:Function;
+    isAdmin:boolean;
 }

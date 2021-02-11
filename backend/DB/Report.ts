@@ -37,6 +37,12 @@ class ReportDB extends Manager {
         insert into report (item_id, report_user_id) values(?, ?);
         `, [item, _id])
     }
+
+    async forceDelete(item:number){
+        return this.query(`
+        delete from items where id = ?;
+        `, [item])
+    }
 }
 
 export default ReportDB;

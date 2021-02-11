@@ -179,6 +179,14 @@ class DataSender {
         )
     }
 
+    async forceDelete(item:number){
+        return this.request(
+            `${this.host}/api/report/`,
+            "DELETE",
+            {item}
+        )
+    }
+
 }
 
 export default DataSender
